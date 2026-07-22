@@ -142,6 +142,32 @@
     }
     .hero-fade.in { opacity: 1; }
 
+    /* Ember particle loop that drops in as the hero lands on black */
+    .hero-ember {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(-28px);
+      transition: opacity 1.6s ease, transform 1.6s ease;
+      pointer-events: none;
+    }
+    .hero-ember.in { opacity: 1; transform: translateY(0); }
+    .hero-ember video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-ember::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+    }
+
     /* Hero content */
     .hero-content {
       position: absolute;
@@ -1368,6 +1394,9 @@
     </div>
 
     <div class="hero-fade" id="heroFade"></div>
+    <div class="hero-ember" id="heroEmber">
+      <video muted loop playsinline preload="auto"><source src="ember-hero.mp4" type="video/mp4"></video>
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-push" id="heroPush">
       <h2 class="push-h1"></h2>
@@ -1653,6 +1682,7 @@
     const heroVideo = document.querySelector('.hero video');
     const heroFade = document.getElementById('heroFade');
     const heroLogoOverlay = document.getElementById('heroLogoOverlay');
+    const heroEmber = document.getElementById('heroEmber');
     const heroPush = document.getElementById('heroPush');
     const pushH1 = heroPush.querySelector('.push-h1');
     const pushSub = heroPush.querySelector('.push-sub');
@@ -1694,6 +1724,14 @@
         heroLogoOverlay.classList.add('hidden');
         // Fade to black
         setTimeout(() => heroFade.classList.add('in'), 300);
+        // Drop the ember particle loop in as the hero lands
+        setTimeout(() => {
+          if (heroEmber) {
+            const ev = heroEmber.querySelector('video');
+            if (ev) { ev.play().catch(() => {}); }
+            heroEmber.classList.add('in');
+          }
+        }, 300);
         // Show push container and start typing
         setTimeout(() => {
           pushH1.innerHTML = '';
