@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marriage Health Score · Rekindle</title>
+<meta name="description" content="A 2-minute relationship check-up from Rekindle. Get your Marriage Health Score and see where to focus.">
+<link rel="icon" href="rekindle-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15110e;
+    --bg-soft:#1d1814;
+    --card:#241d18;
+    --line:rgba(246,239,230,.10);
+    --cream:#f6efe6;
+    --muted:#bdae9e;
+    --muted-2:#8c7d6e;
+    --ember-1:#ff8a3d;
+    --ember-2:#ff5f2e;
+    --ember-3:#ffb15c;
+    --good:#7fc8a9;
+    --warn:#ffce7a;
+    --bad:#ff8f6b;
+    --radius:18px;
+    --shadow:0 20px 60px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--cream);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  body{padding:24px 16px 64px;min-height:100vh;display:flex;flex-direction:column}
+  .wrap{max-width:680px;width:100%;margin:auto}
+  .serif{font-family:'Cormorant Garamond',Georgia,serif}
+  em,.it{font-style:italic}
+  .brandbar{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 26px}
+  .brandbar a{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+  .flame{width:26px;height:26px;display:inline-block}
+  .brandbar b{font-weight:600;letter-spacing:.02em;font-size:1.35rem}
+  .brandbar span{color:var(--muted-2);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+
+  .card{background:linear-gradient(180deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px 30px}
+  @media(max-width:520px){.card{padding:24px 18px}}
+
+  .eyebrow{color:var(--ember-3);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:16px}
+  h1{font-size:2.8rem;line-height:1.08;font-weight:600;margin-bottom:14px}
+  @media(max-width:520px){h1{font-size:2.1rem}}
+  .lede{color:var(--muted);font-size:1.05rem;max-width:46ch}
+  @media(max-width:520px){.lede{font-size:1rem}}
+  .meta{display:flex;gap:18px;margin-top:22px;color:var(--muted-2);font-size:.85rem;flex-wrap:wrap}
+  .meta div{display:flex;align-items:center;gap:7px}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--ember-1)}
+
+  .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:1rem;border-radius:0;padding:15px 30px;transition:.18s transform,.18s filter;display:inline-flex;align-items:center;gap:9px;justify-content:center;text-decoration:none}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:linear-gradient(135deg,var(--ember-3),var(--ember-2));color:#2a160c;box-shadow:0 8px 24px rgba(255,95,46,.32)}
+  .btn-primary:hover{filter:brightness(1.06)}
+  .btn-ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:rgba(246,239,230,.3)}
+  .btn-block{display:flex;width:100%}
+  .startrow{margin-top:30px}
+  #intro{text-align:center}
+  #intro .lede{margin-left:auto;margin-right:auto;max-width:34rem}
+  #intro .meta{justify-content:center}
+  #intro .startrow{display:flex;justify-content:center}
+
+  .progress{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .bar{flex:1;height:6px;background:rgba(246,239,230,.08);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ember-2),var(--ember-3));border-radius:99px;transition:width .35s ease}
+  .pcount{color:var(--muted-2);font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  .pillar-tag{color:var(--ember-3);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+  .q{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;line-height:1.2;font-weight:600;margin-bottom:26px;min-height:2.4em;display:flex;align-items:center}
+  @media(max-width:520px){.q{font-size:1.6rem;min-height:0}}
+
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:rgba(246,239,230,.03);border:1px solid var(--line);color:var(--cream);border-radius:14px;padding:15px 18px;cursor:pointer;font-family:inherit;font-size:1rem;transition:.15s}
+  .opt:hover{border-color:rgba(255,138,61,.5);background:rgba(255,138,61,.06)}
+  .opt .ring{width:20px;height:20px;border-radius:50%;border:2px solid var(--muted-2);flex:none;transition:.15s}
+  .opt.sel{border-color:var(--ember-1);background:rgba(255,138,61,.12)}
+  .opt.sel .ring{border-color:var(--ember-1);background:var(--ember-1);box-shadow:inset 0 0 0 3px var(--card)}
+  .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+  .back{background:none;border:0;color:var(--muted-2);cursor:pointer;font-family:inherit;font-size:.9rem;padding:8px}
+  .back:hover{color:var(--cream)}
+
+  .ring-wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .score-ring{position:relative;width:200px;height:200px;margin:6px auto 4px}
+  .score-ring svg{transform:rotate(-90deg)}
+  .score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .score-num b{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:600;line-height:1}
+  .score-num small{color:var(--muted-2);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin-top:4px}
+  .band{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;margin-top:8px}
+  .band-sub{color:var(--muted);margin-top:8px;max-width:42ch;margin-left:auto;margin-right:auto;text-wrap:balance}
+
+  .focus{margin-top:24px;background:rgba(255,138,61,.08);border:1px solid rgba(255,138,61,.25);border-radius:14px;padding:18px 20px}
+  .focus .lbl{color:var(--ember-3);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .focus h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;margin:6px 0}
+  .focus p{color:var(--muted);font-size:.95rem;text-wrap:balance}
+
+  .gate{margin-top:26px;border-top:1px solid var(--line);padding-top:26px}
+  .gate h3{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;margin-bottom:6px}
+  .gate p.sub{color:var(--muted);font-size:.95rem;margin-bottom:18px}
+  .field{margin-bottom:12px}
+  .field input{width:100%;background:rgba(246,239,230,.04);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--cream);font-family:inherit;font-size:16px}
+  .field input:focus{outline:none;border-color:var(--ember-1)}
+  .field input::placeholder{color:var(--muted-2)}
+  .fineprint{color:var(--muted-2);font-size:.78rem;margin-top:12px;text-align:center}
+  .err{color:var(--bad);font-size:.85rem;margin-top:8px;display:none}
+
+  .pillars{margin-top:8px;display:flex;flex-direction:column;gap:16px}
+  .prow .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  .prow .top b{font-weight:600;font-size:1rem}
+  .prow .top span{color:var(--muted-2);font-size:.85rem;font-variant-numeric:tabular-nums}
+  .pbar{height:9px;background:rgba(246,239,230,.07);border-radius:99px;overflow:hidden}
+  .pbar i{display:block;height:100%;width:0;border-radius:99px;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+  .prow p{color:var(--muted);font-size:.9rem;margin-top:9px;text-wrap:balance}
+
+  .cta-stack{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+  .share{margin-top:18px;text-align:center}
+  .share button{background:none;border:0;color:var(--muted);cursor:pointer;font-family:inherit;font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
+  .share button:hover{color:var(--cream)}
+
+  .footer{text-align:center;color:var(--muted-2);font-size:.78rem;margin-top:28px}
+  .footer .flame{width:15px;height:15px;vertical-align:-2px;margin-right:5px}
+  .hidden{display:none!important}
+  .fade{animation:fade .4s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .disclaim{color:var(--muted-2);font-size:.74rem;margin-top:20px;text-align:center;max-width:40rem;margin-left:auto;margin-right:auto;text-wrap:balance}
+
+  .toolbar{display:flex;justify-content:flex-end;margin-bottom:16px}
+  .toolbar button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:0;padding:9px 16px;font-family:inherit;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+  .toolbar button:hover{border-color:rgba(255,138,61,.5);color:var(--cream)}
+
+  @media print{
+    @page{margin:14mm}
+    html,body{background:#fff!important;color:#181818!important;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .brandbar{margin:0 0 18px}
+    .brandbar b{color:#181818}
+    .brandbar span{color:#7a6a5a}
+    .card{background:#fff!important;border:none!important;box-shadow:none!important;padding:0}
+    #intro,#quiz,.gate,.toolbar,.cta-stack,.share,.startrow,.navrow,.btn,.disclaim,.footer,.progress{display:none!important}
+    .eyebrow{color:#c2531f}
+    h1,.q,.band,.band-sub,.score-num b,.score-num small,.focus h3,.focus p,.prow .top b,.prow .top span,.prow p{color:#181818!important}
+    .focus{background:#faf3ec!important;border-color:#e7d8c6!important}
+    .pbar{background:#eadfd2!important}
+    .score-ring svg circle:first-of-type{stroke:#eadfd2!important}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb15c"/><stop offset="1" stop-color="#ff5f2e"/></linearGradient></defs></svg>
+<div class="wrap">
+
+  <div class="brandbar">
+    <a href="index.html" aria-label="Back to Rekindle home">
+      <img class="flame" src="rekindle-icon.png" alt="Rekindle">
+      <b class="serif">Rekindle</b>
+    </a>
+    <span>Marriage Health Score</span>
+  </div>
+
+  <section id="intro" class="card fade">
+    <div class="eyebrow">A 2-minute relationship check-up</div>
+    <h1 class="serif">Where does your<br>marriage stand <em>right now?</em></h1>
+    <p class="lede">Ten honest questions. One clear score. See which part of your relationship is thriving, and the one quietly asking for attention.</p>
+    <div class="meta">
+      <div><span class="dot"></span> 10 questions</div>
+      <div><span class="dot"></span> ~2 minutes</div>
+      <div><span class="dot"></span> Private &amp; Judgment-Free</div>
+    </div>
+    <div class="startrow">
+      <button class="btn btn-primary" onclick="start()">Start the check-up →</button>
+    </div>
+    <p class="disclaim">A reflective self check-in from Rekindle, not a clinical or diagnostic assessment.</p>
+  </section>
+
+  <section id="quiz" class="card hidden">
+    <div class="progress">
+      <div class="bar"><i id="progFill"></i></div>
+      <div class="pcount"><span id="qNow">1</span> / <span id="qTotal">10</span></div>
+    </div>
+    <div id="pillarTag" class="pillar-tag"></div>
+    <div id="qText" class="q serif"></div>
+    <div id="opts" class="opts"></div>
+    <div class="navrow">
+      <button class="back" id="backBtn" onclick="back()">← Back</button>
+      <span></span>
+    </div>
+  </section>
+
+  <section id="results" class="card hidden">
+    <div class="toolbar">
+      <button id="printBtn" onclick="window.print()">🖨 Print / Save as PDF</button>
+    </div>
+    <div class="ring-wrap">
+      <div class="eyebrow">Your Marriage Health Score</div>
+      <div class="score-ring">
+        <svg width="200" height="200">
+          <circle cx="100" cy="100" r="86" stroke="rgba(246,239,230,.09)" stroke-width="14" fill="none"/>
+          <circle id="ringArc" cx="100" cy="100" r="86" stroke="url(#fg)" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="540" stroke-dashoffset="540"/>
+        </svg>
+        <div class="score-num"><b id="scoreNum">0</b><small>out of 100</small></div>
+      </div>
+      <div id="bandLabel" class="band serif"></div>
+      <p id="bandSub" class="band-sub"></p>
+    </div>
+
+    <div class="focus">
+      <div class="lbl">Where to focus first</div>
+      <h3 id="focusName"></h3>
+      <p id="focusLine"></p>
+    </div>
+
+    <div id="gate" class="gate">
+      <h3>See your full breakdown</h3>
+      <p class="sub">Get your score across all five areas, a personalized read on each, and your best next step, sent to your inbox.</p>
+      <div class="field"><input id="fname" type="text" placeholder="First name" autocomplete="given-name"></div>
+      <div class="field"><input id="email" type="email" placeholder="Email address" autocomplete="email"></div>
+      <button class="btn btn-primary btn-block" onclick="unlock()">Unlock my full results →</button>
+      <div id="gateErr" class="err">Please enter your first name and a valid email.</div>
+      <p class="fineprint">No spam. Just your results and the occasional note from Rekindle. Unsubscribe anytime.</p>
+    </div>
+
+    <div id="full" class="hidden">
+      <div id="pillars" class="pillars"></div>
+      <div class="cta-stack">
+        <a class="btn btn-primary btn-block" id="bookBtn" href="#">Book your free 45-minute call →</a>
+        <a class="btn btn-ghost btn-block" id="emberBtn" href="#">Talk it through with Ember, free</a>
+      </div>
+      <div class="share">
+        <button onclick="share()">↗ Share my score</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <img class="flame" src="rekindle-icon.png" alt="">
+    Rekindle · A division of Vitality Academies
+  </div>
+</div>
+
+<script>
+const CONFIG = {
+  // Same-site anchors. These resolve to the Rekindle landing page sections,
+  // so the "Book a call" and "Talk to Ember" buttons work wherever this is hosted.
+  BOOKING_URL: "index.html#cta",
+  EMBER_URL:   "index.html#ember-ai"
+};
+
+const PILLARS = {
+  connection:  "Connection",
+  communication:"Communication",
+  conflict:    "Conflict & Repair",
+  appreciation:"Appreciation",
+  partnership: "Partnership"
+};
+const QUESTIONS = [
+  {p:"connection",   t:"I feel emotionally close to my partner most days.", reverse:false},
+  {p:"communication",t:"I can tell my partner what's really on my mind without holding back.", reverse:false},
+  {p:"appreciation", t:"I often feel taken for granted in this relationship.", reverse:true},
+  {p:"conflict",     t:"After an argument, we're able to reconnect and move forward.", reverse:false},
+  {p:"partnership",  t:"We still make time for each other, dates, fun, just us.", reverse:false},
+  {p:"connection",   t:"Lately we feel more like roommates than partners.", reverse:true},
+  {p:"communication",t:"There are important things between us that go unsaid.", reverse:true},
+  {p:"appreciation", t:"I feel genuinely valued for who I am.", reverse:false},
+  {p:"conflict",     t:"Our disagreements tend to spiral, or end in cold silence.", reverse:true},
+  {p:"partnership",  t:"We've drifted from the shared dreams we started with.", reverse:true},
+];
+const SCALE = [
+  {v:1,label:"Strongly disagree"},
+  {v:2,label:"Disagree"},
+  {v:3,label:"In the middle"},
+  {v:4,label:"Agree"},
+  {v:5,label:"Strongly agree"},
+];
+
+const PILLAR_COPY = {
+  connection:{
+    high:"You're tending the friendship underneath the marriage, and that closeness is your biggest asset.",
+    mid:"The warmth is there but intermittent. Small daily moments of attention will compound fast.",
+    low:"Distance has crept in. This is the most important place to rebuild, and the most rewarding."
+  },
+  communication:{
+    high:"You talk openly, even about hard things. Protect this. It's rarer than couples think.",
+    mid:"You communicate, but some topics get avoided. Naming what's unsaid is the unlock.",
+    low:"Too much is going unspoken. Learning to say the real thing safely changes everything."
+  },
+  conflict:{
+    high:"You fight, then repair, and that's the skill that actually predicts lasting marriages.",
+    mid:"Conflict happens but repair is inconsistent. A simple repair ritual will steady things.",
+    low:"Arguments are doing damage. Learning to de-escalate and reconnect is the priority."
+  },
+  appreciation:{
+    high:"You both feel seen and valued. That fondness is the fuel for everything else.",
+    mid:"Appreciation has faded into the background. Bringing it back is quick and powerful.",
+    low:"Feeling taken for granted erodes a marriage quietly. This deserves attention now."
+  },
+  partnership:{
+    high:"You're still a team with shared direction and fun. Keep investing in the 'us.'",
+    mid:"Life's logistics have crowded out the partnership. Time to re-protect the 'us.'",
+    low:"You've drifted from your shared vision. Rediscovering it together is the way back."
+  }
+};
+
+let idx = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+const $ = id => document.getElementById(id);
+
+function start(){
+  $("intro").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  $("qTotal").textContent = QUESTIONS.length;
+  render();
+}
+function render(){
+  const q = QUESTIONS[idx];
+  $("pillarTag").textContent = PILLARS[q.p];
+  $("qText").textContent = q.t;
+  $("qNow").textContent = idx+1;
+  $("progFill").style.width = ((idx)/QUESTIONS.length*100)+"%";
+  $("backBtn").style.visibility = idx===0 ? "hidden":"visible";
+  const wrap = $("opts"); wrap.innerHTML="";
+  SCALE.forEach(s=>{
+    const b=document.createElement("button");
+    b.className="opt"+(answers[idx]===s.v?" sel":"");
+    b.innerHTML='<span class="ring"></span><span>'+s.label+'</span>';
+    b.onclick=()=>choose(s.v);
+    wrap.appendChild(b);
+  });
+  $("quiz").classList.remove("fade");void $("quiz").offsetWidth;$("quiz").classList.add("fade");
+}
+function choose(v){
+  answers[idx]=v;
+  setTimeout(()=>{ idx<QUESTIONS.length-1 ? (idx++,render()) : finish(); },180);
+}
+function back(){ if(idx>0){idx--;render();} }
+
+function pillarScores(){
+  const sums={}, counts={};
+  Object.keys(PILLARS).forEach(p=>{sums[p]=0;counts[p]=0;});
+  QUESTIONS.forEach((q,i)=>{
+    let v=answers[i]||3;
+    if(q.reverse) v=6-v;
+    sums[q.p]+=v; counts[q.p]++;
+  });
+  const out={};
+  Object.keys(PILLARS).forEach(p=>{
+    const min=counts[p], max=counts[p]*5;
+    out[p]=Math.round((sums[p]-min)/(max-min)*100);
+  });
+  return out;
+}
+function bandFor(score){
+  if(score>=80) return {label:"Connected & Thriving",cls:"good",
+    sub:"You've got a strong foundation. The work now is keeping it lit, staying intentional so drift never gets a foothold."};
+  if(score>=60) return {label:"Steady, with room to grow",cls:"good",
+    sub:"There's real strength here, and a clear edge to grow toward. A little focused attention goes a long way from this point."};
+  if(score>=40) return {label:"Drifting, worth attention",cls:"warn",
+    sub:"You're not in crisis, but you're not fully connected either. This is the moment couples are most glad they acted early."};
+  return {label:"In the hard part",cls:"bad",
+    sub:"Things feel heavy right now, and the fact that you're here means you haven't given up. That matters more than the number."};
+}
+function tier(score){ return score>=70?"high":score>=45?"mid":"low"; }
+
+function finish(){
+  $("progFill").style.width="100%";
+  const ps=pillarScores();
+  const overall=Math.round(Object.values(ps).reduce((a,b)=>a+b,0)/Object.keys(ps).length);
+  window._RESULT={overall,ps};
+
+  $("quiz").classList.add("hidden");
+  $("results").classList.remove("hidden");
+  $("results").classList.add("fade");
+
+  const band=bandFor(overall);
+  $("bandLabel").textContent=band.label;
+  $("bandLabel").style.color="var(--"+band.cls+")";
+  $("bandSub").textContent=band.sub;
+
+  const C=540, arc=$("ringArc");
+  let cur=0;
+  const t=setInterval(()=>{
+    cur+=Math.max(1,Math.round(overall/28));
+    if(cur>=overall){cur=overall;clearInterval(t);}
+    $("scoreNum").textContent=cur;
+    arc.style.strokeDashoffset=C-(C*cur/100);
+  },22);
+
+  const weakest=Object.keys(ps).sort((a,b)=>ps[a]-ps[b])[0];
+  $("focusName").textContent=PILLARS[weakest];
+  $("focusLine").textContent=PILLAR_COPY[weakest][tier(ps[weakest])];
+
+  $("bookBtn").href=CONFIG.BOOKING_URL;
+  // Hand off the score and weakest area so Ember can open with context.
+  $("emberBtn").href="index.html?score="+overall+"&focus="+encodeURIComponent(PILLARS[weakest])+"&chat=1#ember-ai";
+}
+
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+function unlock(){
+  const name=$("fname").value.trim(), email=$("email").value.trim();
+  if(!name || !validEmail(email)){ $("gateErr").style.display="block"; return; }
+  $("gateErr").style.display="none";
+
+  const lead={
+    firstName:name, email,
+    score:window._RESULT.overall,
+    pillars:window._RESULT.ps,
+    completedAt:new Date().toISOString(),
+    source:"marriage-health-score"
+  };
+
+  // TODO: wire lead capture to our own stack (Supabase table + Resend email).
+  // For now the lead is logged only. Nothing is sent to any third party.
+  console.log("Lead captured:",lead);
+
+  $("gate").classList.add("hidden");
+  const full=$("full"); full.classList.remove("hidden"); full.classList.add("fade");
+  const ps=window._RESULT.ps, wrap=$("pillars"); wrap.innerHTML="";
+  Object.keys(PILLARS).forEach(p=>{
+    const s=ps[p], tr=tier(s);
+    const color = s>=70?"var(--good)": s>=45?"var(--warn)":"var(--bad)";
+    const row=document.createElement("div"); row.className="prow";
+    row.innerHTML='<div class="top"><b>'+PILLARS[p]+'</b><span>'+s+'/100</span></div>'+
+      '<div class="pbar"><i style="background:'+color+'"></i></div>'+
+      '<p>'+PILLAR_COPY[p][tr]+'</p>';
+    wrap.appendChild(row);
+    setTimeout(()=>{row.querySelector(".pbar i").style.width=s+"%";},60);
+  });
+  full.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function share(){
+  const s=window._RESULT.overall;
+  const text="My Marriage Health Score is "+s+"/100. I took the free 2-minute check-up from Rekindle.";
+  const shareUrl=location.origin+location.pathname;
+  if(navigator.share){ navigator.share({title:"My Marriage Health Score",text:text,url:shareUrl}).catch(()=>{}); }
+  else { navigator.clipboard.writeText(text+" "+shareUrl).then(()=>alert("Copied to clipboard. Paste it anywhere.")); }
+}
+</script>
+</body>
+</html>

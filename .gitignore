@@ -2,3 +2,6 @@ node_modules/
 .DS_Store
 .env
 .env.*
+
+# supabase cli cache
+supabase/.temp/

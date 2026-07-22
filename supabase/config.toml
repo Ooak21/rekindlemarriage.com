@@ -1,0 +1,14 @@
+[functions.rekindle-reserve]
+verify_jwt = false
+
+[functions.rekindle-ember-chat]
+verify_jwt = false
+
+[functions.rekindle-ember-token]
+verify_jwt = false
+
+[functions.rekindle-ember-tts]
+verify_jwt = false
+
+[functions.rekindle-ember-stt]
+verify_jwt = false

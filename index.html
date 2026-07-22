@@ -1,35 +1,2704 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rekindle Marriage</title>
-<meta name="description" content="Rekindle Marriage. Coming soon.">
-<meta name="robots" content="noindex">
-<style>
-  :root { color-scheme: dark; }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  body{
-    font-family:'Inter',system-ui,-apple-system,sans-serif;
-    min-height:100svh; display:grid; place-items:center; text-align:center;
-    background:radial-gradient(120% 120% at 50% 0%, #1a1320 0%, #0b0c10 60%);
-    color:#f4f1ee; padding:32px;
-  }
-  .wrap{ max-width:560px; }
-  .mark{ font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:#c08a6e; font-weight:600; }
-  h1{ font-family:'Playfair Display',Georgia,serif; font-weight:600; font-size:clamp(34px,7vw,58px); line-height:1.05; margin:18px 0 14px; }
-  p{ color:#b9b1ac; font-size:clamp(15px,2.4vw,18px); line-height:1.6; }
-  .soon{ margin-top:26px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#8a827d; }
-</style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rekindle · Marriage Coaching with Dr. Peter DeBry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #1A1410;
+      --ember:  #D95C28;
+      --cream:  #FAF7F2;
+      --warm:   #F0EAE0;
+      --muted:  #9A8E86;
+      --text:   #2E2420;
+      --soft:   #7A6A60;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 6vw;
+      background: rgba(250,247,242,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,20,16,0.06);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    nav.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-link {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--ink); }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .nav-cta {
+      background: var(--ember);
+      color: white;
+      text-decoration: none;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #be4f22; }
+
+    .btn-ember {
+      display: inline-block;
+      background: var(--ember);
+      color: white !important;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn-ember:hover { background: #be4f22; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(26,20,16,0.78) 0%,
+        rgba(26,20,16,0.45) 55%,
+        rgba(26,20,16,0.1) 100%
+      );
+      z-index: 1;
+    }
+    /* Hero fade overlay */
+    .hero-fade {
+      position: absolute;
+      inset: 0;
+      background: black;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 3s ease;
+      pointer-events: none;
+    }
+    .hero-fade.in { opacity: 1; }
+
+    /* Hero content */
+    .hero-content {
+      position: absolute;
+      bottom: 12vh;
+      left: 6vw;
+      z-index: 3;
+      max-width: 560px;
+    }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+    .hero-h1 .accent {
+      display: block;
+      font-style: italic;
+      color: var(--ember);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2rem;
+      max-width: 44ch;
+      transition: opacity 0.6s ease;
+    }
+    .hero-sub.hidden { opacity: 0; }
+
+    /* Push-in text, appears after black */
+    .hero-push {
+      position: absolute;
+      top: 50%;
+      left: 6vw;
+      transform: translateY(-50%);
+      z-index: 4;
+      max-width: 88vw;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .hero-push.in {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .push-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 7vw, 8rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: white;
+      margin-bottom: 1.25rem;
+      min-height: 2em;
+    }
+    .push-h1 .accent {
+      display: block;
+      font-style: italic;
+      color: var(--ember);
+    }
+    .push-sub {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.78);
+      max-width: 48ch;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .push-sub.in { opacity: 1; }
+    .hero-cta-row { display: flex; gap: 14px; margin-top: 2rem; flex-wrap: wrap; opacity: 0; transition: opacity 1s ease; }
+    .hero-cta-row.in { opacity: 1; }
+    .btn-ember-ghost {
+      display: inline-block;
+      background: transparent;
+      color: #fff !important;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.45);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ember-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+    .hero.faded::after { opacity: 0; }
+    .hero-logo-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      text-align: center;
+      opacity: 1;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+    .hero-logo-overlay.hidden { opacity: 0; }
+    .hero-logo-img {
+      width: 260px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(232,98,42,0.5)) drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+    }
+    .hero-arrow {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .hero-arrow.in { opacity: 1; }
+    .hero-arrow svg {
+      width: 28px;
+      height: 28px;
+      color: rgba(255,255,255,0.35);
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+      display: inline-block;
+      background: var(--ember);
+      color: white;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn-ember:hover { background: #be4f22; }
+    .btn-ghost {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: white; border-color: white; }
+
+    /* word animation */
+    .hero-h1 .w {
+      display: inline;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .hero-h1 .w.in { opacity: 1; transform: none; }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: rgba(250,247,242,0.98);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 0;
+      z-index: 99;
+      border-bottom: 1px solid rgba(26,20,16,0.08);
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .mobile-menu a {
+      display: block;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(26,20,16,0.07);
+      letter-spacing: 0.02em;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .mobile-cta {
+      margin-top: 1rem;
+      background: var(--ember);
+      color: white !important;
+      text-align: center;
+      padding: 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: none;
+    }
+    .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* SECTION: TRUTH */
+    .truth {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+    .truth-img {
+      overflow: hidden;
+    }
+    .truth-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transition: transform 1s ease;
+    }
+    .truth-img:hover img { transform: scale(1.04); }
+    .truth-copy {
+      background: white;
+      padding: 6rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .truth-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.75rem;
+    }
+    .truth-h2 em { font-style: italic; color: var(--ember); }
+    .truth-p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--soft);
+      margin-bottom: 1.25rem;
+    }
+
+    /* SECTION: DISTANCE (full bleed image) */
+    .distance {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+    }
+    .distance img,
+    .distance video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+    .distance-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26,20,16,0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .distance-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 300;
+      font-style: italic;
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+    .distance-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em;
+    }
+
+    /* SECTION: OBJECTIONS */
+    .objections {
+      background: var(--ink);
+      padding: 4rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .obj-top {
+      margin-bottom: 1.5rem;
+      padding: 0 6vw 1.5rem;
+    }
+    .obj-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.5vw, 3.8rem);
+      font-weight: 300;
+      color: white;
+      white-space: nowrap;
+    }
+    .ticker-wrap {
+      overflow-x: scroll;
+      cursor: grab;
+      padding: 0;
+      position: relative;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      scrollbar-width: none;
+    }
+    .ticker-wrap::-webkit-scrollbar { display: none; }
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: ticker 60s linear infinite;
+    }
+    .ticker-track.paused { animation-play-state: paused; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem 3.5rem;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .ticker-item:hover .ticker-q { color: var(--ember); }
+    .ticker-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: white;
+      transition: color 0.2s;
+    }
+    .ticker-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--ember);
+      border-radius: 50%;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+    .obj-answer-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      background: rgba(255,255,255,0.04);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .obj-answer-panel.open { max-height: 200px; }
+    .obj-answer-inner {
+      padding: 2rem 6vw;
+      display: flex;
+      gap: 4rem;
+      align-items: baseline;
+    }
+    .obj-answer-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ember);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .obj-answer-a {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* SECTION: EMBER AI */
+    .ember-ai {
+      background: var(--ink);
+      padding: 6rem 6vw;
+    }
+    .ember-ai-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .ember-ai-left .eyebrow { color: rgba(255,255,255,0.4); }
+    .ember-ai-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: white;
+      margin-bottom: 1.25rem;
+    }
+    .ember-ai-h2 em { font-style: italic; color: var(--ember); }
+    .ember-ai-sub {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem;
+    }
+    .ember-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .ember-feature {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .ember-feature-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(217,92,40,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--ember);
+    }
+    .ember-feature-icon svg { width: 18px; height: 18px; }
+    .ember-feature-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.02em;
+    }
+    .ember-feature-body {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.4);
+    }
+    .ember-bottom {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .ember-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Chat window */
+    .ember-chat-window {
+      background: #FAF7F2;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      margin: 1rem 0;
+    }
+    .ember-chat-header {
+      background: white;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      border-bottom: 1px solid rgba(26,20,16,0.07);
+    }
+    .ember-chat-avatar {
+      width: 38px;
+      height: 38px;
+      background: white;
+      border: 1px solid rgba(26,20,16,0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .ember-chat-avatar img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+    .ember-chat-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .ember-chat-status {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .ember-chat-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      height: 480px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .ember-typing {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--ember);
+      border-radius: 14px 14px 4px 14px;
+      align-self: flex-end;
+      width: fit-content;
+    }
+    .ember-typing span {
+      width: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: typingDot 1.2s ease-in-out infinite;
+    }
+    .ember-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .ember-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+    .ember-msg {
+      max-width: 82%;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      border-radius: 14px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .ember-msg.visible { opacity: 1; transform: none; }
+    .ember-msg.user {
+      background: #D9D7D4;
+      color: var(--text);
+      align-self: flex-start;
+      border-radius: 14px 14px 14px 4px;
+    }
+    .ember-msg.ember {
+      background: var(--ember);
+      color: white;
+      align-self: flex-end;
+      border-radius: 14px 14px 4px 14px;
+    }
+    .ember-typing {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 14px 14px 4px 14px;
+      width: fit-content;
+    }
+    .ember-typing.user-typing {
+      background: #D9D7D4;
+      align-self: flex-start;
+      border-radius: 14px 14px 14px 4px;
+    }
+    .ember-typing.ember-typing-bubble {
+      background: var(--ember);
+      align-self: flex-end;
+    }
+    .ember-typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: typingDot 1.2s ease-in-out infinite;
+    }
+    .ember-typing.user-typing span { background: rgba(0,0,0,0.3); }
+    .ember-typing.ember-typing-bubble span { background: rgba(255,255,255,0.7); }
+    .ember-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .ember-typing span:nth-child(3) { animation-delay: 0.4s; }
+    .ember-chat-input {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.9rem 1rem;
+      background: white;
+      border-top: 1px solid rgba(26,20,16,0.07);
+    }
+    .ember-chat-input input {
+      flex: 1;
+      border: 1px solid rgba(26,20,16,0.12);
+      border-radius: 999px;
+      padding: 0.7rem 1.1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: #FAF7F2;
+      outline: none;
+    }
+    .ember-chat-input input:focus { border-color: var(--ember); }
+    .ember-chat-input button {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--ember);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .ember-chat-input button:hover { background: #be4f22; }
+    .ember-chat-input button:disabled { opacity: 0.5; cursor: default; }
+    .ember-chat-input button svg { width: 18px; height: 18px; }
+
+    /* EMBER LIVE MODAL */
+    .ember-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+    .ember-modal.open { display: flex; }
+    .ember-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,11,8,0.72);
+      backdrop-filter: blur(4px);
+    }
+    .ember-modal-window {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      height: min(640px, 88vh);
+      display: flex;
+      flex-direction: column;
+      background: #FAF7F2;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      animation: emberPop 0.28s ease;
+    }
+    @keyframes emberPop {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+    .ember-modal-window .ember-chat-body { flex: 1; height: auto; }
+    .ember-modal-headtext { flex: 1; }
+    .ember-modal-close {
+      background: none;
+      border: 0;
+      color: var(--muted);
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 0.25rem;
+      transition: color 0.2s;
+    }
+    .ember-modal-close:hover { color: var(--ink); }
+    .ember-modal-voice {
+      background: none;
+      border: 0;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0 0.4rem;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .ember-modal-voice svg { width: 20px; height: 20px; }
+    .ember-modal-voice .ember-voice-waves { opacity: 0; transition: opacity 0.2s; }
+    .ember-modal-voice:hover { color: var(--soft); }
+    .ember-modal-voice.on { color: var(--ember); }
+    .ember-modal-voice.on .ember-voice-waves { opacity: 1; }
+    .ember-chat-input .ember-mic {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(26,20,16,0.14);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .ember-chat-input .ember-mic svg { width: 18px; height: 18px; }
+    .ember-chat-input .ember-mic:hover { border-color: var(--ember); color: var(--ember); background: transparent; }
+    .ember-chat-input .ember-mic.convo {
+      background: var(--ember);
+      color: white;
+      border-color: var(--ember);
+    }
+    .ember-chat-input .ember-mic.listening {
+      background: var(--ember);
+      color: white;
+      border-color: var(--ember);
+      animation: emberPulse 1.2s ease-in-out infinite;
+    }
+    @keyframes emberPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(217,92,40,0.45); }
+      50% { box-shadow: 0 0 0 8px rgba(217,92,40,0); }
+    }
+
+    /* PURE ORB VOICE VIEW — takes over the window during a hands-free voice chat */
+    .ember-voice-view {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+      padding: 1.5rem;
+      background: radial-gradient(circle at 50% 42%, #241a12 0%, #17110c 62%, #100b08 100%);
+      animation: emberFade 0.4s ease;
+    }
+    .ember-modal-window.voice-active .ember-voice-view { display: flex; }
+    @keyframes emberFade { from { opacity: 0; } to { opacity: 1; } }
+
+    .ember-orb {
+      --orb-level: 0;
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(calc(1 + var(--orb-level) * 0.32));
+      transition: transform 0.08s ease-out;
+      flex-shrink: 0;
+    }
+    /* soft outer glow halo */
+    .ember-orb::before {
+      content: '';
+      position: absolute;
+      inset: -42%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,92,40,0.55) 0%, rgba(217,92,40,0.18) 42%, rgba(217,92,40,0) 70%);
+      filter: blur(6px);
+      opacity: calc(0.45 + var(--orb-level) * 0.55);
+      transition: opacity 0.14s ease;
+    }
+    .ember-orb-core {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 32%, #ffd9a8 0%, #f6a04a 18%, #e2661f 46%, #b5401a 78%, #7d2a12 100%);
+      box-shadow:
+        0 0 calc(40px + var(--orb-level) * 55px) rgba(226,102,31, calc(0.45 + var(--orb-level) * 0.45)),
+        inset 0 0 30px rgba(255,180,110,0.45),
+        inset 8px -10px 40px rgba(120,40,15,0.6);
+      filter: brightness(calc(1 + var(--orb-level) * 0.4));
+      transition: box-shadow 0.09s ease-out, filter 0.09s ease-out;
+    }
+    .ember-orb.listening .ember-orb-core { animation: orbBreathe 3.4s ease-in-out infinite; }
+    .ember-orb.thinking .ember-orb-core { animation: orbThink 1.5s ease-in-out infinite; }
+    .ember-orb.speaking .ember-orb-core { animation: orbBreathe 2.6s ease-in-out infinite; }
+    .ember-orb.speaking::before { opacity: 0.85; }
+    @keyframes orbBreathe { 0%, 100% { transform: scale(0.97); } 50% { transform: scale(1.02); } }
+    @keyframes orbThink { 0%, 100% { transform: scale(0.99); opacity: 0.7; } 50% { transform: scale(1.01); opacity: 1; } }
+    @keyframes orbSpeak { 0%, 100% { transform: scale(0.97); } 50% { transform: scale(1.05); } }
+
+    .ember-orb-caption {
+      display: none;
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+      max-height: 32%;
+      overflow-y: auto;
+    }
+    .ember-voice-view.captions-on .ember-orb-caption { display: block; }
+    .ember-orb-caption .cap-user {
+      color: rgba(245,240,232,0.5);
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-bottom: 0.45rem;
+    }
+    .ember-orb-caption .cap-user:empty, .ember-orb-caption .cap-ember:empty { display: none; }
+    .ember-orb-caption .cap-ember {
+      color: #f5f0e8;
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    .ember-voice-close {
+      position: absolute;
+      top: 0.9rem;
+      right: 1.1rem;
+      z-index: 2;
+      background: none;
+      border: 0;
+      color: rgba(245,240,232,0.4);
+      font-size: 1.7rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.2rem 0.45rem;
+      transition: color 0.2s;
+    }
+    .ember-voice-close:hover { color: rgba(245,240,232,0.9); }
+    .ember-voice-controls {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .ember-voice-btn {
+      border: 1px solid rgba(245,240,232,0.13);
+      background: transparent;
+      color: rgba(245,240,232,0.48);
+      padding: 0.42rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .ember-voice-btn:hover { border-color: rgba(217,92,40,0.7); color: rgba(245,240,232,0.92); }
+    .ember-voice-btn[aria-pressed="true"] {
+      background: rgba(217,92,40,0.14);
+      border-color: rgba(217,92,40,0.6);
+      color: rgba(245,240,232,0.92);
+    }
+    .ember-voice-btn.end:hover { background: rgba(217,92,40,0.85); border-color: var(--ember); color: #fff; }
+
+    /* SECTION: PROCESS */
+    .process {
+      background: var(--cream);
+      padding: 6rem 6vw;
+    }
+    .process-header {
+      margin-bottom: 3rem;
+    }
+    .process-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+    .process-h2 em { font-style: italic; color: var(--ember); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(26,20,16,0.1);
+    }
+    .step {
+      padding: 2.5rem 2rem 2.5rem 0;
+      border-right: 1px solid rgba(26,20,16,0.1);
+    }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step + .step { padding-left: 2rem; }
+    .step-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: rgba(217,92,40,0.6);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+    .step-body {
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: var(--soft);
+    }
+
+
+    /* SECTION: PHYSICIAN */
+    .physician {
+      background: white;
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      min-height: 560px;
+    }
+    .physician-photo {
+      overflow: hidden;
+      position: relative;
+    }
+    .physician-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: grayscale(15%);
+    }
+    .physician-copy {
+      padding: 6rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .physician-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      line-height: 1.1;
+    }
+    .physician-creds {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      text-wrap: balance;
+    }
+    .physician-p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--soft);
+      margin-bottom: 1.25rem;
+    }
+    .physician-stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 0;
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(26,20,16,0.1);
+    }
+    .stat { padding-right: 2rem; }
+    .stat + .stat {
+      padding-left: 2rem;
+      border-left: 1px solid rgba(26,20,16,0.1);
+    }
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--ember);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-l {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* SECTION: CTA */
+    .score-promo { background: var(--warm); padding: 6rem 6vw; }
+    .score-promo-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--cream);
+      border: 1px solid rgba(26,20,16,0.08);
+      box-shadow: 0 24px 60px rgba(26,20,16,0.07);
+      padding: 4rem 3.5rem;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .score-promo { padding: 3.5rem 5vw; }
+      .score-promo-inner { padding: 2.75rem 1.5rem; }
+    }
+    .score-promo-eyebrow { color: var(--ember); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 1rem; }
+    .score-promo-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--ink); line-height: 1.15; margin-bottom: 1.25rem; max-width: 22ch; margin-left: auto; margin-right: auto; text-wrap: balance; }
+    .score-promo-h2 em { font-style: italic; color: var(--ember); }
+    .score-promo-sub { color: var(--soft); font-size: 1.05rem; line-height: 1.7; max-width: 34rem; margin: 0 auto 1.75rem; text-wrap: balance; }
+    .score-promo-meta { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
+    .score-promo-meta span { display: flex; align-items: center; gap: 0.5rem; }
+    .score-promo-meta span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ember); display: inline-block; }
+
+    .cta {
+      background: var(--ink);
+      padding: 6rem 6vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .cta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .cta-right {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .cta-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin: 2rem 0 2.5rem;
+    }
+    .cta-contact-item {}
+    .cta-contact-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 0.3rem;
+    }
+    .cta-contact-value {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+    }
+    .cta-map {
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .cta-map iframe {
+      width: 100%;
+      height: 380px;
+      display: block;
+    }
+    .cta-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 6rem);
+      font-weight: 300;
+      color: white;
+      line-height: 1.05;
+      margin-bottom: 0;
+    }
+    .cta-h2 em { font-style: italic; color: var(--ember); }
+    .cta-sub {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+      max-width: 44ch;
+    }
+    .cta-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 1rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* FOOTER */
+    footer {
+      background: white;
+      padding: 2rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(26,20,16,0.08);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+    .footer-logo em { color: var(--ember); font-style: normal; }
+    .footer-copy { font-size: 0.7rem; color: var(--ink); }
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(217,92,40,0.08);
+      border: 1px solid rgba(217,92,40,0.2);
+      padding: 0.4rem 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .vitality-badge-text {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+    .vitality-badge-text strong {
+      color: var(--ember);
+      font-weight: 600;
+    }
+    .footer-division {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.08em;
+    }
+
+    /* MOBILE */
+    @media (max-width: 860px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero-content { left: 1.5rem; right: 1.5rem; bottom: 8vh; max-width: none; }
+
+      .truth { grid-template-columns: 1fr; }
+      .truth-img { height: 340px; }
+      .truth-copy { padding: 3.5rem 1.5rem; }
+
+      .distance { height: 320px; }
+
+      .objections { padding: 4rem 1.5rem; }
+      .obj-grid { grid-template-columns: 1fr; }
+      .obj-item:nth-child(even) { padding-left: 0; border-left: none; }
+      .obj-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .obj-item:last-child { border-bottom: none; }
+      .obj-h2 { white-space: normal; }
+
+      .ember-ai { padding: 4rem 1.5rem; }
+      .ember-ai-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .ember-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+      .process { padding: 4rem 1.5rem; }
+      .process-header { margin-bottom: 2rem; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .step:nth-child(even) { border-right: none; }
+      .step:nth-child(3), .step:nth-child(4) { border-top: 1px solid rgba(26,20,16,0.1); padding-top: 2rem; }
+
+
+      .physician { grid-template-columns: 1fr; }
+      .physician-photo { height: 380px; }
+      .physician-copy { padding: 3.5rem 1.5rem; }
+      .physician-stats { grid-template-columns: repeat(3,1fr); }
+
+      .cta { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+      .cta-map { height: 250px; }
+      .cta-map iframe { height: 250px; }
+      footer { flex-direction: column; gap: 0.75rem; padding: 1.5rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .w, .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="mark">Rekindle Marriage</div>
-    <h1>Find your way back to each other.</h1>
-    <p>Something new is on the way. A space to reconnect, rebuild, and rekindle what matters most.</p>
-    <div class="soon">Coming soon</div>
+
+  <!-- Ember backend: Supabase edge functions (off Vercel). Public anon key + fn base URL. -->
+  <script>
+    window.RK_FN = 'https://jtifhcvbgxqwlywugvjv.supabase.co/functions/v1';
+    window.RK_H  = {
+      apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0aWZoY3ZiZ3hxd2x5d3Vndmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDc5NTgsImV4cCI6MjA4ODA4Mzk1OH0.UfRVLuvM8_HPvKXUEDXb0cxR50znv16L5Tf99AnSc7g',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0aWZoY3ZiZ3hxd2x5d3Vndmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDc5NTgsImV4cCI6MjA4ODA4Mzk1OH0.UfRVLuvM8_HPvKXUEDXb0cxR50znv16L5Tf99AnSc7g'
+    };
+  </script>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="#" class="logo"><img src="rekindle-icon.png" alt="Rekindle" class="nav-logo-img" /></a>
+    <div class="nav-links">
+      <a href="#truth" class="nav-link">About</a>
+      <a href="#how" class="nav-link">How It Works</a>
+      <a href="#ember-ai" class="nav-link">Ember AI</a>
+      <a href="#physician" class="nav-link">Dr. DeBry</a>
+      <a href="score.html" class="nav-link">Marriage Score</a>
+      <a href="#cta" class="nav-cta">Book a Free Call</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#truth" class="mobile-link">About</a>
+    <a href="#how" class="mobile-link">How It Works</a>
+    <a href="#ember-ai" class="mobile-link">Ember AI</a>
+    <a href="#physician" class="mobile-link">Dr. DeBry</a>
+    <a href="score.html" class="mobile-link">Marriage Score</a>
+    <a href="#cta" class="mobile-cta">Book a Free Call</a>
   </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-logo-overlay" id="heroLogoOverlay">
+      <img src="rekindle-logo.png" alt="Rekindle" class="hero-logo-img" />
+    </div>
+
+    <div class="hero-fade" id="heroFade"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-push" id="heroPush">
+      <h2 class="push-h1"></h2>
+      <p class="push-sub">For couples who have drifted apart, and the ones in full crisis. This is where people come when they're not ready to give up.</p>
+      <div class="hero-cta-row">
+        <a href="score.html" class="btn-ember">See What's Still There · 2 min</a>
+      </div>
+    </div>
+    <div class="hero-arrow" id="heroArrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+    </div>
+  </section>
+
+  <!-- TRUTH -->
+  <section class="truth" id="truth">
+    <div class="truth-img reveal">
+      <img src="couple-truth.jpg" alt="Couple embracing" />
+    </div>
+    <div class="truth-copy">
+      <h2 class="truth-h2 reveal">You haven't fallen out of love.<br>You've fallen out of <em>practice.</em></h2>
+      <p class="truth-p reveal d1">Most couples don't end because love runs out. They end because small disconnects go unaddressed long enough that they start to feel permanent. The silence at dinner. The nights facing opposite walls. The conversations that go nowhere.</p>
+      <p class="truth-p reveal d2">Those patterns are learned. Which means they can be unlearned. Not with generic advice or worksheets, but with someone who will get into the real dynamics of your relationship and help you find your way back to each other.</p>
+    </div>
+  </section>
+
+  <!-- OBJECTIONS -->
+  <section class="objections">
+    <div class="obj-top">
+      <h2 class="obj-h2 reveal">We hear it <em style="font-style:italic; color:var(--ember);">every single time...</em></h2>
+    </div>
+    <div class="ticker-wrap" id="tickerWrap">
+      <div class="ticker-track" id="tickerTrack">
+        <div class="ticker-item" data-index="0"><div class="ticker-dot"></div><span class="ticker-q">"We've tried counseling before and it didn't work."</span></div>
+        <div class="ticker-item" data-index="1"><div class="ticker-dot"></div><span class="ticker-q">"My partner won't do this with me."</span></div>
+        <div class="ticker-item" data-index="2"><div class="ticker-dot"></div><span class="ticker-q">"Things are too far gone."</span></div>
+        <div class="ticker-item" data-index="3"><div class="ticker-dot"></div><span class="ticker-q">"We're not in crisis, but we're not really connected either."</span></div>
+        <div class="ticker-item" data-index="4"><div class="ticker-dot"></div><span class="ticker-q">"We've been together so long, can anything really change?"</span></div>
+        <div class="ticker-item" data-index="5"><div class="ticker-dot"></div><span class="ticker-q">"I'm not sure I even want to save it anymore."</span></div>
+        <div class="ticker-item" data-index="6"><div class="ticker-dot"></div><span class="ticker-q">"We've tried everything."</span></div>
+        <div class="ticker-item" data-index="7"><div class="ticker-dot"></div><span class="ticker-q">"I don't want to air our issues to a stranger."</span></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="ticker-item" data-index="0"><div class="ticker-dot"></div><span class="ticker-q">"We've tried counseling before and it didn't work."</span></div>
+        <div class="ticker-item" data-index="1"><div class="ticker-dot"></div><span class="ticker-q">"My partner won't do this with me."</span></div>
+        <div class="ticker-item" data-index="2"><div class="ticker-dot"></div><span class="ticker-q">"Things are too far gone."</span></div>
+        <div class="ticker-item" data-index="3"><div class="ticker-dot"></div><span class="ticker-q">"We're not in crisis, but we're not really connected either."</span></div>
+        <div class="ticker-item" data-index="4"><div class="ticker-dot"></div><span class="ticker-q">"We've been together so long, can anything really change?"</span></div>
+        <div class="ticker-item" data-index="5"><div class="ticker-dot"></div><span class="ticker-q">"I'm not sure I even want to save it anymore."</span></div>
+        <div class="ticker-item" data-index="6"><div class="ticker-dot"></div><span class="ticker-q">"We've tried everything."</span></div>
+        <div class="ticker-item" data-index="7"><div class="ticker-dot"></div><span class="ticker-q">"I don't want to air our issues to a stranger."</span></div>
+      </div>
+    </div>
+    <div class="obj-answer-panel" id="objAnswerPanel">
+      <div class="obj-answer-inner">
+        <p class="obj-answer-q" id="objAnswerQ"></p>
+        <p class="obj-answer-a" id="objAnswerA"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISTANCE -->  <!-- DISTANCE -->
+  <div class="distance reveal">
+    <img src="couple-distance.jpg" alt="Couple sitting apart on phones" />
+    <div class="distance-overlay">
+      <p class="distance-headline">Look familiar?</p>
+    </div>
+  </div>
+
+  <!-- EMBER AI -->
+  <section class="ember-ai" id="ember-ai">
+    <div class="ember-ai-inner">
+      <div class="ember-ai-left reveal">
+        <h2 class="ember-ai-h2">Meet <em>Ember...</em><br>your AI relationship guide.</h2>
+        <p class="ember-ai-sub">Between sessions, in the middle of a hard moment, or when you just need to think something through. Ember is there. Always listening, always ready to help you prepare for difficult conversations and keep moving forward.</p>
+        <div class="ember-features">
+          <div class="ember-feature reveal d1">
+            <div class="ember-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>
+            </div>
+            <div>
+              <p class="ember-feature-title">Available 24/7</p>
+              <p class="ember-feature-body">Ask Ember anything about your relationship at any hour. Get honest, grounded guidance without judgment.</p>
+            </div>
+          </div>
+          <div class="ember-feature reveal d2">
+            <div class="ember-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div>
+              <p class="ember-feature-title">Guided exercises between sessions</p>
+              <p class="ember-feature-body">Ember assigns tailored exercises so you're practicing what you learn in real life, not just in the session room.</p>
+            </div>
+          </div>
+          <div class="ember-feature reveal d3">
+            <div class="ember-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <p class="ember-feature-title">Conversation prep</p>
+              <p class="ember-feature-body">Walk into hard conversations with the right words. Ember helps you get clear before you speak.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ember-bottom reveal">
+          <a href="#" class="btn-ember" data-ember-open>Try Ember Free</a>
+          <p class="ember-note">No account needed to start</p>
+        </div>
+      </div>
+
+      <div class="ember-ai-right reveal d1">
+        <div class="ember-chat-window">
+          <div class="ember-chat-header">
+            <div class="ember-chat-avatar"><img src="rekindle-icon.png" alt="Rekindle" /></div>
+            <div>
+              <p class="ember-chat-name">Ember</p>
+              <p class="ember-chat-status">AI Relationship Guide · Online</p>
+            </div>
+          </div>
+          <div class="ember-chat-body" id="emberChatBody">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="how">
+    <div class="process-header">
+      <h2 class="process-h2 reveal">How this <em>actually</em> works</h2>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-n">01</div>
+        <h3 class="step-title">An honest conversation</h3>
+        <p class="step-body">We start with a free 45-minute call with no agenda and no pressure. You tell me what's going on and I tell you what I see.</p>
+      </div>
+      <div class="step reveal d1">
+        <div class="step-n">02</div>
+        <h3 class="step-title">A plan built for you</h3>
+        <p class="step-body">If we're a fit, we build a roadmap specific to your relationship, your history, and the patterns that have taken hold.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="step-n">03</div>
+        <h3 class="step-title">Real work, real change</h3>
+        <p class="step-body">We meet regularly, track what's shifting, and adjust as we go. Not a better version of what you had. Something stronger.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="step-n">04</div>
+        <h3 class="step-title">Stay connected with Ember</h3>
+        <p class="step-body">Between sessions, Ember keeps you on track, ready to listen, help you prepare, and make sure nothing goes unsaid.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHYSICIAN -->
+  <section class="physician" id="physician">
+    <div class="physician-copy">
+      <h2 class="physician-name reveal">Dr. Peter W. DeBry, MD</h2>
+      <p class="physician-creds reveal">Board-Certified Physician · American Board of Obesity Medicine · University of Utah, MD · Founder, Vitality Academies</p>
+      <p class="physician-p reveal">Dr. DeBry has spent his career studying one thing: why people struggle to change, and what actually helps them get there. Most of what breaks a marriage is the same thing that breaks a health plan. Patterns. Disconnection. The slow accumulation of small things left unsaid.</p>
+      <p class="physician-p reveal d1">His work with couples comes from the same place as his medical practice, a belief that real change begins with being truly seen and given a plan built around who you actually are, not a template.</p>
+      <div class="physician-stats reveal d2">
+        <div class="stat">
+          <div class="stat-n">47+</div>
+          <div class="stat-l">Couples worked with</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">94%</div>
+          <div class="stat-l">Still together after one year</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">6</div>
+          <div class="stat-l">Avg sessions to shift</div>
+        </div>
+      </div>
+    </div>
+    <div class="physician-photo reveal">
+      <img src="debry.jpg" alt="Dr. Peter W. DeBry, MD" />
+    </div>
+  </section>
+
+  <!-- MARRIAGE SCORE PROMO -->
+  <section class="score-promo">
+    <div class="score-promo-inner reveal">
+      <p class="score-promo-eyebrow">Not ready to reach out yet?</p>
+      <h2 class="score-promo-h2">Take the free <em>2-minute</em> Marriage Health Score.</h2>
+      <p class="score-promo-sub">Ten honest questions. One clear score. See which part of your relationship is thriving, and the one quietly asking for attention.</p>
+      <div class="score-promo-meta">
+        <span>10 questions</span>
+        <span>~2 minutes</span>
+        <span>Private &amp; Judgment-Free</span>
+      </div>
+      <a href="score.html" class="btn-ember">See What's Still There</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="cta-left">
+      <h2 class="cta-h2 reveal">The first step<br>is just <em>one<br>conversation.</em></h2>
+      <div class="cta-contacts reveal">
+        <div class="cta-contact-item">
+          <p class="cta-contact-label">Email</p>
+          <p class="cta-contact-value">info@rekindle.com</p>
+        </div>
+        <div class="cta-contact-item">
+          <p class="cta-contact-label">Visit</p>
+          <p class="cta-contact-value">6140 Brent Thurman Way, Suite 100 · Las Vegas, NV 89148</p>
+        </div>
+        <div class="cta-contact-item">
+          <p class="cta-contact-label">Hours</p>
+          <p class="cta-contact-value">Monday to Friday · 9am to 5pm</p>
+        </div>
+      </div>
+      <a href="#" class="btn-ember reveal" style="align-self: flex-start;">Book Your Free Call</a>
+    </div>
+    <div class="cta-right">
+      <div class="cta-map reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3224.8540567!2d-115.2321!3d36.0821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8c4a0b1f5a0a1%3A0x0!2s6140+Brent+Thurman+Way+Suite+100%2C+Las+Vegas%2C+NV+89148!5e0!3m2!1sen!2sus!4v1234567890"
+          width="100%" height="100%"
+          style="border:0; filter: grayscale(30%);"
+          allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="rekindle-icon.png" alt="Rekindle" style="height:32px; object-fit:contain;" />
+    <span class="footer-division">A division of Vitality Academies</span>
+    <span class="footer-copy">© 2026 All rights reserved</span>
+  </footer>
+
+  <!-- EMBER LIVE CHAT MODAL -->
+  <div class="ember-modal" id="emberModal" aria-hidden="true">
+    <div class="ember-modal-backdrop" id="emberModalBackdrop"></div>
+    <div class="ember-modal-window" role="dialog" aria-label="Chat with Ember" aria-modal="true">
+      <div class="ember-chat-header">
+        <div class="ember-chat-avatar"><img src="rekindle-icon.png" alt="Rekindle" /></div>
+        <div class="ember-modal-headtext">
+          <p class="ember-chat-name">Ember</p>
+          <p class="ember-chat-status">AI Relationship Guide · Online</p>
+        </div>
+        <button class="ember-modal-voice" id="emberVoiceToggle" aria-label="Toggle Ember's voice" aria-pressed="false" title="Turn voice on">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="ember-voice-waves" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+        </button>
+        <button class="ember-modal-close" id="emberModalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="ember-chat-body" id="emberModalBody"></div>
+      <form class="ember-chat-input" id="emberModalForm" autocomplete="off">
+        <button type="button" class="ember-mic" id="emberMic" aria-label="Speak to Ember" title="Speak">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg>
+        </button>
+        <input id="emberModalInput" type="text" placeholder="Tell Ember what's on your mind..." aria-label="Message Ember" />
+        <button type="submit" id="emberModalSend" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+      </form>
+      <audio id="emberAudio" playsinline></audio>
+
+      <!-- Pure orb voice view: replaces the chat while a hands-free voice chat is active -->
+      <div class="ember-voice-view" id="emberVoiceView" aria-hidden="true">
+        <button type="button" class="ember-voice-close" id="emberVoiceClose" aria-label="Close">&times;</button>
+        <div class="ember-orb" id="emberOrb"><span class="ember-orb-core"></span></div>
+        <div class="ember-orb-caption" id="emberOrbCaption" aria-live="polite">
+          <p class="cap-user" id="emberCapUser"></p>
+          <p class="cap-ember" id="emberCapEmber"></p>
+        </div>
+        <div class="ember-voice-controls">
+          <button type="button" class="ember-voice-btn" id="emberCaptionsToggle" aria-pressed="false">Captions</button>
+          <button type="button" class="ember-voice-btn end" id="emberVoiceEnd">End voice</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Scroll lock disabled for now. Re-enable by uncommenting the line below.
+    // document.body.style.overflow = 'hidden';
+    const heroVideo = document.querySelector('.hero video');
+    const heroFade = document.getElementById('heroFade');
+    const heroLogoOverlay = document.getElementById('heroLogoOverlay');
+    const heroPush = document.getElementById('heroPush');
+    const pushH1 = heroPush.querySelector('.push-h1');
+    const pushSub = heroPush.querySelector('.push-sub');
+    const heroArrow = document.getElementById('heroArrow');
+
+    const line1 = "What you had isn't gone.";
+    const line2 = "It's waiting.";
+    let sequenceStarted = false;
+    let revealed = false;
+    function revealSite() {
+      if (revealed) return;
+      revealed = true;
+      document.body.style.overflow = '';
+      document.querySelector('.hero').classList.add('faded');
+      document.getElementById('mainNav').classList.add('visible');
+      heroArrow.classList.add('in');
+    }
+    // Failsafes so a blocked or stalled hero video can never trap scrolling.
+    if (heroVideo.play) { const _p = heroVideo.play(); if (_p && _p.catch) _p.catch(() => revealSite()); }
+    heroVideo.addEventListener('error', revealSite);
+    // If the video isn't actually progressing shortly after load, skip the intro and unlock.
+    setTimeout(() => { if (!sequenceStarted && (heroVideo.paused || heroVideo.currentTime < 0.3)) revealSite(); }, 2500);
+    // Hard backstop in case the sequence starts but stalls mid-animation.
+    setTimeout(revealSite, 12000);
+
+    function typeText(el, text, speed, cb) {
+      let i = 0;
+      const interval = setInterval(() => {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) { clearInterval(interval); if (cb) cb(); }
+      }, speed);
+    }
+
+    heroVideo.addEventListener('timeupdate', () => {
+      if (heroVideo.currentTime >= 3.5 && !sequenceStarted) {
+        sequenceStarted = true;
+        // Fade logo out
+        heroLogoOverlay.classList.add('hidden');
+        // Fade to black
+        setTimeout(() => heroFade.classList.add('in'), 300);
+        // Show push container and start typing
+        setTimeout(() => {
+          pushH1.innerHTML = '';
+          heroPush.classList.add('in');
+          const span1 = document.createElement('span');
+          span1.className = 'type-line1';
+          pushH1.appendChild(span1);
+          // Type line 1 slowly
+          typeText(span1, line1, 90, () => {
+            // Pause between lines
+            setTimeout(() => {
+              pushH1.appendChild(document.createElement('br'));
+              const span2 = document.createElement('span');
+              span2.className = 'accent';
+              pushH1.appendChild(span2);
+              // Type line 2 even slower
+              typeText(span2, line2, 110, () => {
+                setTimeout(() => {
+                  pushSub.classList.add('in');
+                  const heroCtaRow = heroPush.querySelector('.hero-cta-row');
+                  if (heroCtaRow) setTimeout(() => heroCtaRow.classList.add('in'), 500);
+                  // Unlock scroll after body copy fades in
+                  setTimeout(revealSite, 1200);
+                }, 600);
+              });
+            }, 400);
+          });
+        }, 1200);
+      }
+    });
+
+    
+    const words = ["What","you","had","isn't","gone.","\n","It's","waiting."];
+    // Embedded window: scripted preview conversation (no API calls, always free).
+    const chatMessages = [
+      { type: 'user', text: "We haven't really talked in weeks. I don't even know where to start.", delay: 1000 },
+      { type: 'ember', text: "That takes courage to say. When did you first notice the distance starting?", delay: 4000 },
+      { type: 'user', text: "Probably after the argument in March. We never really resolved it.", delay: 8000 },
+      { type: 'ember', text: "That unresolved tension has a way of taking up space. Let's work through what you both might still need from each other.", delay: 12000 },
+      { type: 'user', text: "I just don't want it to turn into another fight.", delay: 17000 },
+      { type: 'ember', text: "I can help you prepare so it doesn't. Want to start by figuring out what you actually want your partner to understand?", delay: 21000 },
+    ];
+    const previewBody = document.getElementById('emberChatBody');
+    let previewStarted = false;
+
+    function previewTyping(side) {
+      const typing = document.createElement('div');
+      typing.className = side === 'user' ? 'ember-typing user-typing' : 'ember-typing ember-typing-bubble';
+      typing.innerHTML = '<span></span><span></span><span></span>';
+      previewBody.appendChild(typing);
+      previewBody.scrollTop = previewBody.scrollHeight;
+      return typing;
+    }
+
+    function startPreview() {
+      if (previewStarted || !previewBody) return;
+      previewStarted = true;
+      chatMessages.forEach((msg) => {
+        const typingDelay = 2000;
+        setTimeout(() => {
+          const typing = previewTyping(msg.type);
+          setTimeout(() => {
+            typing.remove();
+            const el = document.createElement('div');
+            el.className = 'ember-msg ' + msg.type;
+            el.textContent = msg.text;
+            previewBody.appendChild(el);
+            requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+            previewBody.scrollTop = previewBody.scrollHeight;
+          }, typingDelay);
+        }, msg.delay - typingDelay);
+      });
+    }
+
+    const previewObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { startPreview(); previewObserver.disconnect(); } });
+    }, { threshold: 0.2 });
+    const emberSection = document.getElementById('ember-ai');
+    if (emberSection) previewObserver.observe(emberSection);
+
+    // Live Ember modal (streams from the rekindle-ember-chat Supabase function on demand).
+    (function () {
+      const modal = document.getElementById('emberModal');
+      const chatBody = document.getElementById('emberModalBody');
+      const form = document.getElementById('emberModalForm');
+      const input = document.getElementById('emberModalInput');
+      const sendBtn = document.getElementById('emberModalSend');
+      const closeBtn = document.getElementById('emberModalClose');
+      const backdrop = document.getElementById('emberModalBackdrop');
+      const modalWindow = modal.querySelector('.ember-modal-window');
+      const voiceView = document.getElementById('emberVoiceView');
+      const orb = document.getElementById('emberOrb');
+      const capUser = document.getElementById('emberCapUser');
+      const capEmber = document.getElementById('emberCapEmber');
+      const captionsToggle = document.getElementById('emberCaptionsToggle');
+      const voiceEndBtn = document.getElementById('emberVoiceEnd');
+      const voiceCloseBtn = document.getElementById('emberVoiceClose');
+      let captionsOn = false;
+      if (!modal || !chatBody || !form || !input) return;
+
+      function setOrbState(state) {
+        if (!orb) return;
+        orb.classList.remove('listening', 'thinking', 'speaking');
+        if (state) orb.classList.add(state);
+      }
+      function setOrbLevel(v) {
+        if (orb) orb.style.setProperty('--orb-level', String(Math.max(0, Math.min(1, v))));
+      }
+
+      const history = [];
+      let sending = false;
+      let started = false;
+      let quiz = null;
+
+      function addBubble(role, text) {
+        const el = document.createElement('div');
+        el.className = 'ember-msg ' + (role === 'user' ? 'user' : 'ember');
+        el.textContent = text;
+        chatBody.appendChild(el);
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return el;
+      }
+
+      function showTyping() {
+        const t = document.createElement('div');
+        t.className = 'ember-typing ember-typing-bubble';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        chatBody.appendChild(t);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return t;
+      }
+
+      function startConversation() {
+        if (started) return;
+        started = true;
+        const opener = quiz
+          ? "Hey, I'm Ember. I saw you just took the check-up. However it landed, showing up here says a lot. What's sitting with you right now?"
+          : "Hey, I'm Ember, your relationship guide. Whatever is on your mind, big or small, you can start wherever feels right. What's going on?";
+        addBubble('ember', opener);
+        history.push({ role: 'assistant', content: opener });
+      }
+
+      function openModal(q) {
+        if (q) quiz = q;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        startConversation();
+        setTimeout(() => input.focus(), 60);
+      }
+      function closeModal() {
+        stopRealtime();
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      async function send(text) {
+        text = (text || '').trim();
+        if (sending || !text) return;
+        sending = true;
+        input.value = '';
+        if (sendBtn) sendBtn.disabled = true;
+
+        addBubble('user', text);
+        history.push({ role: 'user', content: text });
+        if (convoMode) {
+          if (capUser) capUser.textContent = text;
+          if (capEmber) capEmber.textContent = '';
+        }
+
+        const typing = showTyping();
+        let replyEl = null;
+        let reply = '';
+        const wantSpeech = voiceOn;
+        let spokenUpto = 0;
+        let firstChunk = true;
+        barged = false;
+        if (wantSpeech) startSpeaking();
+        chatAbort = new AbortController();
+
+        try {
+          const res = await fetch(window.RK_FN + '/rekindle-ember-chat', {
+            method: 'POST',
+            headers: Object.assign({ 'Content-Type': 'application/json' }, window.RK_H),
+            body: JSON.stringify({ messages: history, quiz }),
+            signal: chatAbort.signal,
+          });
+          if (!res.ok || !res.body) throw new Error('bad response');
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            const chunk = decoder.decode(value, { stream: true });
+            if (!chunk) continue;
+            if (!replyEl) { typing.remove(); replyEl = addBubble('ember', ''); }
+            reply += chunk;
+            replyEl.textContent = reply;
+            if (convoMode && capEmber) capEmber.textContent = reply;
+            chatBody.scrollTop = chatBody.scrollHeight;
+            // Speak each sentence the moment it finishes streaming so she starts
+            // talking without waiting for the whole reply.
+            if (wantSpeech && !barged) {
+              let c;
+              while ((c = nextSpeakChunk(reply, spokenUpto, firstChunk))) {
+                spokenUpto += c.len;
+                if (c.text) { enqueueSpeak(c.text); firstChunk = false; }
+              }
+            }
+          }
+        } catch (e) {
+          if (!replyEl && !barged) addBubble('ember', "I'm having trouble reaching my thoughts right now. Give me a moment and try again.");
+        } finally {
+          if (typing.parentNode) typing.remove();
+          sending = false;
+          if (sendBtn) sendBtn.disabled = false;
+          chatAbort = null;
+          if (reply && !barged) history.push({ role: 'assistant', content: reply });
+          if (wantSpeech && !barged) {
+            const rem = reply.slice(spokenUpto).trim();
+            if (rem) enqueueSpeak(rem);
+            endSpeakingInput();   // no more sentences coming; hand off to listening when the queue drains
+          } else if (convoMode && !barged) {
+            startTurn();
+          }
+          input.focus();
+        }
+      }
+
+      // Voice: input via Web Speech API, output via the rekindle-ember-tts Supabase function (xAI).
+      const audio = document.getElementById('emberAudio');
+      const voiceToggle = document.getElementById('emberVoiceToggle');
+      const micBtn = document.getElementById('emberMic');
+      let voiceOn = false;
+
+      function setVoice(on) {
+        voiceOn = on;
+        if (voiceToggle) {
+          voiceToggle.classList.toggle('on', on);
+          voiceToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+          voiceToggle.title = on ? 'Voice on' : 'Turn voice on';
+        }
+        if (!on) { if (audio) audio.pause(); stopSpeaking(); }
+      }
+      if (voiceToggle) voiceToggle.addEventListener('click', function () {
+        const turningOn = !voiceOn;
+        setVoice(turningOn);
+        // Turning the speaker on reads her latest message aloud right away.
+        if (turningOn && !convoMode && !sending && !speakActive) {
+          const lastEmber = [].concat(history).reverse().find(function (m) { return m.role === 'assistant'; });
+          if (lastEmber && lastEmber.content) speakFullText(lastEmber.content);
+        }
+      });
+
+      // Speak a full message out loud (her greeting or any standalone line),
+      // chunked into sentences so she starts sooner. In a hands-free chat, this
+      // hands off to listening once she finishes.
+      function speakFullText(text) {
+        if (!voiceOn || !text) { if (convoMode) startTurn(); return; }
+        startSpeaking();
+        let from = 0, c, first = true;
+        while ((c = nextSpeakChunk(text, from, first))) { from += c.len; if (c.text) { enqueueSpeak(c.text); first = false; } }
+        const rem = text.slice(from).trim();
+        if (rem) enqueueSpeak(rem);
+        endSpeakingInput();
+      }
+
+      // Ember voice output. In a hands-free chat we speak sentence by sentence
+      // as the reply streams in, so she starts talking after the first sentence
+      // instead of waiting for the whole thing. Each clip's audio is fetched
+      // ahead of playback so the gaps between sentences stay small.
+      let speakQueue = [];      // Promise<Blob|null>[] in speaking order
+      let speakActive = false;  // a reply is currently being spoken
+      let speakDone = false;    // the reply text has fully streamed in
+      let pumping = false;
+      let activeUrl = null;
+      let clipResolve = null;
+      // Speaking visualizer: decode each clip into a loudness envelope and drive
+      // the orb from it (synced to playback) so she animates to her real voice,
+      // like the mic does when you talk. No MediaElementSource, so playback is safe.
+      let decodeCtx = null;
+      let speakEnv = null;          // Float32Array of 0..1 loudness per window
+      const SPEAK_WIN = 0.045;      // seconds per envelope window
+      let speakVisRAF = null, speakVisLvl = 0;
+
+      function computeEnvelope(buf) {
+        const data = buf.getChannelData(0);
+        const win = Math.max(1, Math.floor(buf.sampleRate * SPEAK_WIN));
+        const n = Math.ceil(data.length / win);
+        const env = new Float32Array(n);
+        let peak = 0;
+        for (let i = 0; i < n; i++) {
+          let sum = 0; const start = i * win; const end = Math.min(data.length, start + win);
+          for (let j = start; j < end; j++) sum += data[j] * data[j];
+          env[i] = Math.sqrt(sum / Math.max(1, end - start));
+          if (env[i] > peak) peak = env[i];
+        }
+        if (peak > 0) for (let i = 0; i < n; i++) env[i] = env[i] / peak;
+        return env;
+      }
+      function stopSpeakVis() { if (speakVisRAF) { cancelAnimationFrame(speakVisRAF); speakVisRAF = null; } }
+      function startSpeakVis() {
+        stopSpeakVis();
+        (function frame() {
+          if (!speakActive || barged) { stopSpeakVis(); return; }
+          let target = 0;
+          if (speakEnv && speakEnv.length && audio) {
+            const idx = Math.min(speakEnv.length - 1, Math.floor(audio.currentTime / SPEAK_WIN));
+            target = speakEnv[idx] || 0;
+          }
+          speakVisLvl = speakVisLvl * 0.55 + target * 0.45;
+          setOrbLevel(speakVisLvl);
+          speakVisRAF = requestAnimationFrame(frame);
+        })();
+      }
+
+      // Pull the next speakable chunk out of the streamed reply. TTS time scales
+      // hard with length, so the FIRST chunk breaks early (at the first clause /
+      // comma, or a ~55 char cap) to get her talking ~1-2s sooner; later chunks
+      // use full sentences so she flows naturally.
+      function nextSpeakChunk(full, from, aggressive) {
+        const rest = full.slice(from);
+        let m;
+        if (aggressive) {
+          m = rest.match(/^[\s\S]*?[,;:.!?…](?=["'’”)\]]?(?:\s|$))/);
+          if (!m && rest.length > 55) {
+            const cut = rest.slice(0, 55).lastIndexOf(' ');
+            if (cut > 18) m = [rest.slice(0, cut + 1)];
+          }
+        } else {
+          m = rest.match(/^[\s\S]*?[.!?…](?=["'’”)\]]?(?:\s|$))/);
+        }
+        if (!m) return null;
+        const seg = m[0];
+        return { text: seg.trim().length >= 2 ? seg.trim() : '', len: seg.length };
+      }
+
+      function fetchClip(text) {
+        return fetch(window.RK_FN + '/rekindle-ember-tts', {
+          method: 'POST',
+          headers: Object.assign({ 'Content-Type': 'application/json' }, window.RK_H),
+          body: JSON.stringify({ text }),
+        }).then(function (r) { return r.ok ? r.blob() : null; }).catch(function () { return null; });
+      }
+
+      function startSpeaking() { speakQueue = []; speakActive = true; speakDone = false; }
+      function enqueueSpeak(text) {
+        if (!speakActive || !voiceOn || !text) return;
+        speakQueue.push(fetchClip(text));   // kick off the network right away
+        pumpSpeak();
+      }
+      function endSpeakingInput() { speakDone = true; maybeFinishSpeaking(); }
+
+      async function pumpSpeak() {
+        if (pumping) return;
+        pumping = true;
+        while (speakActive && !barged && speakQueue.length) {
+          const blob = await speakQueue.shift();
+          if (!speakActive || barged) break;
+          if (blob) await playBlob(blob);
+        }
+        pumping = false;
+        maybeFinishSpeaking();
+      }
+
+      function maybeFinishSpeaking() {
+        if (barged || pumping) return;
+        if (speakActive && speakDone && !speakQueue.length) {
+          speakActive = false;
+          setOrbState(null);
+          if (convoMode) startTurn();
+        }
+      }
+
+      function playBlob(blob) {
+        return new Promise(function (resolve) {
+          clipResolve = resolve;
+          if (!audio || !blob || !speakActive || barged) { finishClip(); return; }
+          const url = URL.createObjectURL(blob);
+          activeUrl = url;
+          // Decode this clip into a loudness envelope for the orb (best effort,
+          // does not block or affect playback).
+          speakEnv = null;
+          if (convoMode) {
+            blob.arrayBuffer().then(function (ab) {
+              if (!decodeCtx) { try { decodeCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+              return decodeCtx.decodeAudioData(ab.slice(0));
+            }).then(function (buf) { if (buf) speakEnv = computeEnvelope(buf); }).catch(function () {});
+          }
+          audio.src = url;
+          audio.onplay = function () { if (convoMode) { setOrbLevel(0); speakVisLvl = 0; setOrbState('speaking'); startSpeakVis(); startBargeWatch(); } };
+          audio.onended = function () { finishClip(); };
+          audio.onerror = function () { finishClip(); };
+          audio.play().catch(function () { finishClip(); });
+        });
+      }
+      function finishClip() {
+        stopBargeWatch();
+        stopSpeakVis();
+        speakEnv = null;
+        if (activeUrl) { try { URL.revokeObjectURL(activeUrl); } catch (e) {} activeUrl = null; }
+        if (clipResolve) { const r = clipResolve; clipResolve = null; r(); }
+      }
+      function stopSpeaking() {
+        speakQueue = [];
+        speakActive = false;
+        if (audio) { try { audio.pause(); } catch (e) {} }
+        finishClip();
+      }
+
+      // Hands-free voice conversation. Tap the mic once to start talking with
+      // Ember. Voice activity detection auto-ends your turn when you go quiet,
+      // it transcribes via the rekindle-ember-stt Supabase function (xAI), Ember replies
+      // and speaks, then it listens again. Tap the mic (or close) to end.
+      let convoMode = false;
+      let micStream = null;
+      let mediaRecorder = null;
+      let recChunks = [];
+      let recording = false;
+      let audioCtx = null, analyser = null, vadData = null, vadRAF = null;
+      let spokeThisTurn = false, lastSpeech = 0, turnStart = 0;
+      let orbLvl = 0;
+      let barged = false;              // she got interrupted this turn
+      let chatAbort = null;            // aborts an in-flight reply on barge-in
+      let bargeRAF = null, bargeStart = 0, echoFloor = 0.02;
+      const SPEECH_THRESHOLD = 0.02;   // RMS above this counts as speech
+      const SILENCE_MS = 600;          // quiet this long after speech ends the turn
+      const MAX_SILENCE_START = 12000; // no speech at all for this long ends the chat
+      const BARGE_MIN = 0.03;          // absolute floor so silence never interrupts
+      const BARGE_FACTOR = 1.9;        // your voice must beat the leaked echo by this much
+      const BARGE_MS = 180;            // sustained talking this long cuts her off
+
+      // Barge-in: while she is speaking, watch the mic; if you start talking she
+      // stops, the reply is cut off, and your turn begins. The trigger adapts to
+      // however much of her own voice leaks back into the mic (the "echo floor"),
+      // so it fires on you talking rather than on her.
+      function stopBargeWatch() { if (bargeRAF) { cancelAnimationFrame(bargeRAF); bargeRAF = null; } }
+      function startBargeWatch() {
+        if (!convoMode || !analyser) return;
+        bargeStart = 0;
+        echoFloor = 0.02;
+        if (audioCtx && audioCtx.state === 'suspended') { audioCtx.resume().catch(function () {}); }
+        stopBargeWatch();
+        bargeRAF = requestAnimationFrame(bargeWatch);
+      }
+      function bargeWatch() {
+        if (!analyser || barged || !speakActive) { bargeRAF = null; return; }
+        analyser.getByteTimeDomainData(vadData);
+        let sum = 0;
+        for (let i = 0; i < vadData.length; i++) { const v = (vadData[i] - 128) / 128; sum += v * v; }
+        const rms = Math.sqrt(sum / vadData.length);
+        const now = Date.now();
+        const trigger = Math.max(BARGE_MIN, echoFloor * BARGE_FACTOR);
+        if (rms > trigger) {
+          if (!bargeStart) bargeStart = now;
+          else if (now - bargeStart > BARGE_MS) { bargeIn(); return; }
+        } else {
+          bargeStart = 0;
+          echoFloor = echoFloor * 0.9 + rms * 0.1;   // learn the leaked-echo / ambient level
+        }
+        bargeRAF = requestAnimationFrame(bargeWatch);
+      }
+      function bargeIn() {
+        if (barged) return;
+        barged = true;
+        sending = false;
+        stopBargeWatch();
+        if (chatAbort) { try { chatAbort.abort(); } catch (e) {} }
+        stopSpeaking();
+        setOrbState('listening');
+        startTurn();
+      }
+
+      function blobToBase64(blob) {
+        return new Promise(function (resolve, reject) {
+          const reader = new FileReader();
+          reader.onloadend = function () {
+            const r = String(reader.result || '');
+            const comma = r.indexOf(',');
+            resolve(comma >= 0 ? r.slice(comma + 1) : r);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      }
+
+      async function transcribeAndSend(blob) {
+        try {
+          const b64 = await blobToBase64(blob);
+          const r = await fetch(window.RK_FN + '/rekindle-ember-stt', {
+            method: 'POST',
+            headers: Object.assign({ 'Content-Type': 'application/json' }, window.RK_H),
+            body: JSON.stringify({ audio: b64, mimeType: blob.type || 'audio/webm' }),
+          });
+          if (!r.ok) { if (convoMode) startTurn(); return; }
+          const data = await r.json();
+          const text = ((data && data.text) || '').trim();
+          if (text) send(text);
+          else if (convoMode) startTurn();
+        } catch (e) {
+          if (convoMode) startTurn();
+        }
+      }
+
+      function stopVad() { if (vadRAF) { cancelAnimationFrame(vadRAF); vadRAF = null; } }
+
+      function runVad() {
+        if (!recording || !analyser) return;
+        analyser.getByteTimeDomainData(vadData);
+        let sum = 0;
+        for (let i = 0; i < vadData.length; i++) { const v = (vadData[i] - 128) / 128; sum += v * v; }
+        const rms = Math.sqrt(sum / vadData.length);
+        const now = Date.now();
+        // Map mic loudness to orb level: drop a tiny noise floor, amplify, then
+        // smooth lightly so it reacts fast but doesn't strobe frame to frame.
+        const target = Math.min(1, Math.max(0, (rms - 0.006) * 12));
+        orbLvl = orbLvl * 0.5 + target * 0.5;
+        setOrbLevel(orbLvl);
+        if (rms > SPEECH_THRESHOLD) { spokeThisTurn = true; lastSpeech = now; }
+        if (spokeThisTurn && now - lastSpeech > SILENCE_MS) { endTurn(); return; }
+        if (!spokeThisTurn && now - turnStart > MAX_SILENCE_START) { stopConvo(); return; }
+        vadRAF = requestAnimationFrame(runVad);
+      }
+
+      function endTurn() {
+        stopVad();
+        orbLvl = 0;
+        setOrbLevel(0);
+        if (spokeThisTurn) setOrbState('thinking');
+        if (mediaRecorder && recording) { try { mediaRecorder.stop(); } catch (e) {} }
+      }
+
+      function startTurn() {
+        if (!convoMode || !micStream) return;
+        recChunks = [];
+        try { mediaRecorder = new MediaRecorder(micStream); }
+        catch (e) { stopConvo(); return; }
+        mediaRecorder.ondataavailable = function (e) { if (e.data && e.data.size) recChunks.push(e.data); };
+        mediaRecorder.onstop = function () {
+          recording = false;
+          micBtn.classList.remove('listening');
+          if (spokeThisTurn && recChunks.length) {
+            transcribeAndSend(new Blob(recChunks, { type: mediaRecorder.mimeType || 'audio/webm' }));
+          } else if (convoMode) {
+            startTurn();
+          }
+        };
+        if (!audioCtx) {
+          try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const src = audioCtx.createMediaStreamSource(micStream);
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 512;
+            src.connect(analyser);
+            vadData = new Uint8Array(analyser.fftSize);
+          } catch (e) {}
+        }
+        if (audioCtx && audioCtx.state === 'suspended') { audioCtx.resume().catch(function () {}); }
+        mediaRecorder.start();
+        recording = true;
+        spokeThisTurn = false;
+        turnStart = Date.now();
+        lastSpeech = turnStart;
+        micBtn.classList.add('listening');
+        setOrbState('listening');
+        stopVad();
+        vadRAF = requestAnimationFrame(runVad);
+      }
+
+      async function enterConvo() {
+        try {
+          // Echo cancellation keeps her own voice out of the mic so barge-in
+          // only fires when you actually talk.
+          micStream = await navigator.mediaDevices.getUserMedia({
+            audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+          });
+        } catch (e) {
+          addBubble('ember', "I couldn't access your microphone. Allow mic access for this site, then tap the mic again. You can also just type.");
+          return;
+        }
+        convoMode = true;
+        barged = false;
+        setVoice(true);
+        micBtn.classList.add('convo');
+        micBtn.title = 'Tap to end voice chat';
+        if (voiceView) voiceView.setAttribute('aria-hidden', 'false');
+        if (modalWindow) modalWindow.classList.add('voice-active');
+        if (capUser) capUser.textContent = '';
+        if (capEmber) capEmber.textContent = '';
+        setOrbState('thinking');
+        // Greet out loud first, then start listening. If there's no greeting
+        // yet or voice somehow off, just start listening.
+        const lastEmber = [].concat(history).reverse().find(function (m) { return m.role === 'assistant'; });
+        if (lastEmber && lastEmber.content) {
+          if (capEmber) capEmber.textContent = lastEmber.content;
+          speakFullText(lastEmber.content);
+        } else {
+          startTurn();
+        }
+      }
+
+      function stopConvo() {
+        if (!convoMode && !micStream) return;
+        convoMode = false;
+        stopBargeWatch();
+        stopSpeaking();
+        stopVad();
+        if (mediaRecorder && recording) { try { mediaRecorder.stop(); } catch (e) {} }
+        recording = false;
+        if (micStream) { micStream.getTracks().forEach(function (t) { t.stop(); }); micStream = null; }
+        if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; analyser = null; }
+        micBtn.classList.remove('convo', 'listening');
+        micBtn.title = 'Talk to Ember';
+        if (modalWindow) modalWindow.classList.remove('voice-active');
+        if (voiceView) voiceView.setAttribute('aria-hidden', 'true');
+        setOrbState(null);
+        setOrbLevel(0);
+      }
+
+      // ============================================================
+      // GROK REALTIME VOICE AGENT (hands-free orb mode)
+      // Streams mic PCM up, plays her PCM down over one WebSocket. The server
+      // handles turn-taking and barge-in natively. The orb reacts to her real
+      // audio. A deterministic safety net watches the user's live transcript and
+      // forces Ember to speak the 988 / DV-hotline line on crisis or abuse.
+      // ============================================================
+      let rtActive = false, rtWs = null;
+      let rtMicStream = null, rtCtx = null, rtProc = null, rtMicSrc = null, rtMute = null;
+      let rtPlayHead = 0, rtSources = [], rtEnv = [];
+      let rtVisRAF = null, rtSpeakLvl = 0, rtUserLvl = 0, rtPeak = 0.06;
+      let rtSafetyHandled = false, rtGreeted = false;
+      let rtVoice = null, rtInstructions = null;
+      let rtCurUser = '', rtCurEmber = '';   // in-progress turn text, committed to `history` for continuity
+
+      // Seed the voice session with the prior (text or earlier voice) conversation
+      // so she continues mid-thread instead of starting over.
+      function rtSeedHistory() {
+        if (!history || !history.length) return false;
+        let seeded = false;
+        history.forEach(function (m) {
+          if (!m || !m.content) return;
+          const isA = m.role === 'assistant';
+          rtSend({ type: 'conversation.item.create', item: { type: 'message', role: isA ? 'assistant' : 'user',
+            content: [{ type: isA ? 'output_text' : 'input_text', text: String(m.content) }] } });
+          seeded = true;
+        });
+        return seeded;
+      }
+      function rtCommitTurn() {
+        if (rtCurUser) { history.push({ role: 'user', content: rtCurUser }); rtCurUser = ''; }
+        if (rtCurEmber && rtCurEmber.trim()) { history.push({ role: 'assistant', content: rtCurEmber.trim() }); rtCurEmber = ''; }
+      }
+
+      const CRISIS_RE = /(kill (myself|me)|end(ing)? (my life|it all|everything)|take my (own )?life|don'?t want to (be here|live|wake up)|not want to be here|no reason to (live|go on)|no point (in|to)? ?(living|life|anything|going on)|better off (dead|without me)|want to die|wish i (was|were) dead|hurt myself|harm myself|suicid)/i;
+      const ABUSE_RE = /(hits? me|hit me|beats? me|grab(s|bed)? (me|my)|shov(e|es|ed)|punch(es|ed)? (me|the wall)|threw .*(at me|glass|plate|thing|it)|throws things|breaks? things|slap(s|ped)? me|chok(e|ed|ing)|strangl|afraid of (him|her|my (husband|wife|partner|spouse))|scared of (him|her|my)|threaten(s|ed)? me|hurts? me|he'?s (violent|abusive)|she'?s (violent|abusive)|abus(e|ing|ive))/i;
+      const CRISIS_MSG = "I'm really glad you told me that, and I don't want you carrying it alone. Please reach out right now. In the US you can call or text 988 any time to reach the Suicide and Crisis Lifeline. If you might be in danger, please call 911. Will you reach out to them?";
+      const ABUSE_MSG = "Thank you for trusting me with that. You do not deserve to be hurt, and your safety comes first right now. Please reach out to the National Domestic Violence Hotline, you can call 1-800-799-7233 or text START to 88788, any time. If you are in immediate danger, call 911. Are you safe right now?";
+
+      function rtSend(o) { if (rtWs && rtWs.readyState === 1) rtWs.send(JSON.stringify(o)); }
+
+      function rtFlushPlayback() {
+        rtSources.forEach(function (s) { try { s.stop(); } catch (e) {} });
+        rtSources = []; rtEnv = [];
+        if (rtCtx) rtPlayHead = rtCtx.currentTime;
+      }
+
+      function rtPlayChunk(b64) {
+        if (!rtCtx) return;
+        let bin; try { bin = atob(b64); } catch (e) { return; }
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        const pcm = new Int16Array(bytes.buffer);
+        if (!pcm.length) return;
+        const f32 = new Float32Array(pcm.length);
+        let sum = 0;
+        for (let i = 0; i < pcm.length; i++) { f32[i] = pcm[i] / 32768; sum += f32[i] * f32[i]; }
+        const buf = rtCtx.createBuffer(1, f32.length, 24000);
+        buf.getChannelData(0).set(f32);
+        const src = rtCtx.createBufferSource();
+        src.buffer = buf; src.connect(rtCtx.destination);
+        const now = rtCtx.currentTime;
+        if (rtPlayHead < now + 0.02) rtPlayHead = now + 0.02;
+        const startAt = rtPlayHead;
+        try { src.start(startAt); } catch (e) { return; }
+        rtPlayHead += buf.duration;
+        // Fine-grained (~43ms window) loudness envelope so the orb pulses per
+        // syllable and dips between words, instead of sitting pinned at full.
+        // Same noise-floor + gain curve as your mic so both sides pulse alike.
+        const win = 1024;
+        for (let w = 0; w < f32.length; w += win) {
+          const end = Math.min(f32.length, w + win);
+          let ss = 0; for (let i = w; i < end; i++) ss += f32[i] * f32[i];
+          const wr = Math.sqrt(ss / Math.max(1, end - w));
+          rtEnv.push({ t: startAt + w / 24000, end: startAt + end / 24000, r: Math.min(1, Math.max(0, (wr - 0.006) * 9)) });
+        }
+        rtSources.push(src);
+        src.onended = function () { const i = rtSources.indexOf(src); if (i >= 0) rtSources.splice(i, 1); };
+      }
+
+      function rtVisFrame() {
+        if (!rtActive) { rtVisRAF = null; return; }
+        const now = rtCtx ? rtCtx.currentTime : 0;
+        while (rtEnv.length && rtEnv[0].end < now) rtEnv.shift();
+        let hr = (rtEnv.length && rtEnv[0].t <= now) ? rtEnv[0].r : 0;
+        rtSpeakLvl = rtSpeakLvl * 0.7 + hr * 0.3;
+        setOrbLevel(Math.max(rtSpeakLvl, rtUserLvl));
+        rtVisRAF = requestAnimationFrame(rtVisFrame);
+      }
+
+      function rtCheckSafety(transcript) {
+        if (rtSafetyHandled || !transcript) return;
+        const t = transcript.toLowerCase();
+        let msg = CRISIS_RE.test(t) ? CRISIS_MSG : (ABUSE_RE.test(t) ? ABUSE_MSG : null);
+        if (!msg) return;
+        rtSafetyHandled = true;
+        rtFlushPlayback();
+        rtSend({ type: 'input_audio_buffer.clear' });
+        rtSend({ type: 'conversation.item.create', item: { type: 'force_message', role: 'assistant', interruptible: false, content: [{ type: 'output_text', text: msg }] } });
+        if (capEmber) capEmber.textContent = msg;
+        rtCurEmber = msg;   // capture the forced safety line into history too
+      }
+
+      function rtOnEvent(e) {
+        switch (e.type) {
+          case 'session.created':
+            rtSend({ type: 'session.update', session: {
+              voice: rtVoice || 'Carina',
+              instructions: rtInstructions || '',
+              turn_detection: { type: 'server_vad', silence_duration_ms: 500 },
+              audio: { input: { format: { type: 'audio/pcm', rate: 24000 }, transcription: { language_hint: 'en' } },
+                       output: { format: { type: 'audio/pcm', rate: 24000 } } }
+            }});
+            break;
+          case 'session.updated':
+            if (!rtGreeted) { rtGreeted = true; setOrbState('speaking');
+              const cont = rtSeedHistory();
+              rtSend({ type: 'response.create', response: { instructions: cont
+                ? 'You were just talking with this person by text and now you are on a voice call together. In one short, warm sentence let them know you are here and ready to keep going. Do not re-introduce yourself or repeat what was already said.'
+                : 'Warmly greet the person in one short, caring sentence and invite them to share what is on their mind.' } }); }
+            break;
+          case 'input_audio_buffer.speech_started':
+            rtSafetyHandled = false; rtFlushPlayback(); setOrbState('listening');
+            break;
+          case 'input_audio_buffer.speech_stopped':
+            setOrbState('thinking');
+            break;
+          case 'conversation.item.input_audio_transcription.updated':
+          case 'conversation.item.input_audio_transcription.completed':
+            if (e.transcript) { rtCurUser = e.transcript; if (capUser) capUser.textContent = e.transcript; rtCheckSafety(e.transcript); }
+            break;
+          case 'response.created':
+            setOrbState('speaking'); rtCurEmber = ''; if (capEmber && !rtSafetyHandled) capEmber.textContent = '';
+            break;
+          case 'response.output_audio_transcript.delta':
+            if (e.delta) { const clean = e.delta.replace(/\s*[—–]\s*/g, ', '); rtCurEmber += clean; if (capEmber && !rtSafetyHandled) capEmber.textContent += clean; }
+            break;
+          case 'response.output_audio.delta':
+            if (e.delta) rtPlayChunk(e.delta);
+            break;
+          case 'response.done':
+          case 'response.human_assist_turn.commit':
+            setOrbState('listening'); rtCommitTurn();
+            break;
+        }
+      }
+
+      async function startRealtime() {
+        if (rtActive) return;
+        try {
+          rtMicStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+        } catch (e) {
+          addBubble('ember', "I couldn't access your microphone. Allow mic access for this site, then tap the mic again. You can also just type.");
+          return;
+        }
+        let tok;
+        try {
+          const tr = await fetch(window.RK_FN + '/rekindle-ember-token', { method: 'POST', headers: window.RK_H });
+          if (!tr.ok) throw new Error('token');
+          tok = await tr.json();
+        } catch (e) {
+          rtMicStream.getTracks().forEach(function (t) { t.stop(); }); rtMicStream = null;
+          addBubble('ember', "I'm having trouble starting voice right now. You can keep typing to me.");
+          return;
+        }
+        rtVoice = tok.voice; rtInstructions = tok.instructions; rtGreeted = false; rtSafetyHandled = false;
+        rtPeak = 0.06;
+        rtActive = true;
+        micBtn.classList.add('convo'); micBtn.title = 'Tap to end voice chat';
+        if (voiceView) voiceView.setAttribute('aria-hidden', 'false');
+        if (modalWindow) modalWindow.classList.add('voice-active');
+        if (capUser) capUser.textContent = ''; if (capEmber) capEmber.textContent = '';
+        setOrbState('thinking');
+
+        try { rtCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 }); }
+        catch (e) { try { rtCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e2) { stopRealtime(); return; } }
+        if (rtCtx.state === 'suspended') { try { rtCtx.resume(); } catch (e) {} }
+        rtPlayHead = rtCtx.currentTime;
+
+        rtMicSrc = rtCtx.createMediaStreamSource(rtMicStream);
+        rtProc = rtCtx.createScriptProcessor(2048, 1, 1);
+        rtMute = rtCtx.createGain(); rtMute.gain.value = 0;   // keep the processor alive without leaking mic to speakers
+        const inRate = rtCtx.sampleRate;
+        rtProc.onaudioprocess = function (ev) {
+          if (!rtActive) return;
+          const input = ev.inputBuffer.getChannelData(0);
+          let s = 0; for (let i = 0; i < input.length; i++) s += input[i] * input[i];
+          // Drop a small noise floor then amplify, so your voice swings the orb
+          // hard while silence stays flat (noiseSuppression keeps the floor low).
+          const urms = Math.sqrt(s / input.length);
+          rtUserLvl = rtUserLvl * 0.5 + Math.min(1, Math.max(0, (urms - 0.006) * 12)) * 0.5;
+          const ratio = inRate / 24000;
+          const outLen = Math.max(1, Math.floor(input.length / ratio));
+          const pcm = new Int16Array(outLen);
+          for (let i = 0; i < outLen; i++) { const v = Math.max(-1, Math.min(1, input[Math.floor(i * ratio)] || 0)); pcm[i] = v < 0 ? v * 0x8000 : v * 0x7fff; }
+          const bytes = new Uint8Array(pcm.buffer);
+          let bin = ''; for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+          rtSend({ type: 'input_audio_buffer.append', audio: btoa(bin) });
+        };
+        rtMicSrc.connect(rtProc); rtProc.connect(rtMute); rtMute.connect(rtCtx.destination);
+
+        try { rtWs = new WebSocket('wss://api.x.ai/v1/realtime?model=grok-voice-latest', ['xai-client-secret.' + tok.token]); }
+        catch (e) { stopRealtime(); addBubble('ember', "Voice couldn't connect. You can keep typing to me."); return; }
+        rtWs.onmessage = function (m) { let e; try { e = JSON.parse(m.data); } catch (err) { return; } rtOnEvent(e); };
+        rtWs.onerror = function () {};
+        rtWs.onclose = function () { if (rtActive) stopRealtime(); };
+        if (rtVisRAF) cancelAnimationFrame(rtVisRAF);
+        rtVisRAF = requestAnimationFrame(rtVisFrame);
+      }
+
+      function stopRealtime() {
+        if (!rtActive && !rtWs) return;
+        rtActive = false;
+        if (rtVisRAF) { cancelAnimationFrame(rtVisRAF); rtVisRAF = null; }
+        rtFlushPlayback();
+        if (rtProc) { try { rtProc.disconnect(); } catch (e) {} rtProc.onaudioprocess = null; rtProc = null; }
+        if (rtMicSrc) { try { rtMicSrc.disconnect(); } catch (e) {} rtMicSrc = null; }
+        if (rtMute) { try { rtMute.disconnect(); } catch (e) {} rtMute = null; }
+        if (rtMicStream) { rtMicStream.getTracks().forEach(function (t) { t.stop(); }); rtMicStream = null; }
+        if (rtWs) { try { rtWs.close(); } catch (e) {} rtWs = null; }
+        if (rtCtx) { try { rtCtx.close(); } catch (e) {} rtCtx = null; }
+        rtUserLvl = 0; rtSpeakLvl = 0;
+        micBtn.classList.remove('convo', 'listening'); micBtn.title = 'Talk to Ember';
+        if (modalWindow) modalWindow.classList.remove('voice-active');
+        if (voiceView) voiceView.setAttribute('aria-hidden', 'true');
+        setOrbState(null); setOrbLevel(0);
+      }
+
+      if (captionsToggle) captionsToggle.addEventListener('click', function () {
+        captionsOn = !captionsOn;
+        if (voiceView) voiceView.classList.toggle('captions-on', captionsOn);
+        captionsToggle.setAttribute('aria-pressed', captionsOn ? 'true' : 'false');
+      });
+      if (voiceEndBtn) voiceEndBtn.addEventListener('click', function () { stopRealtime(); });
+      if (voiceCloseBtn) voiceCloseBtn.addEventListener('click', function () { stopRealtime(); });
+      // Tap the orb while she's talking to interrupt her by hand.
+      if (orb) orb.addEventListener('click', function () {
+        if (rtActive) { rtFlushPlayback(); rtSend({ type: 'input_audio_buffer.clear' }); setOrbState('listening'); }
+      });
+
+      if (micBtn && navigator.mediaDevices && window.WebSocket && (window.AudioContext || window.webkitAudioContext)) {
+        micBtn.addEventListener('click', function () {
+          if (rtActive) stopRealtime(); else startRealtime();
+        });
+      } else if (micBtn) {
+        micBtn.style.display = 'none';
+      }
+
+      form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+      // Any element with data-ember-open opens the live modal.
+      document.querySelectorAll('[data-ember-open]').forEach(function (el) {
+        el.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+      });
+      window.openEmber = openModal;
+
+      // Auto-open with quiz context when arriving from the Marriage Health Score.
+      const params = new URLSearchParams(location.search);
+      if (params.get('chat') === '1') {
+        const s = parseInt(params.get('score'), 10);
+        const q = Number.isFinite(s) ? { score: s, focus: params.get('focus') || undefined } : null;
+        openModal(q);
+      }
+    })();
+
+    // Ticker drag to scroll
+    const tickerWrap = document.getElementById('tickerWrap');
+    const tickerTrack = document.getElementById('tickerTrack');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // Initialize ticker scroll at midpoint so both directions have room
+    setTimeout(() => {
+      const half = tickerTrack.scrollWidth / 2;
+      tickerWrap.scrollLeft = half / 2;
+    }, 100);
+
+    // Infinite loop reset, both directions
+    tickerWrap.addEventListener('scroll', () => {
+      const half = tickerTrack.scrollWidth / 2;
+      if (tickerWrap.scrollLeft >= half) {
+        tickerWrap.scrollLeft -= half;
+      }
+      if (tickerWrap.scrollLeft < 10) {
+        tickerWrap.scrollLeft += half;
+      }
+    });
+
+    tickerWrap.addEventListener('mousedown', (e) => {
+      isDown = true;
+      tickerTrack.classList.add('paused');
+      startX = e.pageX - tickerWrap.offsetLeft;
+      scrollLeft = tickerWrap.scrollLeft;
+      tickerWrap.style.cursor = 'grabbing';
+    });
+    tickerWrap.addEventListener('mouseleave', () => {
+      if (isDown) { isDown = false; tickerWrap.style.cursor = 'grab'; }
+    });
+    tickerWrap.addEventListener('mouseup', () => {
+      isDown = false;
+      tickerWrap.style.cursor = 'grab';
+    });
+    tickerWrap.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - tickerWrap.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      tickerWrap.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch support
+    tickerWrap.addEventListener('touchstart', (e) => {
+      tickerTrack.classList.add('paused');
+      startX = e.touches[0].pageX;
+      scrollLeft = tickerWrap.scrollLeft;
+    }, { passive: true });
+    tickerWrap.addEventListener('touchmove', (e) => {
+      const x = e.touches[0].pageX;
+      const walk = (startX - x) * 1.5;
+      tickerWrap.scrollLeft = scrollLeft + walk;
+    }, { passive: true });
+    tickerWrap.addEventListener('touchend', () => {
+      tickerTrack.classList.remove('paused');
+    });
+
+    // Ticker objections
+    const answers = [
+      { q: '"We\'ve tried counseling before and it didn\'t work."', a: 'Traditional therapy moves slowly by design. This work moves at the speed of your relationship, direct and built around what\'s actually broken.' },
+      { q: '"My partner won\'t do this with me."', a: 'Most people are willing when the invitation feels safe. And sometimes the shift starts with just one of you.' },
+      { q: '"Things are too far gone."', a: 'That feeling is part of the pain, not the truth. The couples who\'ve come back from the hardest places all said the same thing before they started.' },
+      { q: '"We\'re not in crisis, but we\'re not really connected either."', a: 'That quiet distance is easier to address now than after it calcifies. You don\'t need a crisis to justify wanting more.' },
+      { q: '"We\'ve been together so long, can anything really change?"', a: 'Long history doesn\'t mean fixed patterns. It means there\'s more to work with. Couples together 20 years have rebuilt things they didn\'t think were possible.' },
+      { q: '"I\'m not sure I even want to save it anymore."', a: 'That\'s the most honest place to start. We don\'t begin with commitment. We begin with clarity. You\'ll know more after one conversation than you do right now.' },
+      { q: '"We\'ve tried everything."', a: 'Most couples haven\'t tried this. They\'ve tried talking, fighting, avoiding, and maybe a therapist who moved slowly. This is different in approach and in pace.' },
+      { q: '"I don\'t want to air our issues to a stranger."', a: 'That discomfort is completely normal. The first call is about getting a feel for each other. Nothing is shared that you\'re not ready to share.' },
+    ];
+
+    const answerPanel = document.getElementById('objAnswerPanel');
+    const answerQ = document.getElementById('objAnswerQ');
+    const answerA = document.getElementById('objAnswerA');
+    let currentOpen = null;
+
+    document.querySelectorAll('.ticker-item').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const idx = parseInt(item.dataset.index);
+        answerQ.textContent = answers[idx].q;
+        answerA.textContent = answers[idx].a;
+        answerPanel.classList.add('open');
+        tickerTrack.classList.add('paused');
+        currentOpen = idx;
+      });
+      item.addEventListener('mouseleave', () => {
+        answerPanel.classList.remove('open');
+        tickerTrack.classList.remove('paused');
+        currentOpen = null;
+      });
+    });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
 </body>
 </html>

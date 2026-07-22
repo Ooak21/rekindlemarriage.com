@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rekindle CRM · Reservations</title>
+<style>html{visibility:hidden}</style>
+<link rel="icon" href="../rekindle-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17120E; --ink-2:#3A302A; --ash:#6A5A4B; --ash-2:#8A7A6B; --paper:#FBF8F4; --surface:#FFF;
+  --hearth:#FFF4E2; --rule:#EBE2D6; --rule-2:#F2ECE2; --ember:#C1440E; --ember-2:#A82400; --amber:#D88400; --gold:#F0B400;
+  --display:'Fraunces',Georgia,serif; --body:'Inter Tight',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+  --shadow:0 1px 2px rgba(23,18,14,.05),0 12px 34px rgba(23,18,14,.08);
+  --grad:linear-gradient(135deg,#F0B400,#D88400 45%,#A82400);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.5}
+a{color:inherit}
+
+/* topbar */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,248,244,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.top .row{max-width:1240px;margin:0 auto;padding:0 22px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top img{height:44px}
+.top .who{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--ash)}
+.linkbtn{font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1.5px solid var(--rule);border-radius:999px;padding:8px 15px;cursor:pointer;text-decoration:none}
+.linkbtn:hover{border-color:var(--amber);background:var(--hearth)}
+
+.wrap{max-width:1240px;margin:0 auto;padding:26px 22px 60px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember)}
+h1{font-family:var(--display);font-weight:500;font-size:30px;margin:4px 0 2px}
+.muted{color:var(--ash);font-size:14px}
+
+/* stat chips */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:22px 0 20px}
+@media(max-width:820px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat .n{font-family:var(--display);font-size:28px;font-weight:500;line-height:1}
+.stat .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);margin-top:6px}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1.5px solid var(--rule);border-radius:999px;padding:8px 14px;cursor:pointer}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.search{font-family:var(--body);font-size:14px;color:var(--ink);background:var(--surface);border:1.5px solid var(--rule);border-radius:11px;padding:10px 13px;min-width:220px}
+.search:focus{outline:none;border-color:var(--amber)}
+
+/* list */
+.list{display:grid;gap:12px}
+.lead{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1.5fr 1fr auto;gap:18px;align-items:start}
+@media(max-width:900px){.lead{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.lead{grid-template-columns:1fr}}
+.couple .names{font-family:var(--display);font-size:19px;font-weight:500}
+.couple .sub{font-size:12.5px;color:var(--ash);margin-top:3px}
+.kv{font-size:13px;color:var(--ink-2);margin:2px 0}
+.kv b{color:var(--ash);font-weight:500}
+.focus{font-size:13px;color:var(--ink-2);background:var(--hearth);border:1px solid var(--rule);border-radius:10px;padding:8px 10px;margin-top:6px;font-style:italic}
+.manage{display:flex;flex-direction:column;gap:8px;min-width:170px}
+.manage label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash)}
+.manage select,.manage input{font-family:var(--body);font-size:13.5px;color:var(--ink);background:var(--surface);border:1.5px solid var(--rule);border-radius:9px;padding:8px 10px;width:100%}
+.manage select:focus,.manage input:focus{outline:none;border-color:var(--amber)}
+.badge{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;font-weight:500}
+.b-reserved{background:#FFF4E2;color:#A85E00;border:1px solid #F1D7A8}
+.b-contacted{background:#EAF2FF;color:#2657A8;border:1px solid #CBDBF5}
+.b-paid{background:#E7F7EC;color:#1F7A3D;border:1px solid #BEE7CB}
+.b-enrolled{background:#F0EAFB;color:#5B3AA8;border:1px solid #D9CBF0}
+.b-archived{background:#F0ECE6;color:#7A6E60;border:1px solid #E1D8CC}
+.when{font-family:var(--mono);font-size:11px;color:var(--ash-2);margin-top:8px}
+.empty{text-align:center;color:var(--ash);padding:60px 20px;font-size:15px}
+.saved{font-size:11px;color:#1F7A3D;font-family:var(--mono);opacity:0;transition:opacity .2s}
+.saved.show{opacity:1}
+.toolbar-right{display:flex;gap:10px;align-items:center}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="row">
+      <img src="../rekindle-logo.png" alt="Rekindle" />
+      <div class="who">
+        <span id="userEmail"></span>
+        <a class="linkbtn" href="../index.html" target="_blank" rel="noopener">View site</a>
+        <button class="linkbtn" id="signout">Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="eyebrow">Reservations</div>
+    <h1>Rekindle Bootcamp pipeline</h1>
+    <p class="muted">Every couple who reserves a seat lands here. Move them through the pipeline and assign cohorts.</p>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="controls">
+      <div class="filters" id="filters">
+        <button class="chip active" data-f="all">All</button>
+        <button class="chip" data-f="reserved">Reserved</button>
+        <button class="chip" data-f="contacted">Contacted</button>
+        <button class="chip" data-f="paid">Paid</button>
+        <button class="chip" data-f="enrolled">Enrolled</button>
+        <button class="chip" data-f="archived">Archived</button>
+      </div>
+      <div class="toolbar-right">
+        <input class="search" id="search" type="search" placeholder="Search name, email, phone..." />
+        <button class="linkbtn" id="refresh">Refresh</button>
+      </div>
+    </div>
+
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty" style="display:none">No reservations yet. They will appear here the moment a couple reserves a seat.</div>
+  </div>
+
+<script type="module">
+import { rekindleSupabase, rekindleAuthGuard, rekindleSignOut } from './auth.js';
+
+const STATUSES = ['reserved','contacted','paid','enrolled','archived'];
+let LEADS = [];
+let filter = 'all';
+let query = '';
+
+const el = (id) => document.getElementById(id);
+
+(async function init(){
+  const user = await rekindleAuthGuard();
+  if (!user) return;
+  el('userEmail').textContent = user.email;
+  el('signout').addEventListener('click', rekindleSignOut);
+  el('refresh').addEventListener('click', loadLeads);
+  el('search').addEventListener('input', (e) => { query = e.target.value.toLowerCase().trim(); render(); });
+  el('filters').addEventListener('click', (e) => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    filter = b.dataset.f;
+    [...document.querySelectorAll('.chip')].forEach(c => c.classList.toggle('active', c === b));
+    render();
+  });
+  await loadLeads();
+})();
+
+async function loadLeads(){
+  const { data, error } = await rekindleSupabase
+    .from('rekindle_leads')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) { console.error(error); return; }
+  LEADS = data || [];
+  render();
+}
+
+function esc(s){ return (s == null ? '' : String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtDate(iso){
+  try { const d = new Date(iso); return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
+  catch { return ''; }
+}
+
+function render(){
+  // stats
+  const counts = { total: LEADS.length };
+  STATUSES.forEach(s => counts[s] = LEADS.filter(l => l.status === s).length);
+  el('stats').innerHTML = [
+    ['Total', counts.total],
+    ['Reserved', counts.reserved],
+    ['Contacted', counts.contacted],
+    ['Paid', counts.paid],
+    ['Enrolled', counts.enrolled],
+    ['Archived', counts.archived],
+  ].map(([l,n]) => `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+
+  // filter + search
+  let rows = LEADS;
+  if (filter !== 'all') rows = rows.filter(l => l.status === filter);
+  if (query) rows = rows.filter(l => (
+    `${l.partner_a_first} ${l.partner_a_last} ${l.partner_b_first||''} ${l.partner_b_last||''} ${l.partner_a_email} ${l.partner_b_email||''} ${l.partner_a_phone} ${l.partner_b_phone||''}`
+  ).toLowerCase().includes(query));
+
+  el('empty').style.display = rows.length ? 'none' : 'block';
+
+  el('list').innerHTML = rows.map(l => {
+    const names = l.partner_b_first
+      ? `${esc(l.partner_a_first)} &amp; ${esc(l.partner_b_first)} ${esc(l.partner_b_last||'')}`
+      : `${esc(l.partner_a_first)} ${esc(l.partner_a_last)}`;
+    const badge = `b-${l.status}`;
+    return `<div class="lead" data-id="${l.id}">
+      <div class="couple">
+        <div class="names">${names}</div>
+        <div class="sub">${esc(l.partner_a_first)} ${esc(l.partner_a_last)}${l.partner_b_first ? ' + ' + esc(l.partner_b_first)+' '+esc(l.partner_b_last||'') : ''}</div>
+        <div class="when">${fmtDate(l.created_at)}</div>
+      </div>
+      <div class="contact">
+        <div class="kv"><b>A</b> ${esc(l.partner_a_email)} · ${esc(l.partner_a_phone)}</div>
+        ${l.partner_b_email || l.partner_b_phone ? `<div class="kv"><b>B</b> ${esc(l.partner_b_email||'')} · ${esc(l.partner_b_phone||'')}</div>` : ''}
+        <div class="kv"><b>Together</b> ${esc(l.years_together||'?')} · <b>Kids</b> ${esc(l.raising_children||'?')}</div>
+        <div class="kv"><b>Heard via</b> ${esc(l.how_heard||'?')} · <b>Prefers</b> ${esc(l.preferred_cohort||'?')}</div>
+        ${l.focus ? `<div class="focus">&ldquo;${esc(l.focus)}&rdquo;</div>` : ''}
+      </div>
+      <div class="statuscol">
+        <span class="badge ${badge}">${esc(l.status)}</span>
+      </div>
+      <div class="manage">
+        <div><label>Status</label>
+          <select data-act="status">${STATUSES.map(s => `<option value="${s}" ${s===l.status?'selected':''}>${s}</option>`).join('')}</select>
+        </div>
+        <div><label>Cohort</label>
+          <input data-act="cohort" value="${esc(l.cohort||'')}" placeholder="e.g. Aug weeknights" />
+        </div>
+        <span class="saved" data-saved>Saved</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // wire per-row controls
+  [...document.querySelectorAll('.lead')].forEach(card => {
+    const id = card.dataset.id;
+    const savedTag = card.querySelector('[data-saved]');
+    const flash = () => { savedTag.classList.add('show'); setTimeout(() => savedTag.classList.remove('show'), 1200); };
+    card.querySelector('[data-act="status"]').addEventListener('change', async (e) => {
+      await update(id, { status: e.target.value }); flash();
+    });
+    const cohortInput = card.querySelector('[data-act="cohort"]');
+    cohortInput.addEventListener('change', async (e) => { await update(id, { cohort: e.target.value.trim() || null }); flash(); });
+  });
+}
+
+async function update(id, patch){
+  const { error } = await rekindleSupabase.from('rekindle_leads').update(patch).eq('id', id);
+  if (error) { console.error(error); alert('Could not save. ' + error.message); return; }
+  const lead = LEADS.find(l => l.id === id);
+  if (lead) Object.assign(lead, patch);
+  // re-render stats + badges without losing scroll
+  render();
+}
+</script>
+</body>
+</html>
