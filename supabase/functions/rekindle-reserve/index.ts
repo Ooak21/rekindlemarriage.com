@@ -189,7 +189,7 @@ Deno.serve(async (req: Request) => {
               <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">Your Rekindle spot is reserved</h1>
               <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">Dear ${coupleNames},</p>
               <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-                Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Bootcamp with Dr. Peter DeBry.
+                Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Bootcamp with Nellie Reedy.
               </p>
               <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
                 Your seat is held for <strong>48 hours</strong>. Our team will follow up shortly with your cohort schedule and a secure payment link.
@@ -207,7 +207,7 @@ Deno.serve(async (req: Request) => {
           <tr>
             <td style="padding:20px 28px 28px;border-top:1px solid #EDE6DC;">
               <p style="margin:0;font-size:12px;line-height:1.5;color:#8a8178;font-family:system-ui,-apple-system,sans-serif;">
-                Rekindle Marriage Bootcamp · Dr. Peter DeBry · Vitality Academies
+                Rekindle Marriage Bootcamp · Nellie Reedy · Vitality Academies
               </p>
             </td>
           </tr>

@@ -1,7 +1,7 @@
 // Rekindle CRM auth helper (self-contained — this repo is standalone, not the portfolio).
 //
 // Gate: only allowed roles reach the dashboard. Internal IBS admins (luis,
-// support, miguel) plus a dedicated 'rekindle' role for Dr. DeBry's team.
+// support, miguel) plus a dedicated 'rekindle' role for Nellie's team.
 // RLS on rekindle_leads already scopes data to authenticated users; this guard
 // controls WHO may authenticate into this surface.
 

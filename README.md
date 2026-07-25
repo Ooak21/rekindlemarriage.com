@@ -2,7 +2,7 @@
 
 Standalone site for Rekindle Marriage. Independent repo, its own deployment.
 
-Context: part of the DeBry / Vitality world, but a separate product with its own
+Context: part of the Vitality world, but a separate product with its own
 brand, domain, and stack. Nothing here shares code with the Vitality CRM/Convex
 build; keep it self-contained.
 
