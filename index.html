@@ -473,9 +473,11 @@
       background: rgba(26,20,16,0.45);
       display: flex;
       flex-direction: column;
-      align-items: center;
+      /* Type sits left, in the open sky, so it never covers the couple's faces. */
+      align-items: flex-start;
       justify-content: center;
-      text-align: center;
+      text-align: left;
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
     }
     .distance-headline {
       font-family: 'Cormorant Garamond', serif;
@@ -484,6 +486,8 @@
       font-style: italic;
       color: white;
       margin-bottom: 0.75rem;
+      /* Wrap inside the sky rather than running across their faces. */
+      max-width: 46%;
     }
     .distance-sub {
       font-size: 0.9rem;
@@ -1323,6 +1327,10 @@
       .truth-copy { padding: 3.5rem 1.5rem; }
 
       .distance { height: 320px; }
+      /* Narrow enough that the band crops in tight and the couple fills it, so there is no
+         open sky left to sit in. Recentre the type rather than jam it against their faces. */
+      .distance-overlay { align-items: center; text-align: center; padding: 0 1.25rem; }
+      .distance-headline { max-width: 100%; }
 
       .objections { padding: 4rem 1.5rem; }
       .obj-grid { grid-template-columns: 1fr; }
