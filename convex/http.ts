@@ -2,7 +2,7 @@ import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { auth } from "./auth";
-import { EMBER_SYSTEM_PROMPT } from "./emberPrompt";
+import { EMBER_SYSTEM_PROMPT, EMBER_GATEWAY_PROMPT } from "./emberPrompt";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -86,11 +86,62 @@ const preflight = httpAction(async () => new Response(null, { status: 204, heade
   http.route({ path, method: "OPTIONS", handler: preflight });
 });
 
-// --- Text brain: streams Claude's reply as plain text (same contract the UI expects).
+// --- Text brain. TWO MODES, decided by the request, not by the prompt.
+//
+// Public visitors get gateway Ember: a short, genuinely useful exchange that moves toward the
+// workshop. Signed-in members get the full depth. The limit is enforced HERE rather than asked for
+// in the prompt, because "please stay shallow" is exactly the kind of instruction a long
+// conversation erodes, and anyone can retype a system prompt into a chat box.
+//
+// Turn cap: gateway Ember answers GATEWAY_FREE_TURNS user messages. After that the server returns
+// a fixed close and never calls the model at all, so there is nothing to talk around.
+//
+// Honest limit: the browser sends its own history, so someone who clears it starts over. This
+// shapes the default experience rather than enforcing DRM, which is the right goal for a public
+// marketing page. Per-visitor server-side counting is the next step if it ever matters.
+const GATEWAY_FREE_TURNS = 2;
+// A crisis disclosure must never hit the turn cap. Without this, someone who says on their third
+// message that they were choked gets a warm pitch for the workshop instead of a hotline. Verified
+// as a real failure before this existed.
+//
+// This regex decides ROUTING ONLY, never wording: if it matches, we skip the cap and let Ember
+// answer with her full safety instructions. That makes a false positive nearly harmless (someone
+// venting simply gets another real reply) while a false negative is the thing we cannot afford,
+// so it is deliberately tuned to fire easily.
+const CRISIS_PATTERNS = [
+  /\b(kill|hurt|harm)ing? (myself|me)\b/i,
+  /\b(end|ending|take|taking) (my|her|his) (own )?life\b/i,
+  /\b(want|wanted|wish|wishes|wishing) (to|i were|i was) (die|dead|gone)\b/i,
+  /\bwant to die\b/i,
+  /\bbetter off (without me|if i was(n't| not) here|dead)\b/i,
+  /\bsuicid(e|al)\b/i,
+  /\bno (point|reason) (in )?(living|going on)\b/i,
+  /\b(chok|strangl)(e|ed|ing)\b/i,
+  /\b(hit|hits|hitting|punch|punched|punches|shove|shoved|slap|slapped|grabb?ed|beat) (me|her|him)\b/i,
+  /\bthrew (something|things|it) at me\b/i,
+  /\b(afraid|scared|terrified) (of|for) (him|her|them|my (husband|wife|partner)|my safety|my life)\b/i,
+  /\b(threaten|threatened|threatens|threatening)\b/i,
+  /\b(wont|won't|would ?n't|does ?n't|doesnt) let me (leave|go|work|see)\b/i,
+  /\b(locked|trapped) me\b/i,
+  /\bforced me\b/i,
+  /\bpunche?s? (the |a )?wall/i,
+  /\bhide (in|from)\b.*\b(him|her|them|bathroom|car|closet)\b/i,
+];
+function looksLikeCrisis(text: string): boolean {
+  return CRISIS_PATTERNS.some((re) => re.test(text));
+}
+
+const GATEWAY_CLOSE =
+  "I would rather not half-answer something this important. What you are describing is exactly " +
+  "the kind of thing the six-week workshop is built for, with Nellie and a small group of couples " +
+  "working through it properly rather than in a chat window.\n\n" +
+  "You can hold a seat right on this page. If you would like a lighter first step, the free " +
+  "Relationship Check-in takes about two minutes and gives you a real read on where things stand.";
+
 http.route({
   path: "/ember-chat",
   method: "POST",
-  handler: httpAction(async (_ctx, req) => {
+  handler: httpAction(async (ctx, req) => {
     let body: any = null;
     try { body = await req.json(); } catch { body = null; }
     const { messages, quiz } = body || {};
@@ -98,15 +149,32 @@ http.route({
       return new Response("Missing messages", { status: 400, headers: emberCors });
     }
 
+    // A member is someone with a real session on this deployment. Anyone else is a visitor.
+    const identity = await ctx.auth.getUserIdentity();
+    const isMember = identity !== null;
+
     const trimmed = messages.slice(-20).map((m: any) => ({
       role: m.role === "assistant" ? "assistant" : "user",
-      content: String(m.content || "").slice(0, 4000),
+      content: String(m.content || "").slice(0, isMember ? 4000 : 1200),
     }));
     // Claude requires the conversation to open on a user turn.
     while (trimmed.length && trimmed[0].role !== "user") trimmed.shift();
     if (trimmed.length === 0) return new Response("Missing user message", { status: 400, headers: emberCors });
 
-    let system = EMBER_SYSTEM_PROMPT;
+    if (!isMember) {
+      const userTurns = trimmed.filter((m: any) => m.role === "user").length;
+      const lastUser = [...trimmed].reverse().find((m: any) => m.role === "user");
+      const crisis = looksLikeCrisis(String(lastUser?.content || ""));
+      if (userTurns > GATEWAY_FREE_TURNS && !crisis) {
+        // Deliberately not a refusal and not an upsell. She sounds like someone who thinks the
+        // real work belongs in the room, which is also true.
+        return new Response(GATEWAY_CLOSE, {
+          headers: { ...emberCors, "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
+        });
+      }
+    }
+
+    let system = isMember ? EMBER_SYSTEM_PROMPT : EMBER_GATEWAY_PROMPT;
     if (quiz && Number.isFinite(quiz.score)) {
       const focus = typeof quiz.focus === "string" && quiz.focus.trim() ? quiz.focus.trim() : null;
       system +=
@@ -125,9 +193,9 @@ http.route({
       headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
       body: JSON.stringify({
         model: "claude-sonnet-4-6",
-        max_tokens: 1024,
-        // The system prompt is long and static, so caching it cuts time to first token on
-        // every turn after the first.
+        // Gateway replies are meant to be a few sentences. Capping tokens keeps them that way even
+        // when the model feels chatty, and keeps public traffic cheap.
+        max_tokens: isMember ? 1024 : 320,
         system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
         thinking: { type: "disabled" },
         messages: trimmed,
@@ -138,7 +206,6 @@ http.route({
       return new Response("Ember could not start. Please try again.", { status: 502, headers: emberCors });
     }
 
-    // Re-emit only the text deltas, so the browser receives plain text rather than SSE.
     const reader = upstream.body.getReader();
     const decoder = new TextDecoder();
     const encoder = new TextEncoder();
