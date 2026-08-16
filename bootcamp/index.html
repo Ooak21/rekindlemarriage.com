@@ -430,15 +430,11 @@
 </footer>
 
 <script type="module">
-// Reservations go to the Supabase edge function this site already runs on. The page Fred built
-// posted to Netlify Forms, which does not exist here and would have silently dropped every lead.
-// Field names below are the contract rekindle-reserve reads; do not rename them in the markup
-// without changing the function too.
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-const SUPABASE_URL = 'https://jtifhcvbgxqwlywugvjv.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0aWZoY3ZiZ3hxd2x5d3Vndmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDc5NTgsImV4cCI6MjA4ODA4Mzk1OH0.UfRVLuvM8_HPvKXUEDXb0cxR50znv16L5Tf99AnSc7g';
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Reservations go to Rekindle's own Convex deployment. Field names below are the contract the
+// /reserve route reads; do not rename them in the markup without changing the route too.
+// (Fred's build posted to Netlify Forms, which does not exist on our host and would have dropped
+// every reservation silently while showing the couple a confirmation.)
+const RESERVE_URL = 'https://calculating-poodle-798.convex.site/reserve';
 
 const form = document.getElementById('resform');
 const success = document.getElementById('success');
@@ -474,8 +470,13 @@ form.addEventListener('submit', async (e) => {
   btn.textContent = 'Saving your spot...';
 
   try {
-    const { error } = await supabase.functions.invoke('rekindle-reserve', { body: payload });
-    if (error) throw error;
+    const r = await fetch(RESERVE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const out = await r.json().catch(() => ({}));
+    if (!r.ok || !out.ok) throw new Error(out.error || 'reservation failed');
     form.style.display = 'none';
     success.style.display = 'block';
     success.scrollIntoView({ behavior: 'smooth', block: 'center' });

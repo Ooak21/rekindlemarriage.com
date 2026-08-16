@@ -39,9 +39,10 @@ async function sendResendEmail(payload: {
   to: string[];
   subject: string;
   html: string;
-  // Set this whenever the FROM address is send-only. A couple replying to their own
-  // confirmation must reach a human, not a mailbox nobody opens.
-  reply_to?: string;
+  // Where a reply actually goes. hello@rekindlemarriage.com is the FROM because that is the
+  // verified, DKIM-signed domain, but it is NOT a monitored mailbox, so without this every couple
+  // who takes the email's advice to "simply reply" would be writing into nothing.
+  reply_to?: string | string[];
 }): Promise<void> {
   // Rekindle's own key first. It is scoped to rekindlemarriage.com on the account where that
   // domain is verified. The shared RESEND_API_KEY stays as a fallback but cannot send as this
@@ -188,7 +189,7 @@ Deno.serve(async (req: Request) => {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #EDE6DC;">
           <tr>
             <td style="background-color:#C1440E;padding:20px 28px;">
-              <p style="margin:0;color:#FBF8F4;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-family:system-ui,-apple-system,sans-serif;">Rekindle Marriage Bootcamp</p>
+              <p style="margin:0;color:#FBF8F4;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-family:system-ui,-apple-system,sans-serif;">Rekindle Marriage Enrichment Workshop</p>
             </td>
           </tr>
           <tr>
@@ -196,7 +197,7 @@ Deno.serve(async (req: Request) => {
               <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">Your Rekindle spot is reserved</h1>
               <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">Dear ${coupleNames},</p>
               <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-                Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Bootcamp with Nellie Reedy.
+                Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Enrichment Workshop with Nellie Reedy.
               </p>
               <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
                 Your seat is held for <strong>48 hours</strong>. Our team will follow up shortly with your cohort schedule and a secure payment link.
@@ -214,7 +215,7 @@ Deno.serve(async (req: Request) => {
           <tr>
             <td style="padding:20px 28px 28px;border-top:1px solid #EDE6DC;">
               <p style="margin:0;font-size:12px;line-height:1.5;color:#8a8178;font-family:system-ui,-apple-system,sans-serif;">
-                Rekindle Marriage Bootcamp · Nellie Reedy · Vitality Academies
+                Rekindle Marriage Enrichment Workshop · Nellie Reedy · Vitality Academies
               </p>
             </td>
           </tr>
@@ -263,7 +264,12 @@ Deno.serve(async (req: Request) => {
     // showed the couple a confirmation screen, while nobody on the team was told either. The lead
     // still saves no matter what happens here, because losing the reservation is the worse failure,
     // but the outcome is now recorded on the row and returned to the caller.
-    const replyTo = Deno.env.get("REKINDLE_REPLY_TO")?.trim() || undefined;
+    // Comma separated, so replies can reach more than one person (Tim and Nellie).
+    const replyToList = (Deno.env.get("REKINDLE_REPLY_TO") || "")
+      .split(",")
+      .map((e) => e.trim())
+      .filter(Boolean);
+    const replyTo = replyToList.length ? replyToList : undefined;
     const emailStatus: { couple: string; team: string } = { couple: "not attempted", team: "not attempted" };
 
     try {

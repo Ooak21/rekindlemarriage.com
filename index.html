@@ -1368,13 +1368,11 @@
 </head>
 <body>
 
-  <!-- Ember backend: Supabase edge functions (off Vercel). Public anon key + fn base URL. -->
+  <!-- Ember backend: Rekindle's own Convex deployment. No shared project, no anon key to carry:
+       these routes are public by design and the real API keys stay server side. -->
   <script>
-    window.RK_FN = 'https://jtifhcvbgxqwlywugvjv.supabase.co/functions/v1';
-    window.RK_H  = {
-      apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0aWZoY3ZiZ3hxd2x5d3Vndmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDc5NTgsImV4cCI6MjA4ODA4Mzk1OH0.UfRVLuvM8_HPvKXUEDXb0cxR50znv16L5Tf99AnSc7g',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0aWZoY3ZiZ3hxd2x5d3Vndmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDc5NTgsImV4cCI6MjA4ODA4Mzk1OH0.UfRVLuvM8_HPvKXUEDXb0cxR50znv16L5Tf99AnSc7g'
-    };
+    window.RK_FN = 'https://calculating-poodle-798.convex.site';
+    window.RK_H  = { 'Content-Type': 'application/json' };
   </script>
 
   <!-- NAV -->
@@ -1817,7 +1815,7 @@
     const emberSection = document.getElementById('ember-ai');
     if (emberSection) previewObserver.observe(emberSection);
 
-    // Live Ember modal (streams from the rekindle-ember-chat Supabase function on demand).
+    // Live Ember modal (streams from the ember-chat Convex route on demand).
     (function () {
       const modal = document.getElementById('emberModal');
       const chatBody = document.getElementById('emberModalBody');
@@ -1920,7 +1918,7 @@
         chatAbort = new AbortController();
 
         try {
-          const res = await fetch(window.RK_FN + '/rekindle-ember-chat', {
+          const res = await fetch(window.RK_FN + '/ember-chat', {
             method: 'POST',
             headers: Object.assign({ 'Content-Type': 'application/json' }, window.RK_H),
             body: JSON.stringify({ messages: history, quiz }),
@@ -1969,7 +1967,7 @@
         }
       }
 
-      // Voice: input via Web Speech API, output via the rekindle-ember-tts Supabase function (xAI).
+      // Voice: input via Web Speech API, output via the ember-tts Convex route (xAI).
       const audio = document.getElementById('emberAudio');
       const voiceToggle = document.getElementById('emberVoiceToggle');
       const micBtn = document.getElementById('emberMic');
@@ -2078,7 +2076,7 @@
       }
 
       function fetchClip(text) {
-        return fetch(window.RK_FN + '/rekindle-ember-tts', {
+        return fetch(window.RK_FN + '/ember-tts', {
           method: 'POST',
           headers: Object.assign({ 'Content-Type': 'application/json' }, window.RK_H),
           body: JSON.stringify({ text }),
@@ -2152,7 +2150,7 @@
 
       // Hands-free voice conversation. Tap the mic once to start talking with
       // Ember. Voice activity detection auto-ends your turn when you go quiet,
-      // it transcribes via the rekindle-ember-stt Supabase function (xAI), Ember replies
+      // it transcribes via the ember-stt Convex route (xAI), Ember replies
       // and speaks, then it listens again. Tap the mic (or close) to end.
       let convoMode = false;
       let micStream = null;
@@ -2229,7 +2227,7 @@
       async function transcribeAndSend(blob) {
         try {
           const b64 = await blobToBase64(blob);
-          const r = await fetch(window.RK_FN + '/rekindle-ember-stt', {
+          const r = await fetch(window.RK_FN + '/ember-stt', {
             method: 'POST',
             headers: Object.assign({ 'Content-Type': 'application/json' }, window.RK_H),
             body: JSON.stringify({ audio: b64, mimeType: blob.type || 'audio/webm' }),
@@ -2516,7 +2514,7 @@
         }
         let tok;
         try {
-          const tr = await fetch(window.RK_FN + '/rekindle-ember-token', { method: 'POST', headers: window.RK_H });
+          const tr = await fetch(window.RK_FN + '/ember-token', { method: 'POST', headers: window.RK_H });
           if (!tr.ok) throw new Error('token');
           tok = await tr.json();
         } catch (e) {

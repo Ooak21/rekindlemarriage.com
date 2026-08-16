@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Rekindle CRM · Sign in</title>
+<title>Rekindle CRM · Set a new password</title>
 <link rel="icon" href="../rekindle-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,62 +30,69 @@ button{width:100%;font-family:var(--body);font-weight:600;font-size:15.5px;color
 button:hover{transform:translateY(-1px)}
 button:disabled{opacity:.6;transform:none;cursor:default}
 .err{color:var(--ember-2);font-size:13px;font-weight:500;min-height:18px;margin-top:6px}
-.ok{color:#1c6b3f;font-size:13px;font-weight:500;margin-top:2px}
+.ok{color:#1c6b3f;font-size:14px;font-weight:500}
+.hint{font-size:12px;color:var(--ash);margin:-8px 0 15px}
 .foot{margin-top:18px;font-size:12px;color:var(--ash);text-align:center}
 .foot a{color:var(--ember);text-decoration:none;font-weight:600}
-.foot a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-  <form class="card" id="loginForm" autocomplete="on">
+  <form class="card" id="resetForm">
     <div class="brand"><img src="../rekindle-logo.png" alt="Rekindle" /></div>
     <div class="eyebrow">Rekindle CRM</div>
-    <h1>Sign in</h1>
-    <p class="sub">Reservations and cohort management for the Rekindle team.</p>
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" required autocomplete="email" />
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" required autocomplete="current-password" />
-    <button type="submit" id="btn">Sign in</button>
+    <h1>Set a new password</h1>
+    <p class="sub" id="sub">Choose a password only you know.</p>
+    <div id="fields">
+      <label for="code">6 to 8 digit code from your email</label>
+      <input id="code" inputmode="numeric" autocomplete="one-time-code" required />
+      <label for="pw">New password</label>
+      <input id="pw" type="password" required autocomplete="new-password" minlength="10" />
+      <p class="hint">At least 10 characters.</p>
+      <label for="pw2">Confirm new password</label>
+      <input id="pw2" type="password" required autocomplete="new-password" minlength="10" />
+      <button type="submit" id="btn">Save password</button>
+    </div>
     <div class="err" id="err"></div>
-    <div class="ok" id="sent"></div>
-    <div class="foot"><a href="#" id="forgot">Forgot your password?</a></div>
-    <div class="foot">Rekindle · A division of Vitality Academies</div>
+    <div class="foot"><a href="./login.html">Back to sign in</a></div>
   </form>
 
 <script type="module">
-import { rekindleSignIn, rekindleSendReset } from './auth.js';
-const form = document.getElementById('loginForm');
-const btn  = document.getElementById('btn');
-const err  = document.getElementById('err');
-const sent = document.getElementById('sent');
+import { rekindleConfirmReset, rekindleSendReset } from './auth.js';
 
-if (new URLSearchParams(location.search).get('denied')) {
-  err.textContent = 'That account does not have access to the Rekindle CRM.';
-}
+const form   = document.getElementById('resetForm');
+const sub    = document.getElementById('sub');
+const fields = document.getElementById('fields');
+const err    = document.getElementById('err');
+const btn    = document.getElementById('btn');
 
-// Same message whether or not the address has an account, so this box cannot be used to work out
-// who has access. The code itself is emailed and expires in 20 minutes.
-document.getElementById('forgot').addEventListener('click', async (e) => {
-  e.preventDefault();
-  err.textContent = ''; sent.textContent = '';
-  const email = document.getElementById('email').value.trim();
-  if (!email) { err.textContent = 'Enter your email above first, then click this.'; return; }
-  await rekindleSendReset(email);
-  sent.textContent = 'If that email has an account, a reset code is on its way.';
-  setTimeout(() => { window.location.href = './reset.html?email=' + encodeURIComponent(email); }, 1200);
-});
+// Carried over from the login page so nobody has to retype it, and so the code is verified
+// against the same address it was sent to.
+const email = new URLSearchParams(location.search).get('email') || '';
+sub.textContent = email
+  ? `Enter the code we emailed to ${email}, then choose a new password.`
+  : 'Enter the code from your email, then choose a new password.';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  err.textContent = ''; sent.textContent = '';
-  btn.disabled = true; btn.textContent = 'Signing in...';
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const res = await rekindleSignIn(email, password);
-  if (res.ok) { window.location.replace('./index.html'); return; }
-  err.textContent = res.error || 'Sign in failed.';
-  btn.disabled = false; btn.textContent = 'Sign in';
+  err.textContent = '';
+  const code = document.getElementById('code').value.trim();
+  const pw   = document.getElementById('pw').value;
+  const pw2  = document.getElementById('pw2').value;
+  if (!email) { err.textContent = 'Start from the sign in page so we know which account this is.'; return; }
+  if (!code)  { err.textContent = 'Enter the code from your email.'; return; }
+  if (pw !== pw2) { err.textContent = 'Those two passwords do not match.'; return; }
+  if (pw.length < 10) { err.textContent = 'Use at least 10 characters.'; return; }
+
+  btn.disabled = true; btn.textContent = 'Saving...';
+  const res = await rekindleConfirmReset(email, code, pw);
+  if (!res.ok) {
+    btn.disabled = false; btn.textContent = 'Save password';
+    err.textContent = res.error;
+    return;
+  }
+  fields.style.display = 'none';
+  sub.innerHTML = '<span class="ok">Password saved. Taking you to the CRM.</span>';
+  setTimeout(() => window.location.replace('./index.html'), 1400);
 });
 </script>
 </body>
