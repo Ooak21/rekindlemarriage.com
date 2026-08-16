@@ -39,10 +39,17 @@ async function sendResendEmail(payload: {
   to: string[];
   subject: string;
   html: string;
+  // Set this whenever the FROM address is send-only. A couple replying to their own
+  // confirmation must reach a human, not a mailbox nobody opens.
+  reply_to?: string;
 }): Promise<void> {
-  const apiKey = Deno.env.get("RESEND_API_KEY");
+  // Rekindle's own key first. It is scoped to rekindlemarriage.com on the account where that
+  // domain is verified. The shared RESEND_API_KEY stays as a fallback but cannot send as this
+  // brand: it 403s on rekindlemarriage.com AND on luisocadiz.online, which is what silently broke
+  // every reservation confirmation until 2026-08-16.
+  const apiKey = Deno.env.get("REKINDLE_RESEND_KEY") || Deno.env.get("RESEND_API_KEY");
   if (!apiKey) {
-    throw new Error("RESEND_API_KEY is not set");
+    throw new Error("No Resend key set (REKINDLE_RESEND_KEY or RESEND_API_KEY)");
   }
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -251,14 +258,25 @@ Deno.serve(async (req: Request) => {
     const bName = partnerB_first || "Partner";
     const teamSubject = `New Rekindle reservation: ${partnerA_first} and ${bName}`;
 
+    // Both sends used to be swallowed by a bare catch that only wrote to console. The result was
+    // that a rejected sender (Resend 403, the whole of July and August) still returned ok:true and
+    // showed the couple a confirmation screen, while nobody on the team was told either. The lead
+    // still saves no matter what happens here, because losing the reservation is the worse failure,
+    // but the outcome is now recorded on the row and returned to the caller.
+    const replyTo = Deno.env.get("REKINDLE_REPLY_TO")?.trim() || undefined;
+    const emailStatus: { couple: string; team: string } = { couple: "not attempted", team: "not attempted" };
+
     try {
       await sendResendEmail({
         from,
         to: coupleTo,
         subject: "Your Rekindle spot is reserved",
         html: confirmationHtml,
+        reply_to: replyTo,
       });
+      emailStatus.couple = "sent";
     } catch (emailErr) {
+      emailStatus.couple = `failed: ${emailErr instanceof Error ? emailErr.message : String(emailErr)}`;
       console.error("Couple confirmation email failed:", emailErr);
     }
 
@@ -268,12 +286,28 @@ Deno.serve(async (req: Request) => {
         to: teamEmails,
         subject: teamSubject,
         html: teamHtml,
+        reply_to: replyTo,
       });
+      emailStatus.team = "sent";
     } catch (emailErr) {
+      emailStatus.team = `failed: ${emailErr instanceof Error ? emailErr.message : String(emailErr)}`;
       console.error("Team notification email failed:", emailErr);
     }
 
-    return jsonResponse({ ok: true, id: leadId });
+    // Best effort, and deliberately not fatal: if this write fails the couple is still reserved.
+    try {
+      await supabase
+        .from("rekindle_leads")
+        .update({
+          confirmation_sent_at: emailStatus.couple === "sent" ? new Date().toISOString() : null,
+          email_status: `couple: ${emailStatus.couple} | team: ${emailStatus.team}`,
+        })
+        .eq("id", leadId);
+    } catch (stampErr) {
+      console.error("Could not record email status on the lead:", stampErr);
+    }
+
+    return jsonResponse({ ok: true, id: leadId, email: emailStatus });
   } catch (err) {
     console.error("Unexpected error:", err);
     return jsonResponse({ error: "Unexpected server error" }, 500);
