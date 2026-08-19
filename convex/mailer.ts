@@ -133,3 +133,49 @@ export const sendReservationEmails = internalAction({
     return status;
   },
 });
+
+/**
+ * A call came in and Ruby took it. The registration form has always emailed the team; the phone had
+ * no equivalent, so a caller who rang instead of filling in the form landed in the CRM silently and
+ * nobody knew to call them back. This closes that gap so both doors ring the same bell.
+ *
+ * Deliberately carries the CALLER's number and never anyone on the Rekindle side: Nellie's number is
+ * not published and is not forwarded, here or anywhere else.
+ */
+export const sendPhoneLeadEmail = internalAction({
+  args: { lead_id: v.string(), lead: v.any(), deduped: v.boolean() },
+  handler: async (_ctx, { lead_id, lead: L, deduped }) => {
+    const name = [L.partner_a_first, L.partner_a_last].filter(Boolean).join(" ") || "Caller";
+    const heading = deduped ? "Returning caller" : "New call to Rekindle";
+
+    const row = (label: string, value: unknown) =>
+      `<tr><td style="font-weight:600;padding-right:12px;white-space:nowrap;">${esc(label)}</td><td>${orEmpty(value)}</td></tr>`;
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8" /></head>
+<body style="font-family:system-ui,-apple-system,sans-serif;color:#1a1410;line-height:1.5;">
+  <h2 style="color:#C1440E;margin:0 0 4px;">${esc(heading)}</h2>
+  <p style="margin:0 0 16px;color:#6b5f54;">Ruby answered the workshop line and took this down. Lead ID: <code>${esc(lead_id)}</code></p>
+  <table cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
+    ${row("Caller", name)}
+    ${row("Call back on", L.partner_a_phone)}
+    ${row("Email", L.partner_a_email)}
+    ${row("Partner", L.partner_b_first)}
+    ${row("Together", L.years_together)}
+    ${row("Children", L.raising_children)}
+    ${row("Prefers", L.preferred_cohort)}
+    ${row("What they want help with", L.focus)}
+    ${row("How they heard", L.how_heard)}
+    <tr><td style="font-weight:600;padding-right:12px;">Okay to contact</td><td>${L.consent ? "yes" : "<b>no, do not contact</b>"}</td></tr>
+  </table>
+  ${L.notes ? `<p style="margin:18px 0 6px;font-weight:600;">Notes from the call</p><p style="margin:0;white-space:pre-wrap;">${esc(L.notes)}</p>` : ""}
+</body></html>`;
+
+    try {
+      await send({ to: TEAM, subject: `${heading}: ${name}`, html });
+      return { team: "sent" };
+    } catch (e) {
+      console.error("[rekindle] phone lead notification failed:", e);
+      return { team: `failed: ${e instanceof Error ? e.message : String(e)}` };
+    }
+  },
+});

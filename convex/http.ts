@@ -343,4 +343,75 @@ http.route({
 // sign-in call 404s.
 auth.addHttpRoutes(http);
 
+// ---- Ruby, the phone receptionist (Telnyx AI assistant) -------------------------------------
+// Two phases on one route, mirroring the Telnyx lifecycle:
+//   call start  -> return { dynamic_variables } so Ruby can greet a known couple by name
+//   end of call -> the assistant's webhook tool posts what it gathered, we write the lead
+// Auth: a shared secret, sent as a header by the assistant's TOOL, and as ?k= by the call-start
+// dynamic-variables webhook, which is a platform webhook and cannot carry custom headers.
+// This is Rekindle's own secret on Rekindle's own deployment. Nothing is shared with the clinic.
+const receptionist = httpAction(async (ctx, req) => {
+  const secret = process.env.REKINDLE_VOICE_SECRET || "";
+  const url = new URL(req.url);
+  const ok = !secret
+    || req.headers.get("x-rekindle-voice-secret") === secret
+    || url.searchParams.get("k") === secret;
+  if (!ok) return json(401, { ok: false, error: "unauthorized" });
+
+  let body: any = {};
+  try { body = await req.json(); } catch { /* Telnyx sometimes posts an empty init */ }
+  const d = body?.data?.payload ?? body?.payload ?? body?.arguments ?? body?.tool_call?.arguments ?? body ?? {};
+  const pick = (keys: string[]) => {
+    for (const k of keys) {
+      const v = d?.[k] ?? body?.[k];
+      if (v !== undefined && v !== null && String(v).trim() !== "") return v;
+    }
+    return undefined;
+  };
+
+  const gathered = pick(["first_name", "partner_a_first", "intent", "message", "focus"]);
+  const action = String(pick(["action"]) ?? "").toLowerCase();
+  const isLog = action === "log_call_record" || gathered != null;
+
+  // phase 1: recognition
+  if (!isLog) {
+    const from = pick(["from", "from_number", "caller_id", "telnyx_end_user_target"]);
+    const r = await ctx.runQuery(internal.receptionist.lookup, { from: from ? String(from) : undefined });
+    return json(200, {
+      dynamic_variables: {
+        program_name: "the six week Rekindle workshop",
+        facilitator: "Nellie Reedy",
+        is_known: r.is_known,
+        first_name: r.first_name,
+        lead_status: r.status,
+      },
+    });
+  }
+
+  // phase 2: write the lead
+  const callId = String(pick(["call_control_id", "call_session_id", "conversation_id", "id"]) ?? crypto.randomUUID());
+  const consentRaw = pick(["consent", "ok_to_contact"]);
+  const res = await ctx.runMutation(internal.receptionist.persist, {
+    call_id: callId,
+    from_number: str(pick(["from", "from_number", "caller_id"]), 40) || undefined,
+    partner_a_first: str(pick(["first_name", "partner_a_first"]), 80) || undefined,
+    partner_a_last: str(pick(["last_name", "partner_a_last"]), 80) || undefined,
+    partner_a_email: str(pick(["email", "partner_a_email"]), 200) || undefined,
+    partner_a_phone: str(pick(["callback_number", "phone", "partner_a_phone"]), 40) || undefined,
+    partner_b_first: str(pick(["partner_first_name", "partner_b_first", "spouse_first_name"]), 80) || undefined,
+    years_together: str(pick(["years_together"]), 60) || undefined,
+    raising_children: str(pick(["raising_children", "children"]), 60) || undefined,
+    preferred_cohort: str(pick(["preferred_cohort", "preferred_time"]), 80) || undefined,
+    focus: str(pick(["focus", "hoping_for"]), 400) || undefined,
+    how_heard: str(pick(["how_heard"]), 200) || undefined,
+    consent: consentRaw === true || String(consentRaw ?? "").toLowerCase() === "true" || String(consentRaw ?? "").toLowerCase() === "yes",
+    intent: str(pick(["intent"]), 40) || undefined,
+    message: str(pick(["message", "summary"]), 900) || undefined,
+    duration_sec: Number(pick(["duration_sec"]) ?? 0) || undefined,
+  });
+  return json(200, { ok: true, lead_id: res.lead_id, deduped: res.deduped });
+});
+http.route({ path: "/receptionist", method: "POST", handler: receptionist });
+http.route({ path: "/receptionist", method: "OPTIONS", handler: httpAction(async () => new Response(null, { status: 204, headers: cors })) });
+
 export default http;

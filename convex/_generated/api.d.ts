@@ -16,6 +16,7 @@ import type * as mailer from "../mailer.js";
 import type * as migrate from "../migrate.js";
 import type * as passwordReset from "../passwordReset.js";
 import type * as provision from "../provision.js";
+import type * as receptionist from "../receptionist.js";
 import type * as reserve from "../reserve.js";
 
 import type {
@@ -33,6 +34,7 @@ declare const fullApi: ApiFromModules<{
   migrate: typeof migrate;
   passwordReset: typeof passwordReset;
   provision: typeof provision;
+  receptionist: typeof receptionist;
   reserve: typeof reserve;
 }>;
 

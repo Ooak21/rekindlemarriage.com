@@ -1,0 +1,11 @@
+# rekindlemarriage.com
+# The public pages are open to crawlers. The CRM holds couples' names, emails and phone numbers
+# and must never be indexed; it is disallowed here AND carries a noindex tag, because robots.txt
+# alone does not stop a page that is linked from somewhere else from being listed.
+
+User-agent: *
+Allow: /
+Disallow: /crm/
+Disallow: /bootcamp/
+
+Sitemap: https://rekindlemarriage.com/sitemap.xml
