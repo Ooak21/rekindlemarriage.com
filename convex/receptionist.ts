@@ -76,6 +76,10 @@ export const persist = internalMutation({
   },
   handler: async (ctx, a) => {
     const phone = str(a.partner_a_phone || a.from_number, 40);
+    // A smoke test against this endpoint used to email the whole team, because the notification
+    // fires on write and the write is the thing you want to test. Test rows are named ZZTest by
+    // convention (purgeTestLead enforces the same prefix), so they save to the CRM but stay silent.
+    const isTest = str(a.partner_a_first, 80).startsWith("ZZTest");
     const d = digits10(phone);
     const first = str(a.partner_a_first, 80);
     const last = str(a.partner_a_last, 80);
@@ -112,7 +116,7 @@ export const persist = internalMutation({
           notes: [(existing as any).notes, note].filter(Boolean).join("\n\n").slice(0, 4000),
         });
         const updated = await ctx.db.get(existing._id);
-        await ctx.scheduler.runAfter(0, internal.mailer.sendPhoneLeadEmail, {
+        if (!isTest) await ctx.scheduler.runAfter(0, internal.mailer.sendPhoneLeadEmail, {
           lead_id: String(existing._id),
           lead: updated,
           deduped: true,
@@ -139,7 +143,7 @@ export const persist = internalMutation({
       source: "phone",
     });
     const created = await ctx.db.get(id);
-    await ctx.scheduler.runAfter(0, internal.mailer.sendPhoneLeadEmail, {
+    if (!isTest) await ctx.scheduler.runAfter(0, internal.mailer.sendPhoneLeadEmail, {
       lead_id: String(id),
       lead: created,
       deduped: false,
