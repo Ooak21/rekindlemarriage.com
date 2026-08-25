@@ -16,6 +16,7 @@ export const create = internalMutation({
     preferred_cohort: v.optional(v.string()),
     focus: v.optional(v.string()),
     how_heard: v.optional(v.string()),
+    payment_plan: v.optional(v.string()),   // 'pay_in_full' | 'easypay'
     consent: v.boolean(),
     source: v.string(),
   },

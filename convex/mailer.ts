@@ -116,6 +116,7 @@ export const sendReservationEmails = internalAction({
     <tr><td style="font-weight:600;padding-right:12px;">Preferred cohort</td><td>${orEmpty(L.preferred_cohort)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Focus</td><td>${orEmpty(L.focus)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">How heard</td><td>${orEmpty(L.how_heard)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Payment option</td><td>${L.payment_plan === "easypay" ? "Rekindle EasyPay Plan ($50 today, $50/mo, $600 total)" : L.payment_plan === "pay_in_full" ? "Pay in Full ($600)" : "Not selected"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Consent</td><td>${L.consent ? "yes" : "no"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Source</td><td>${orEmpty(L.source)}</td></tr>
   </table>
@@ -165,6 +166,7 @@ export const sendPhoneLeadEmail = internalAction({
     ${row("Prefers", L.preferred_cohort)}
     ${row("What they want help with", L.focus)}
     ${row("How they heard", L.how_heard)}
+    ${row("Payment option", L.payment_plan === "easypay" ? "EasyPay" : L.payment_plan === "pay_in_full" ? "Pay in full" : undefined)}
     <tr><td style="font-weight:600;padding-right:12px;">Okay to contact</td><td>${L.consent ? "yes" : "<b>no, do not contact</b>"}</td></tr>
   </table>
   ${L.notes ? `<p style="margin:18px 0 6px;font-weight:600;">Notes from the call</p><p style="margin:0;white-space:pre-wrap;">${esc(L.notes)}</p>` : ""}

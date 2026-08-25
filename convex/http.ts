@@ -51,9 +51,14 @@ http.route({
       preferred_cohort: str(body.preferred_cohort, 60) || undefined,
       focus: str(body.focus, 2000) || undefined,
       how_heard: str(body.how_heard, 60) || undefined,
+      payment_plan: str(body.payment_plan, 30) || undefined,
       consent: Boolean(body.consent),
       source: str(body.source, 40) || "website",
     });
+
+    // Same ZZTest convention as the phone path (receptionist.ts): a smoke test must
+    // exercise the write without emailing the couple or the team.
+    if (partner_a_first.startsWith("ZZTest")) return json(200, { ok: true, id, email: "suppressed-test" });
 
     // Sent inline rather than fire-and-forget so the caller learns the truth. The reservation is
     // already saved at this point, so a failure here degrades to "we have you, the email did not

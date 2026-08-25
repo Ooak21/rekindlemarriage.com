@@ -39,6 +39,8 @@ export default defineSchema({
     preferred_cohort: v.optional(v.string()),
     focus: v.optional(v.string()),
     how_heard: v.optional(v.string()),
+    // Enrollment option chosen on the payment cards: 'pay_in_full' | 'easypay'.
+    payment_plan: v.optional(v.string()),
     consent: v.boolean(),
 
     status: v.string(),               // reserved | enrolled | declined

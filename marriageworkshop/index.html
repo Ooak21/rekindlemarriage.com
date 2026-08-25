@@ -196,6 +196,20 @@
   .price-card li{display:flex;gap:11px}
   .price-card .tick{flex:none;color:var(--ember);font-weight:800}
   .price-note{font-size:.9rem;color:var(--muted);margin-top:14px}
+  .pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:900px;margin:26px auto 0;text-align:left}
+  .pay-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px 30px;box-shadow:0 20px 50px rgba(0,0,0,.06);display:flex;flex-direction:column}
+  .pay-card.pay-featured{border-color:var(--ember)}
+  .pay-flag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--ember);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.04em;padding:5px 14px;border-radius:999px;white-space:nowrap}
+  .pay-name{font-family:var(--serif);font-style:italic;font-size:1.25rem}
+  .pay-amt{font-family:var(--serif);font-size:2.5rem;font-weight:600;margin:6px 0 2px}
+  .pay-amt small{font-family:var(--sans);font-size:.95rem;color:var(--muted);font-weight:600}
+  .pay-sub{color:var(--muted);font-weight:600;font-size:.95rem;margin-bottom:14px}
+  .pay-terms{list-style:none;margin:0 0 22px;display:grid;gap:9px;font-size:.95rem}
+  .pay-terms li{padding-left:18px;position:relative}
+  .pay-terms li::before{content:"–";position:absolute;left:0;color:var(--ember);font-weight:800}
+  .pay-terms b{font-weight:700}
+  .pay-card .btn{margin-top:auto;text-align:center}
+  @media(max-width:760px){.pay-grid{grid-template-columns:1fr}}
 
   .form-wrap{max-width:760px;margin:34px auto 0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:38px 34px;box-shadow:0 20px 50px rgba(0,0,0,.06);text-align:left}
   .partner{border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px;background:var(--bg)}
@@ -207,6 +221,9 @@
   input,select,textarea{width:100%;font-family:var(--sans);font-size:16px;padding:13px 14px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ember)}
   .radio-row{display:flex;gap:22px;align-items:center}
+  .field .radio-row:has(input[name="payment_plan"]){flex-direction:column;align-items:flex-start;gap:10px}
+  .radio-row label.radio{align-items:flex-start;line-height:1.45}
+  .radio-row label.radio input{margin-top:3px}
   .radio-row label{display:flex;align-items:center;gap:8px;font-weight:500;margin:0}
   .consent{display:flex;gap:11px;align-items:flex-start;font-size:.95rem;margin:6px 0 18px}
   .consent input{width:auto;margin-top:4px}
@@ -360,13 +377,13 @@
 </section>
 
 <!-- PRICING -->
-<section>
+<section id="enroll">
   <div class="wrap center">
-    <div class="sec-eyebrow">One simple investment</div>
-    <h2 style="margin:0 auto">Everything, for one price per couple.</h2>
-    <div class="price-card">
+    <div class="sec-eyebrow">One program, two ways to enroll</div>
+    <h2 style="margin:0 auto">Everything included. Choose the payment that fits.</h2>
+    <div class="price-card" style="padding-bottom:28px">
       <div class="name">The Rekindle Marriage Enrichment Workshop</div>
-      <div class="amt">$600 <small>per couple</small></div>
+      <div class="amt">$600 <small>total, per couple</small></div>
       <ul>
         <li><span class="tick">✓</span> The full six-week workshop, every session</li>
         <li><span class="tick">✓</span> Live teaching, group discussion, and interactive activities</li>
@@ -375,9 +392,35 @@
         <li><span class="tick">✓</span> Small-group setting, capped at ten couples</li>
         <li><span class="tick">✓</span> Your invitation to the six-month follow-up program</li>
       </ul>
-      <a class="btn btn-primary btn-lg" href="#reserve">Reserve your spot</a>
-      <div class="price-note">Seats fill fast once a cohort opens. Reserve first, pay to confirm.</div>
     </div>
+    <div class="pay-grid">
+      <div class="pay-card">
+        <div class="pay-name">Pay in Full</div>
+        <div class="pay-amt">$600 <small>per couple</small></div>
+        <div class="pay-sub">Paid once at enrollment. Nothing further, ever.</div>
+        <ul class="pay-terms">
+          <li>Total program cost: <b>$600 per couple</b></li>
+          <li>Due at enrollment: <b>$600</b></li>
+          <li>Monthly payments: <b>none</b></li>
+        </ul>
+        <a class="btn btn-primary btn-lg pay-choose" data-plan="pay_in_full" href="#reserve">Enroll, Pay in Full</a>
+      </div>
+      <div class="pay-card pay-featured">
+        <div class="pay-flag">Simple and flexible</div>
+        <div class="pay-name">Rekindle EasyPay Plan</div>
+        <div class="pay-amt">$50 <small>due today</small></div>
+        <div class="pay-sub">Begin now, and the plan completes itself.</div>
+        <ul class="pay-terms">
+          <li>Total program cost: <b>$600 per couple</b></li>
+          <li>Due at enrollment: <b>$50</b></li>
+          <li>Then: <b>$50 per month for 11 months</b></li>
+          <li>Remaining payments after today: <b>11</b></li>
+          <li>Automatic billing <b>ends on its own</b> once the $600 balance is fulfilled. Nothing to cancel.</li>
+        </ul>
+        <a class="btn btn-primary btn-lg pay-choose" data-plan="easypay" href="#reserve">Start with EasyPay</a>
+      </div>
+    </div>
+    <div class="price-note">Reserve your seat below, then complete your payment securely at enrollment. Same program, same seats, either way.</div>
   </div>
 </section>
 
@@ -412,6 +455,14 @@
         <div class="row">
           <div class="field"><label>Email</label><input type="email" name="partnerB_email"></div>
           <div class="field"><label>Phone</label><input type="tel" name="partnerB_phone"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Enrollment option</label>
+        <div class="radio-row">
+          <label class="radio"><input type="radio" name="payment_plan" value="pay_in_full"> Pay in Full, $600 per couple at enrollment</label>
+          <label class="radio"><input type="radio" name="payment_plan" value="easypay"> Rekindle EasyPay Plan, $50 today, then $50 per month for 11 months. Total $600; automatic billing ends once the balance is fulfilled</label>
         </div>
       </div>
 
@@ -514,6 +565,15 @@
 // every reservation silently while showing the couple a confirmation.)
 const RESERVE_URL = 'https://calculating-poodle-798.convex.site/reserve';
 
+document.querySelectorAll('.pay-choose').forEach(function(a){
+  a.addEventListener('click', function(){
+    var r = document.querySelector('input[name="payment_plan"][value="' + a.dataset.plan + '"]');
+    if (r) r.checked = true;
+  });
+});
+
+
+
 const form = document.getElementById('resform');
 const success = document.getElementById('success');
 const err = document.getElementById('formErr');
@@ -539,6 +599,7 @@ form.addEventListener('submit', async (e) => {
     preferred_cohort: fd.get('preferred_cohort') || '',
     focus:            (fd.get('focus')           || '').trim(),
     how_heard:        fd.get('how_heard')        || '',
+    payment_plan:     fd.get('payment_plan')     || '',
     consent:          fd.get('consent') === 'Yes',
     bot_field:        fd.get('bot_field')        || '',
   };
