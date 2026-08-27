@@ -122,10 +122,10 @@
 
   header{position:sticky;top:0;z-index:40;background:rgba(251,248,244,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;max-width:1080px;margin:0 auto}
-  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
   .logo img{height:56px;width:auto;display:block;flex-shrink:0}
-  .logo b{font-family:var(--serif);font-size:1.45rem;font-weight:600;color:var(--ink);letter-spacing:.01em}
-  @media(max-width:520px){.logo img{height:46px}.logo b{font-size:1.25rem}}
+  .logo b{font-family:var(--serif);font-size:1.45rem;font-weight:600;color:var(--ink);letter-spacing:.01em;line-height:1;transform:translateY(8px)}
+  @media(max-width:520px){.logo img{height:46px}.logo b{font-size:1.25rem;transform:translateY(6px)}}
 
   /* HERO (dark) */
   .hero{position:relative;background:var(--hero);overflow:hidden}
