@@ -25,7 +25,7 @@ a{color:inherit}
 /* topbar */
 .top{position:sticky;top:0;z-index:20;background:rgba(251,248,244,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
 .top .row{max-width:1240px;margin:0 auto;padding:0 22px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.top img{height:44px}
+.brandmark{font-family:var(--display);font-size:22px;font-weight:500;color:var(--ink)}
 .top .who{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--ash)}
 .linkbtn{font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1.5px solid var(--rule);border-radius:999px;padding:8px 15px;cursor:pointer;text-decoration:none}
 .linkbtn:hover{border-color:var(--amber);background:var(--hearth)}
@@ -81,7 +81,7 @@ h1{font-family:var(--display);font-weight:500;font-size:30px;margin:4px 0 2px}
 <body>
   <div class="top">
     <div class="row">
-      <img src="../rekindle-logo.png" alt="Rekindle" />
+      <div class="brandmark">Rekindle</div>
       <div class="who">
         <span id="userEmail"></span>
         <a class="linkbtn" href="../index.html" target="_blank" rel="noopener">View site</a>
@@ -172,7 +172,7 @@ function render(){
   let rows = LEADS;
   if (filter !== 'all') rows = rows.filter(l => l.status === filter);
   if (query) rows = rows.filter(l => (
-    `${l.partner_a_first} ${l.partner_a_last} ${l.partner_b_first||''} ${l.partner_b_last||''} ${l.partner_a_email} ${l.partner_b_email||''} ${l.partner_a_phone} ${l.partner_b_phone||''}`
+    `${l.partner_a_first} ${l.partner_a_last} ${l.partner_b_first||''} ${l.partner_b_last||''} ${l.partner_a_email} ${l.partner_b_email||''} ${l.partner_a_phone} ${l.partner_b_phone||''} ${l.payment_plan||''}`
   ).toLowerCase().includes(query));
 
   el('empty').style.display = rows.length ? 'none' : 'block';
@@ -193,6 +193,7 @@ function render(){
         ${l.partner_b_email || l.partner_b_phone ? `<div class="kv"><b>B</b> ${esc(l.partner_b_email||'')} · ${esc(l.partner_b_phone||'')}</div>` : ''}
         <div class="kv"><b>Together</b> ${esc(l.years_together||'?')} · <b>Kids</b> ${esc(l.raising_children||'?')}</div>
         <div class="kv"><b>Heard via</b> ${esc(l.how_heard||'?')} · <b>Prefers</b> ${esc(l.preferred_cohort||'?')}</div>
+        <div class="kv"><b>Plan</b> ${esc(l.payment_plan === 'easypay' ? 'EasyPay' : l.payment_plan === 'pay_in_full' ? 'Pay in Full' : (l.payment_plan || 'not selected'))}${l.contact_just_me ? ' · Contact just them' : ''}${l.paid_at ? ' · paid ' + fmtDate(new Date(l.paid_at).toISOString()) : ''}</div>
         ${l.focus ? `<div class="focus">&ldquo;${esc(l.focus)}&rdquo;</div>` : ''}
       </div>
       <div class="statuscol">

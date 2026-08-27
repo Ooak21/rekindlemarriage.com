@@ -1,6 +1,7 @@
 "use node";
 import { internalAction } from "./_generated/server";
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 
 // Rekindle's own Resend key, scoped to rekindlemarriage.com. Nothing here shares a key with
 // another product, which is what broke this in the first place: the shared key was not authorized
@@ -54,7 +55,7 @@ const coupleHtml = (names: string) => `<!DOCTYPE html>
             Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Enrichment Workshop with Nellie Reedy.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            Your seat is held for <strong>48 hours</strong>. Our team will follow up shortly with your cohort schedule and a secure payment link.
+            After you reserved, you were sent to a secure Clover checkout to complete enrollment. If that page closed before you finished, reply to this email and we will send you a fresh payment link. Your seat is held for <strong>48 hours</strong>.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
             The investment is <strong>$600 per couple</strong>. If you have any questions in the meantime, simply reply to this email. We are glad you are here.
@@ -117,6 +118,7 @@ export const sendReservationEmails = internalAction({
     <tr><td style="font-weight:600;padding-right:12px;">Focus</td><td>${orEmpty(L.focus)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">How heard</td><td>${orEmpty(L.how_heard)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Payment option</td><td>${L.payment_plan === "easypay" ? "Rekindle EasyPay Plan ($50 today, $50/mo, $600 total)" : L.payment_plan === "pay_in_full" ? "Pay in Full ($600)" : "Not selected"}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Contact</td><td>${L.contact_just_me ? "Just them (not both partners)" : "Both partners"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Consent</td><td>${L.consent ? "yes" : "no"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Source</td><td>${orEmpty(L.source)}</td></tr>
   </table>
@@ -131,6 +133,84 @@ export const sendReservationEmails = internalAction({
       console.error("[rekindle] team notification failed:", e);
     }
 
+    return status;
+  },
+});
+
+export const sendPaidEmails = internalAction({
+  args: {
+    lead_id: v.string(),
+    plan: v.string(),
+    amount_cents: v.number(),
+    complete: v.boolean(),
+  },
+  handler: async (ctx, a) => {
+    const lead: any = await ctx.runQuery(internal.reserve.get, { id: a.lead_id as any });
+    if (!lead) return { couple: "no-lead", team: "no-lead" };
+    const names = lead.partner_b_first
+      ? `${esc(lead.partner_a_first)} and ${esc(lead.partner_b_first)}`
+      : esc(lead.partner_a_first);
+    const dollars = `$${(a.amount_cents / 100).toFixed(a.amount_cents % 100 ? 2 : 0)}`;
+    const planLabel =
+      a.plan === "easypay"
+        ? a.complete
+          ? "EasyPay, paid in full"
+          : `EasyPay, ${dollars} received`
+        : `Pay in Full, ${dollars}`;
+
+    const coupleTo = [lead.partner_a_email, lead.contact_just_me ? "" : lead.partner_b_email].filter(Boolean) as string[];
+    const status = { couple: "not attempted", team: "not attempted" };
+
+    const couplePaid = `<!DOCTYPE html><html><head><meta charset="utf-8" /></head>
+<body style="margin:0;padding:0;background-color:#FBF8F4;font-family:Georgia,'Times New Roman',serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FBF8F4;padding:32px 16px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #EDE6DC;">
+        <tr><td style="background-color:#C1440E;padding:20px 28px;">
+          <p style="margin:0;color:#FBF8F4;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-family:system-ui,-apple-system,sans-serif;">Rekindle Marriage Enrichment Workshop</p>
+        </td></tr>
+        <tr><td style="padding:32px 28px 12px;">
+          <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">We received your payment</h1>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">Dear ${names},</p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Thank you. Your ${a.plan === "easypay" ? "EasyPay enrollment payment" : "Pay in Full enrollment"} of <strong>${dollars}</strong> is in, and your Rekindle seat is confirmed.
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Our team will follow up shortly with your cohort schedule and welcome details.
+          </p>
+          <p style="margin:24px 0 0;font-size:17px;line-height:1.6;color:#3a322c;">
+            With care,<br />
+            <span style="color:#C1440E;">The Rekindle Team</span>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`;
+
+    try {
+      if (coupleTo.length) {
+        await send({ to: coupleTo, subject: "We received your Rekindle payment", html: couplePaid });
+        status.couple = "sent";
+      }
+    } catch (e) {
+      status.couple = `failed: ${e instanceof Error ? e.message : String(e)}`;
+    }
+
+    try {
+      await send({
+        to: TEAM,
+        subject: `Rekindle payment received: ${lead.partner_a_first} (${planLabel})`,
+        html: `<!DOCTYPE html><html><body style="font-family:system-ui,sans-serif;color:#1a1410;">
+          <h2 style="color:#C1440E;">Payment received</h2>
+          <p>Lead ID: <code>${esc(a.lead_id)}</code></p>
+          <p>${esc(lead.partner_a_first)} ${esc(lead.partner_a_last)} · ${planLabel}</p>
+        </body></html>`,
+      });
+      status.team = "sent";
+    } catch (e) {
+      status.team = `failed: ${e instanceof Error ? e.message : String(e)}`;
+    }
     return status;
   },
 });

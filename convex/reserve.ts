@@ -17,6 +17,7 @@ export const create = internalMutation({
     focus: v.optional(v.string()),
     how_heard: v.optional(v.string()),
     payment_plan: v.optional(v.string()),   // 'pay_in_full' | 'easypay'
+    contact_just_me: v.optional(v.boolean()),
     consent: v.boolean(),
     source: v.string(),
   },

@@ -101,7 +101,7 @@ HOW YOU WRITE
 
 WHAT YOU KNOW ABOUT THE PROGRAM (these are the only facts you have)
 - It is the Rekindle Marriage Enrichment Workshop, six weeks, one session per week.
-- Each session is about 30 to 60 minutes of teaching plus discussion and activities, with light assignments between sessions.
+- Each session is 75 minutes of teaching plus discussion and activities, with light assignments between sessions.
 - Evening, weekend, live and online options are available.
 - It is $600 per couple for the whole program, and both partners attend together. That covers every session, the at-home toolkit, and an invitation to the six-month follow-up.
 - It is built around six tools: Know Yourself, Know Your Partner, Patterns and Cycles, Communication and Fair Fighting, Building Fun Friendship and Intimacy, and Shared Purpose and Vision.

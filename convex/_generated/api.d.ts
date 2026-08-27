@@ -9,9 +9,14 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as clover from "../clover.js";
 import type * as crm from "../crm.js";
+import type * as crons from "../crons.js";
 import type * as emberPrompt from "../emberPrompt.js";
+import type * as enrollments from "../enrollments.js";
 import type * as http from "../http.js";
+import type * as lib_cloverSig from "../lib/cloverSig.js";
+import type * as lib_plans from "../lib/plans.js";
 import type * as mailer from "../mailer.js";
 import type * as migrate from "../migrate.js";
 import type * as passwordReset from "../passwordReset.js";
@@ -27,9 +32,14 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  clover: typeof clover;
   crm: typeof crm;
+  crons: typeof crons;
   emberPrompt: typeof emberPrompt;
+  enrollments: typeof enrollments;
   http: typeof http;
+  "lib/cloverSig": typeof lib_cloverSig;
+  "lib/plans": typeof lib_plans;
   mailer: typeof mailer;
   migrate: typeof migrate;
   passwordReset: typeof passwordReset;

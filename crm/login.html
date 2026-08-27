@@ -20,7 +20,7 @@
 body{font-family:var(--body);color:var(--ink);background:radial-gradient(120% 120% at 50% 0%, var(--hearth), var(--paper) 55%);min-height:100svh;display:grid;place-items:center;padding:24px}
 .card{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--rule);border-radius:20px;box-shadow:0 1px 2px rgba(23,18,14,.05),0 18px 50px rgba(23,18,14,.12);padding:36px 30px}
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
-.brand img{height:44px}
+.brandmark{font-family:var(--display);font-size:22px;font-weight:500;color:var(--ink)}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember)}
 h1{font-family:var(--display);font-weight:500;font-size:26px;margin:2px 0 4px}
 .sub{color:var(--ash);font-size:14px;margin-bottom:22px}
@@ -39,7 +39,7 @@ button:disabled{opacity:.6;transform:none;cursor:default}
 </head>
 <body>
   <form class="card" id="loginForm" autocomplete="on">
-    <div class="brand"><img src="../rekindle-logo.png" alt="Rekindle" /></div>
+    <div class="brand"><span class="brandmark">Rekindle</span></div>
     <div class="eyebrow">Rekindle CRM</div>
     <h1>Sign in</h1>
     <p class="sub">Reservations and cohort management for the Rekindle team.</p>

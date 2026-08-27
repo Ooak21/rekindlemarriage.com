@@ -3,10 +3,12 @@ import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { auth } from "./auth";
 import { EMBER_SYSTEM_PROMPT, EMBER_GATEWAY_PROMPT } from "./emberPrompt";
+import { verifyCloverWebhookSignature } from "./lib/cloverSig";
+import { specForPlan } from "./lib/plans";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   "Access-Control-Allow-Headers": "content-type",
 };
 const json = (status: number, body: unknown) =>
@@ -52,13 +54,63 @@ http.route({
       focus: str(body.focus, 2000) || undefined,
       how_heard: str(body.how_heard, 60) || undefined,
       payment_plan: str(body.payment_plan, 30) || undefined,
+      contact_just_me: body.contact_just_me === true || str(body.contact_mode, 20) === "just_me",
       consent: Boolean(body.consent),
       source: str(body.source, 40) || "website",
     });
 
-    // Same ZZTest convention as the phone path (receptionist.ts): a smoke test must
-    // exercise the write without emailing the couple or the team.
-    if (partner_a_first.startsWith("ZZTest")) return json(200, { ok: true, id, email: "suppressed-test" });
+    const isTest = partner_a_first.startsWith("ZZTest");
+    const plan = str(body.payment_plan, 30);
+    const spec = specForPlan(plan, isTest);
+
+    let href: string | null = null;
+    let amountCents: number | null = null;
+    let checkoutId: string | null = null;
+
+    if (spec) {
+      const orderRef = "rk_" + String(id);
+      try {
+        const co = await ctx.runAction(internal.clover.createCheckout, {
+          orderRef,
+          amountCents: spec.amountCents,
+          itemName: spec.itemName,
+          customerEmail: partner_a_email,
+          customerFirstName: partner_a_first,
+          customerLastName: partner_a_last,
+        });
+        if (co?.configured && co.href) {
+          href = co.href;
+          amountCents = co.amountCents ?? spec.amountCents;
+          checkoutId = co.checkoutId;
+          await ctx.runMutation(internal.enrollments.createPending, {
+            lead_id: id,
+            order_ref: orderRef,
+            plan,
+            amount_due_cents: spec.amountCents,
+            total_cents: spec.totalCents,
+            payments_cap: spec.cap,
+            email: partner_a_email,
+            test_mode: isTest,
+          });
+          if (checkoutId) {
+            await ctx.runMutation(internal.enrollments.attachCheckout, {
+              order_ref: orderRef,
+              checkout_id: checkoutId,
+            });
+          }
+        } else if (!co?.configured) {
+          console.error("[reserve] Clover env not set on this deployment; reservation saved without checkout");
+        }
+      } catch (e) {
+        console.error("[reserve] clover createCheckout failed:", (e as Error).message);
+      }
+    }
+
+    // Same ZZTest convention as the phone path: write is real, outbound is silent.
+    // Test still gets a $1 checkout href so the pay path can be proven without a $50/$600 charge.
+    if (isTest) {
+      return json(200, { ok: true, id, email: "suppressed-test", href, amountCents, testMode: true });
+    }
 
     // Sent inline rather than fire-and-forget so the caller learns the truth. The reservation is
     // already saved at this point, so a failure here degrades to "we have you, the email did not
@@ -67,9 +119,93 @@ http.route({
     const status: any = await ctx.runAction(internal.mailer.sendReservationEmails, { lead_id: id, lead });
     await ctx.runMutation(internal.reserve.recordEmailOutcome, { id, couple: status.couple, team: status.team });
 
-    return json(200, { ok: true, id, email: status });
+    return json(200, { ok: true, id, email: status, href, amountCents });
   }),
 });
+
+http.route({
+  path: "/payment-status",
+  method: "OPTIONS",
+  handler: httpAction(async () => new Response(null, { status: 204, headers: cors })),
+});
+http.route({
+  path: "/payment-status",
+  method: "GET",
+  handler: httpAction(async (ctx, req) => {
+    const ref = new URL(req.url).searchParams.get("ref") || "";
+    if (!ref) return json(400, { error: "ref required" });
+    const row = await ctx.runQuery(internal.enrollments.getByOrderRef, { order_ref: ref });
+    if (!row) return json(200, { ok: true, processed: false, status: "unknown" });
+    if (row.status === "pending_payment") {
+      const confirmed = await ctx.runAction(internal.enrollments.confirmByRef, { order_ref: ref });
+      return json(200, {
+        ok: true,
+        processed: confirmed.status !== "pending_payment",
+        status: confirmed.status || "pending_payment",
+      });
+    }
+    return json(200, { ok: true, processed: true, status: row.status });
+  }),
+});
+
+function parseCloverWebhook(body: any) {
+  const checkoutId =
+    body.Data || body.data || body.checkoutSessionId || body?.checkout?.id || body?.object?.checkoutSessionId || null;
+  const paymentId = body.Id || body.id || body.paymentId || null;
+  const status = String(body.Status || body.status || "").toUpperCase();
+  const type = String(body.Type || body.type || "").toUpperCase();
+  const paid =
+    body.paid === true ||
+    status === "APPROVED" ||
+    (type === "PAYMENT" && status === "APPROVED") ||
+    /\b(APPROVED|PAID|SUCCEEDED|SUCCESS)\b/.test(status);
+  return {
+    checkoutId: checkoutId ? String(checkoutId) : null,
+    paymentId: paymentId ? String(paymentId) : null,
+    paid,
+    type,
+    status,
+  };
+}
+
+const cloverWebhook = httpAction(async (ctx, req) => {
+  const raw = await req.text();
+  let body: any = {};
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    /* keep {} */
+  }
+  if (body.verificationCode) {
+    return json(200, { verificationCode: body.verificationCode });
+  }
+
+  const pathToken = new URL(req.url).pathname.split("/clover-webhook/")[1] || "";
+  const expectedToken = process.env.CLOVER_WEBHOOK_TOKEN || "";
+  if (expectedToken && pathToken !== expectedToken) {
+    console.warn("[clover-webhook] path token mismatch");
+    return json(401, { error: "unauthorized" });
+  }
+
+  const sig = req.headers.get("Clover-Signature") || req.headers.get("clover-signature");
+  if (process.env.CLOVER_WEBHOOK_SIGNING_SECRET && !(await verifyCloverWebhookSignature(raw, sig))) {
+    return json(401, { error: "invalid clover signature" });
+  }
+
+  const parsed = parseCloverWebhook(body);
+  if (!parsed.paid) return json(200, { ok: true, ignored: "not a paid event", type: parsed.type, status: parsed.status });
+
+  const noteRef = String(body.orderRef || body.reference || "");
+  const rkRef = noteRef.startsWith("rk_") ? noteRef : "";
+  const result = await ctx.runAction(internal.enrollments.confirmFromWebhook, {
+    checkout_id: parsed.checkoutId || undefined,
+    payment_id: parsed.paymentId || undefined,
+    order_ref: rkRef || undefined,
+  });
+  return json(200, { ok: true, ...result });
+});
+http.route({ pathPrefix: "/clover-webhook/", method: "POST", handler: cloverWebhook });
+http.route({ pathPrefix: "/clover-webhook/", method: "OPTIONS", handler: httpAction(async () => new Response(null, { status: 204, headers: cors })) });
 
 
 // ---------------------------------------------------------------------------
