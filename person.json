@@ -1,0 +1,29 @@
+{
+  "organization": "Rekindle",
+  "url": "https://rekindlemarriage.com/",
+  "people": [
+    {
+      "name": "Nellie Reedy",
+      "role": "Marriage Education Facilitator",
+      "url": "https://rekindlemarriage.com/marriageworkshop/#facilitator",
+      "image": "https://rekindlemarriage.com/nellie-reedy.jpg",
+      "location": "Las Vegas, NV",
+      "education": [
+        "Master's Candidate in Couple and Family Therapy at UNLV, graduating December 2026",
+        "Bachelor's degree in psychology, UNLV"
+      ],
+      "training": [
+        "More than 400 hours of supervised clinical training with individuals, couples, and families",
+        "Gottman Method",
+        "Sue Johnson's Emotionally Focused Therapy",
+        "Cognitive Behavioral Therapy"
+      ],
+      "notes": [
+        "Leads the Rekindle Six-Week Marriage Enrichment Workshop",
+        "Focus: helping good marriages become close ones again, building more passion and more connection between two people who already chose each other",
+        "A wife and mother of five",
+        "Not a licensed therapist or counselor. Her role at Rekindle is marriage education, not clinical care."
+      ]
+    }
+  ]
+}

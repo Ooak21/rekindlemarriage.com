@@ -1,0 +1,86 @@
+{
+  "name": "Rekindle",
+  "url": "https://rekindlemarriage.com/",
+  "parent": "Vitality Academies",
+  "areaServed": "Las Vegas, Nevada in person, and anywhere through the live online option",
+  "languages": ["en"],
+  "disclaimer": "Rekindle is marriage education and guided skill-building. It is not therapy, counseling, clinical treatment, or diagnosis. Facilitators are marriage educators, not licensed therapists or counselors.",
+  "services": [
+    {
+      "id": "marriage-enrichment-workshop",
+      "name": "The Rekindle Six-Week Marriage Enrichment Workshop",
+      "url": "https://rekindlemarriage.com/marriageworkshop/",
+      "summary": "Six weeks, one 75-minute session a week of teaching, group discussion, and interactive activities, with light assignments between sessions. Small group limited to 10 couples. Evening, weekend, live in person in Las Vegas, and live online options.",
+      "next_cohort_start": "2026-09-23",
+      "enrollment_cadence": "new cohorts open every two weeks",
+      "capacity_per_cohort": 10,
+      "attendance": "both partners attend together, adults 18 and over",
+      "sessions": [
+        "Know Yourself",
+        "Know Your Partner",
+        "Patterns and Cycles",
+        "Communication and Fair Fighting",
+        "Building Fun, Friendship and Intimacy",
+        "Shared Purpose and Vision"
+      ],
+      "included": [
+        "The full six-week workshop, every session",
+        "Live teaching, group discussion, and interactive activities",
+        "Ember, the AI relationship guide, available 24/7 between sessions",
+        "An at-home toolkit and weekly assignments",
+        "Small-group setting, capped at ten couples",
+        "An invitation to the six-month follow-up program"
+      ],
+      "price_usd_per_couple": 600,
+      "payment_options": [
+        {
+          "id": "pay_in_full",
+          "name": "Pay in Full",
+          "due_at_enrollment_usd": 600,
+          "monthly_usd": 0,
+          "summary": "Paid once at enrollment. Nothing further."
+        },
+        {
+          "id": "easypay",
+          "name": "Rekindle EasyPay Plan",
+          "due_at_enrollment_usd": 50,
+          "monthly_usd": 50,
+          "months_after_enrollment": 11,
+          "total_usd": 600,
+          "summary": "$50 at enrollment, then $50 per month for 11 months. Automatic billing ends once the $600 balance is fulfilled."
+        }
+      ],
+      "refund_policy": "If the couple is unable to attend, the payment is refunded minus a $35 processing fee. Transfers to a later cohort are available. If Rekindle cancels or reschedules a cohort, the couple may transfer or receive a full refund.",
+      "how_to_enroll": "Reserve at https://rekindlemarriage.com/marriageworkshop/#reserve, then pay on the same page by card (Clover). Confirmation by email to both partners, then the cohort schedule and welcome details after payment.",
+      "after_the_workshop": "Stage 2 for couples who want to keep going, and a six-month follow-up."
+    },
+    {
+      "id": "ember-ai-guide",
+      "name": "Ember, AI relationship guide",
+      "url": "https://rekindlemarriage.com/",
+      "summary": "An AI guide available 24/7: conversation prep, guided exercises between sessions, and a place to think something through. Free to try on the home page, no account needed. Included for workshop couples. Not a person, not a therapist, not a crisis line.",
+      "price_usd": 0
+    },
+    {
+      "id": "marriage-health-score",
+      "name": "Marriage Health Score",
+      "url": "https://rekindlemarriage.com/score.html",
+      "summary": "A free, private two-minute relationship check-up: ten questions, one score out of 100 across five areas (Connection, Communication, Conflict and Repair, Appreciation, and Partnership), with an optional emailed breakdown. A reflective self check-in, not a clinical or diagnostic assessment.",
+      "price_usd": 0,
+      "questions": 10,
+      "minutes": 2
+    },
+    {
+      "id": "rekindle-journal",
+      "name": "The Rekindle Journal",
+      "url": "https://rekindlemarriage.com/blog/",
+      "summary": "Research-grounded articles on connection, communication, and intimacy for married couples."
+    }
+  ],
+  "contact": {
+    "email": "hello@rekindlemarriage.com",
+    "office": "6140 Brent Thurman Way, Suite 100, Las Vegas, NV 89148",
+    "hours": "Monday to Friday, 9:00am to 5:00pm Pacific",
+    "phone": null
+  }
+}

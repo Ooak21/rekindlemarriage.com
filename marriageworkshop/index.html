@@ -10,6 +10,11 @@
 <meta property="og:image" content="https://rekindlemarriage.com/marriageworkshop/og-workshop.jpg">
 <meta property="og:url" content="https://rekindlemarriage.com/marriageworkshop/">
 <link rel="canonical" href="https://rekindlemarriage.com/marriageworkshop/">
+<link rel="alternate" type="text/plain" title="LLM brief (llms.txt)" href="/llms.txt">
+<link rel="alternate" type="text/markdown" title="Agent instructions" href="/AGENTS.md">
+<link rel="alternate" type="application/json" title="Hours" href="/hours.json">
+<link rel="alternate" type="application/json" title="Services" href="/services.json">
+<link rel="alternate" type="application/json" title="People" href="/person.json">
 <link rel="icon" href="../rekindle-icon.png">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
@@ -22,6 +27,277 @@
 {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://rekindlemarriage.com/marriageworkshop/#webpage",
+      "url": "https://rekindlemarriage.com/marriageworkshop/",
+      "name": "Rekindle Marriage Enrichment Workshop",
+      "description": "A six-week marriage enrichment workshop for couples who want to feel like they are on the same team again. Small group, grounded in relationship science, in person in Las Vegas or live online. $600 per couple. Next cohort starts September 23, 2026.",
+      "isPartOf": {
+        "@id": "https://rekindlemarriage.com/#website"
+      },
+      "about": {
+        "@id": "https://rekindlemarriage.com/#org"
+      },
+      "inLanguage": "en-US",
+      "mainEntity": {
+        "@id": "https://rekindlemarriage.com/marriageworkshop/#course"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://rekindlemarriage.com/marriageworkshop/og-workshop.jpg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://rekindlemarriage.com/#website",
+      "url": "https://rekindlemarriage.com/",
+      "name": "Rekindle",
+      "publisher": {
+        "@id": "https://rekindlemarriage.com/#org"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": [
+        "EducationalOrganization",
+        "LocalBusiness"
+      ],
+      "@id": "https://rekindlemarriage.com/#org",
+      "name": "Rekindle",
+      "alternateName": "Rekindle Marriage Enrichment",
+      "url": "https://rekindlemarriage.com/",
+      "logo": "https://rekindlemarriage.com/rekindle-logo.png",
+      "image": "https://rekindlemarriage.com/marriageworkshop/og-workshop.jpg",
+      "description": "Rekindle is a six-week marriage enrichment workshop for couples, in small groups of up to ten couples, grounded in relationship science and led by Marriage Education Facilitator Nellie Reedy. In person in Las Vegas, Nevada, or live online. It is marriage education, not therapy, counseling, clinical treatment, or diagnosis.",
+      "email": "hello@rekindlemarriage.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6140 Brent Thurman Way, Suite 100",
+        "addressLocality": "Las Vegas",
+        "addressRegion": "NV",
+        "postalCode": "89148",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "09:00",
+          "closes": "17:00"
+        }
+      ],
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Vitality Academies"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Las Vegas",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Nevada"
+          }
+        },
+        {
+          "@type": "State",
+          "name": "Nevada"
+        }
+      ],
+      "knowsLanguage": "en",
+      "knowsAbout": [
+        "Marriage enrichment",
+        "Marriage education",
+        "Couples communication",
+        "Conflict repair",
+        "Friendship and intimacy in marriage",
+        "Gottman Method",
+        "Emotionally Focused Therapy",
+        "Relationship science"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://rekindlemarriage.com/#nellie",
+      "name": "Nellie Reedy",
+      "jobTitle": "Marriage Education Facilitator",
+      "url": "https://rekindlemarriage.com/marriageworkshop/#facilitator",
+      "image": "https://rekindlemarriage.com/nellie-reedy.jpg",
+      "worksFor": {
+        "@id": "https://rekindlemarriage.com/#org"
+      },
+      "description": "Marriage Education Facilitator and Master's Candidate in Couple and Family Therapy at UNLV, graduating December 2026. Bachelor's degree in psychology from UNLV and more than 400 hours of supervised clinical training with individuals, couples, and families, with study in the Gottman Method, Sue Johnson's Emotionally Focused Therapy, and Cognitive Behavioral Therapy. A wife and mother of five. Not a licensed therapist or counselor.",
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Marriage Education Facilitator"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "University of Nevada, Las Vegas",
+        "alternateName": "UNLV"
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Bachelor's degree in Psychology",
+          "credentialCategory": "degree",
+          "recognizedBy": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Nevada, Las Vegas"
+          }
+        }
+      ],
+      "knowsAbout": [
+        "Marriage education",
+        "Gottman Method",
+        "Emotionally Focused Therapy",
+        "Cognitive Behavioral Therapy",
+        "Couple and Family Therapy"
+      ]
+    },
+    {
+      "@type": "Course",
+      "@id": "https://rekindlemarriage.com/marriageworkshop/#course",
+      "name": "The Rekindle Six-Week Marriage Enrichment Workshop",
+      "alternateName": "Rekindle Marriage Enrichment Workshop",
+      "description": "A six-week marriage enrichment workshop for couples, in a small group of up to ten couples, grounded in relationship science. One 75-minute session a week of teaching, group discussion and interactive activities, light assignments between sessions, Ember the AI relationship guide between sessions, an at-home toolkit, and a six-month follow-up. In person in Las Vegas or live online. Marriage education, not therapy.",
+      "url": "https://rekindlemarriage.com/marriageworkshop/",
+      "image": "https://rekindlemarriage.com/marriageworkshop/og-workshop.jpg",
+      "provider": {
+        "@id": "https://rekindlemarriage.com/#org"
+      },
+      "inLanguage": "en-US",
+      "educationalLevel": "Adult education",
+      "teaches": [
+        "Know Yourself",
+        "Know Your Partner",
+        "Patterns and Cycles",
+        "Communication and Fair Fighting",
+        "Building Fun, Friendship and Intimacy",
+        "Shared Purpose and Vision"
+      ],
+      "syllabusSections": [
+        {
+          "@type": "Syllabus",
+          "name": "Know Yourself",
+          "position": 1
+        },
+        {
+          "@type": "Syllabus",
+          "name": "Know Your Partner",
+          "position": 2
+        },
+        {
+          "@type": "Syllabus",
+          "name": "Patterns and Cycles",
+          "position": 3
+        },
+        {
+          "@type": "Syllabus",
+          "name": "Communication and Fair Fighting",
+          "position": 4
+        },
+        {
+          "@type": "Syllabus",
+          "name": "Building Fun, Friendship and Intimacy",
+          "position": 5
+        },
+        {
+          "@type": "Syllabus",
+          "name": "Shared Purpose and Vision",
+          "position": 6
+        }
+      ],
+      "timeRequired": "P6W",
+      "isAccessibleForFree": false,
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Married and committed adult couples, both partners attending together"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "@id": "https://rekindlemarriage.com/marriageworkshop/#pay-in-full",
+          "name": "Pay in Full",
+          "description": "$600 per couple, paid once at enrollment. Nothing further.",
+          "price": "600",
+          "priceCurrency": "USD",
+          "category": "Full six-week program, per couple",
+          "availability": "https://schema.org/LimitedAvailability",
+          "url": "https://rekindlemarriage.com/marriageworkshop/#enroll",
+          "validFrom": "2026-09-02"
+        },
+        {
+          "@type": "Offer",
+          "@id": "https://rekindlemarriage.com/marriageworkshop/#easypay",
+          "name": "Rekindle EasyPay Plan",
+          "description": "$50 per couple due at enrollment, then $50 per month for 11 months. Total $600. Automatic billing ends on its own once the balance is fulfilled.",
+          "price": "600",
+          "priceCurrency": "USD",
+          "category": "Full six-week program, per couple, paid monthly",
+          "availability": "https://schema.org/LimitedAvailability",
+          "url": "https://rekindlemarriage.com/marriageworkshop/#enroll",
+          "validFrom": "2026-09-02",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "600",
+            "priceCurrency": "USD",
+            "description": "$50 at enrollment, then 11 monthly payments of $50"
+          }
+        }
+      ],
+      "hasCourseInstance": [
+        {
+          "@type": "CourseInstance",
+          "@id": "https://rekindlemarriage.com/marriageworkshop/#cohort-2026-09-23",
+          "name": "Rekindle cohort starting September 23, 2026",
+          "description": "Six weekly 75-minute sessions starting Wednesday, September 23, 2026. Limited to 10 couples. In person in Las Vegas or live online.",
+          "startDate": "2026-09-23",
+          "courseMode": [
+            "Onsite",
+            "Online"
+          ],
+          "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+          "courseWorkload": "PT1H15M",
+          "repeatCount": 6,
+          "repeatFrequency": "Weekly",
+          "instructor": {
+            "@id": "https://rekindlemarriage.com/#nellie"
+          },
+          "location": [
+            {
+              "@type": "Place",
+              "name": "Las Vegas, Nevada",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Las Vegas",
+                "addressRegion": "NV",
+                "addressCountry": "US"
+              }
+            },
+            {
+              "@type": "VirtualLocation",
+              "url": "https://rekindlemarriage.com/marriageworkshop/"
+            }
+          ],
+          "offers": [
+            {
+              "@id": "https://rekindlemarriage.com/marriageworkshop/#pay-in-full"
+            },
+            {
+              "@id": "https://rekindlemarriage.com/marriageworkshop/#easypay"
+            }
+          ]
+        }
+      ]
+    },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -381,7 +657,7 @@
 </section>
 
 <!-- MEET NELLIE -->
-<section class="alt">
+<section class="alt" id="facilitator">
   <div class="wrap coach">
     <div class="coach-photo"><img src="nellie.jpg" alt="Nellie Reedy, Marriage Education Facilitator" width="900" height="900" loading="lazy"></div>
     <div>
