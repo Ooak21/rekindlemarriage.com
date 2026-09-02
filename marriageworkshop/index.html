@@ -661,9 +661,12 @@ async function mountClover() {
       fontFamily: "Calibri, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontSize: '16px',
       margin: '0',
-      padding: '14px 16px',
+      padding: '0 16px',
       height: '48px',
       boxSizing: 'border-box',
+      display: 'flex',
+      alignItems: 'center',
+      position: 'relative',
     },
     input: {
       fontSize: '16px',
@@ -671,7 +674,20 @@ async function mountClover() {
       backgroundColor: 'transparent',
       height: '20px',
       lineHeight: '20px',
-      padding: '0',
+      padding: '0 44px 0 0',
+    },
+    '.card-brand': {
+      position: 'absolute',
+      right: '12px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      margin: '0',
+      height: '24px',
+    },
+    img: {
+      display: 'block',
+      height: '24px',
+      width: 'auto',
     },
   };
   elements.create('CARD_NUMBER', styles).mount('#card-number');
