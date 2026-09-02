@@ -82,6 +82,14 @@
             "@type": "Answer",
             "text": "You get an instant confirmation, then go straight to a secure checkout to pay. After payment, we send your cohort schedule and welcome details."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Is any of this refundable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. If you are unable to attend, your payment is refunded minus a $35 processing fee."
+          }
         }
       ]
     }
@@ -264,7 +272,7 @@
 <header>
   <div class="nav">
     <a class="logo" href="#top"><img src="../rekindle-icon.png" alt="Rekindle"><b>Rekindle</b></a>
-    <a class="btn btn-primary btn-sm" href="#reserve">Reserve your spot</a>
+    <a class="btn btn-primary btn-sm" href="#enroll">Reserve your spot</a>
   </div>
 </header>
 <a id="top"></a>
@@ -277,7 +285,7 @@
     <h1>Go from a good marriage to an <span class="em">extraordinary marriage</span>.</h1>
     <p class="support">A six-week marriage enrichment program for couples who want to feel like they're on the same team again. Small-group, relationship science-grounded, and built for real life. A proactive, hands-on experience centered on the habits that strengthen connection and help couples turn toward one another.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary btn-xl" href="#reserve">Reserve your spot</a>
+      <a class="btn btn-primary btn-xl" href="#enroll">Reserve your spot</a>
     </div>
     <div class="badges">
       <div class="badge"><span>Limited to 10 couples</span> per cohort</div>
@@ -326,7 +334,7 @@
       <p>Ten honest questions. One clear score. Discover where your relationship is thriving, and where a little more attention could make the biggest difference.</p>
       <div class="checkin-cta">
         <a class="btn btn-primary btn-lg" href="../score.html">Start the Check-in</a>
-        <a class="btn btn-ghost btn-lg" href="#reserve" style="color:#f7efe6;border-color:rgba(247,239,230,.35)">15 min call</a>
+        <a class="btn btn-ghost btn-lg" href="#enroll" style="color:#f7efe6;border-color:rgba(247,239,230,.35)">Enroll now</a>
       </div>
     </div>
   </div>
@@ -406,7 +414,7 @@
           <li>Due at enrollment: <b>$600</b></li>
           <li>Monthly payments: <b>none</b></li>
         </ul>
-        <a class="btn btn-primary btn-lg pay-choose" data-plan="pay_in_full" href="#reserve">Enroll, Pay in Full</a>
+        <a class="btn btn-primary btn-lg pay-choose" data-plan="pay_in_full" href="#reserve">Pay in Full $600</a>
       </div>
       <div class="pay-card pay-featured">
         <div class="pay-flag">Simple and flexible</div>
@@ -420,7 +428,7 @@
           <li>Remaining payments after today: <b>11</b></li>
           <li>Automatic billing <b>ends on its own</b> once the $600 balance is fulfilled. Nothing to cancel.</li>
         </ul>
-        <a class="btn btn-primary btn-lg pay-choose" data-plan="easypay" href="#reserve">Start with EasyPay</a>
+        <a class="btn btn-primary btn-lg pay-choose" data-plan="easypay" href="#reserve">EasyPay $50 installments</a>
       </div>
     </div>
     <div class="price-note">Reserve your seat below. You will go straight to a secure checkout to pay. Same program, same seats, either way.</div>
@@ -554,6 +562,7 @@
       <details><summary>How long is it?</summary><p>It is a six-week workshop, with one session a week. Each session is 75 minutes of teaching plus discussion and activities, with light assignments between sessions. Evening, weekend, live, and online options are available.</p></details>
       <details><summary>What does it cost, and do we both attend?</summary><p>It is $600 per couple for the full program, and yes, you attend together. That covers every session, your at-home toolkit, and your invitation to the six-month follow-up.</p></details>
       <details><summary>What happens after we reserve?</summary><p>You get an instant confirmation, then go straight to a secure checkout to pay. After payment, we send your cohort schedule and welcome details.</p></details>
+      <details><summary>Is any of this refundable?</summary><p>Yes. If you are unable to attend, your payment is refunded minus a $35 processing fee.</p></details>
     </div>
   </div>
 </section>
@@ -695,6 +704,14 @@ form.addEventListener('submit', async (e) => {
     if (!r.ok || !out.ok) throw new Error(out.error || 'reservation failed');
     if (out.href) {
       window.location.href = out.href;
+      return;
+    }
+    // A plan was chosen, so checkout should have opened. Do not tell the couple
+    // they are done paying when Clover did not return a link.
+    if (payload.payment_plan === 'pay_in_full' || payload.payment_plan === 'easypay') {
+      btn.disabled = false;
+      btn.textContent = label;
+      err.textContent = 'Your seat is saved, but checkout did not open. Please try again, or email hello@rekindlemarriage.com and we will send you a payment link.';
       return;
     }
     showSuccess(
