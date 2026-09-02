@@ -55,7 +55,7 @@ const coupleHtml = (names: string) => `<!DOCTYPE html>
             Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Enrichment Workshop with Nellie Reedy.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            After you reserved, you were sent to a secure Clover checkout to complete enrollment. If that page closed before you finished, reply to this email and we will send you a fresh payment link. Your seat is held for <strong>48 hours</strong>.
+            Complete payment on the same page you reserved, without leaving rekindlemarriage.com. If you closed it before you finished, come back to the workshop page and reserve again, or reply to this email. Your seat is held for <strong>48 hours</strong>.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
             The investment is <strong>$600 per couple</strong>. If you have any questions in the meantime, simply reply to this email. We are glad you are here.

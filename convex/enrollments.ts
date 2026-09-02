@@ -284,6 +284,65 @@ export const confirmByRef = internalAction({
   },
 });
 
+// On-page Clover iframe: the browser tokenizes the card (clv_) and we charge here.
+// Amount always comes from the enrollment row, never from the client.
+export const payWithToken = internalAction({
+  args: { order_ref: v.string(), source: v.string() },
+  handler: async (ctx, a) => {
+    const row = await ctx.runQuery(internal.enrollments.getByOrderRef, { order_ref: a.order_ref });
+    if (!row) return { ok: false as const, error: "Reservation was not found." };
+    if (row.status !== "pending_payment") {
+      return { ok: true as const, already: true as const, status: row.status };
+    }
+    if (!a.source.startsWith("clv_")) {
+      return { ok: false as const, error: "Card could not be tokenized. Please try again." };
+    }
+
+    let chargeSource = a.source;
+    if (row.plan === "easypay") {
+      const vaulted = await ctx.runAction(internal.clover.createCustomer, {
+        source: a.source,
+        email: row.email,
+      });
+      if (vaulted.customerId) {
+        chargeSource = vaulted.customerId;
+        await ctx.runMutation(internal.enrollments.attachCustomer, {
+          order_ref: a.order_ref,
+          customer_id: vaulted.customerId,
+        });
+      } else {
+        await ctx.runMutation(internal.enrollments.markVaultFailed, {
+          order_ref: a.order_ref,
+          detail: "createCustomer missed on first payment",
+        });
+      }
+    }
+
+    const description =
+      row.plan === "easypay"
+        ? `Rekindle EasyPay 1 of ${row.payments_cap}`
+        : "Rekindle Marriage Workshop — Pay in Full";
+    const charged = await ctx.runAction(internal.clover.chargeCustomer, {
+      customerId: chargeSource,
+      amountCents: row.amount_due_cents,
+      description,
+      recurring: false,
+      idempotencyKey: `rk-pay-${a.order_ref}`,
+    });
+    if (!charged.ok || !charged.chargeId) {
+      return { ok: false as const, error: charged.detail || "Payment could not be completed." };
+    }
+
+    const marked = await ctx.runMutation(internal.enrollments.markPaid, {
+      order_ref: a.order_ref,
+      payment_id: charged.chargeId,
+      amount_cents: row.amount_due_cents,
+    });
+    if (!marked.ok) return { ok: false as const, error: marked.reason || "Could not record payment." };
+    return { ok: true as const, already: marked.already, status: marked.status, amountCents: row.amount_due_cents };
+  },
+});
+
 export const confirmFromWebhook = internalAction({
   args: {
     checkout_id: v.optional(v.string()),

@@ -80,7 +80,7 @@
           "name": "What happens after we reserve?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "You get an instant confirmation, then go straight to a secure checkout to pay. After payment, we send your cohort schedule and welcome details."
+            "text": "You get an instant confirmation, then pay on this page. After payment, we send your cohort schedule and welcome details."
           }
         },
         {
@@ -241,6 +241,14 @@
   .form-note{font-size:.85rem;color:var(--muted);text-align:center;margin-top:14px}
   .hp{position:absolute;left:-9999px}
 
+  .clv-field{border:1.5px solid var(--line);border-radius:11px;padding:0 12px;background:#fff;margin:4px 0 12px;height:52px;overflow:hidden;display:flex;align-items:center}
+  .clv-field iframe{height:48px!important;width:100%!important;border:0!important}
+  .card-row{display:flex;gap:10px}
+  @media(max-width:560px){.card-row{flex-direction:column;gap:0}}
+  #payPanel{display:none;max-width:760px;margin:34px auto 0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:38px 34px;box-shadow:0 20px 50px rgba(0,0,0,.06);text-align:left}
+  #payPanel .pay-due{font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:4px}
+  #payPanel .pay-amt{font-family:var(--serif);font-size:2.4rem;font-weight:600;margin:0 0 6px}
+  #payPanel .pay-sub{color:var(--muted);font-weight:600;margin-bottom:22px}
   #success{display:none;text-align:center;max-width:640px;margin:34px auto 0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:44px 34px;box-shadow:0 20px 50px rgba(0,0,0,.06)}
   #success .flame{width:56px;height:56px;margin:0 auto 14px;display:block}
   #success h2{font-style:italic;margin:0 auto 12px}
@@ -431,7 +439,7 @@
         <a class="btn btn-primary btn-lg pay-choose" data-plan="easypay" href="#reserve">EasyPay $50 installments</a>
       </div>
     </div>
-    <div class="price-note">Reserve your seat below. You will go straight to a secure checkout to pay. Same program, same seats, either way.</div>
+    <div class="price-note">Reserve your seat below, then pay on this page. Same program, same seats, either way.</div>
   </div>
 </section>
 
@@ -440,7 +448,7 @@
   <div class="wrap center">
     <div class="sec-eyebrow">Reserve your spot</div>
     <h2 style="margin:0 auto">Save your place in the next cohort.</h2>
-    <p class="lead" style="margin:12px auto 0">Two minutes now holds your seat. Then you go to a secure checkout to pay.</p>
+    <p class="lead" style="margin:12px auto 0">Two minutes now holds your seat. Then you pay on this page. You never leave rekindlemarriage.com.</p>
 
     <form class='form-wrap' id='resform'>
       <p class="hp"><label>Do not fill this out: <input name="bot_field"></label></p>
@@ -537,16 +545,32 @@
 
       <label class="consent"><input type="checkbox" name="consent" value="Yes" required> <span id="consentText">Yes, hold our seat and contact both of us by email and text about our Rekindle enrollment and cohort details.</span></label>
 
-      <button type="submit" id="submitBtn" class="btn btn-primary btn-lg" style="width:100%">Continue to secure payment →</button>
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-lg" style="width:100%">Continue to payment</button>
       <div id="formErr" class="form-note" style="color:#b3341a;min-height:1.2em"></div>
       <div class="form-note">Your information is private and used only for your enrollment. It is never sold.</div>
     </form>
+
+    <div id="payPanel">
+      <div class="pay-due">Due today</div>
+      <div class="pay-amt" id="payAmt">$0</div>
+      <p class="pay-sub" id="payPlanNote"></p>
+      <label>Card number</label>
+      <div id="card-number" class="clv-field"></div>
+      <div class="card-row">
+        <div style="flex:2;min-width:0"><label>Expiry</label><div id="card-date" class="clv-field"></div></div>
+        <div style="flex:1.4;min-width:0"><label>CVV</label><div id="card-cvv" class="clv-field"></div></div>
+        <div style="flex:1.6;min-width:0"><label>ZIP</label><div id="card-postal" class="clv-field"></div></div>
+      </div>
+      <button type="button" id="payBtn" class="btn btn-primary btn-lg" style="width:100%;margin-top:8px">Pay now</button>
+      <div id="payErr" class="form-note" style="color:#b3341a;min-height:1.2em"></div>
+      <div class="form-note">Encrypted card entry. You stay on rekindlemarriage.com. Processed by Clover.</div>
+    </div>
 
     <div id="success">
       <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#fg)" d="M12 2c0 4-5 5-5 10a5 5 0 0 0 10 0c0-2-1-3-1-3 .5 2-1 3-1 3 .8-3-2-4-2-7 0 0-3 2-3 5 0-3 2-4 2-6 0 0 3 2 3-5z"/></svg>
       <h2 id="successTitle">Your spot is reserved.</h2>
       <p id="successP1">We saved your place in the next Rekindle cohort.</p>
-      <p id="successP2">Taking you to secure checkout now.</p>
+      <p id="successP2"></p>
     </div>
   </div>
 </section>
@@ -561,7 +585,7 @@
       <details><summary>Is this therapy or counseling?</summary><p>No. Rekindle is marriage education and guided skill-building in a small-group setting. It is not therapy, counseling, clinical treatment, or diagnosis. Your facilitator is a Marriage Education Facilitator and Master's Candidate in Couple and Family Therapy, not a licensed therapist. If deeper or clinical needs surface, we will gladly help you find the right licensed professional.</p></details>
       <details><summary>How long is it?</summary><p>It is a six-week workshop, with one session a week. Each session is 75 minutes of teaching plus discussion and activities, with light assignments between sessions. Evening, weekend, live, and online options are available.</p></details>
       <details><summary>What does it cost, and do we both attend?</summary><p>It is $600 per couple for the full program, and yes, you attend together. That covers every session, your at-home toolkit, and your invitation to the six-month follow-up.</p></details>
-      <details><summary>What happens after we reserve?</summary><p>You get an instant confirmation, then go straight to a secure checkout to pay. After payment, we send your cohort schedule and welcome details.</p></details>
+      <details><summary>What happens after we reserve?</summary><p>You get an instant confirmation, then pay on this page. After payment, we send your cohort schedule and welcome details.</p></details>
       <details><summary>Is any of this refundable?</summary><p>Yes. If you are unable to attend, your payment is refunded minus a $35 processing fee.</p></details>
     </div>
   </div>
@@ -584,7 +608,12 @@
 // (Fred's build posted to Netlify Forms, which does not exist on our host and would have dropped
 // every reservation silently while showing the couple a confirmation.)
 const RESERVE_URL = 'https://calculating-poodle-798.convex.site/reserve';
+const PAY_URL = 'https://calculating-poodle-798.convex.site/pay';
 const STATUS_URL = 'https://calculating-poodle-798.convex.site/payment-status';
+// Same Vitality merchant as GLP-1 / checkout.html. Public key is publishable.
+const CLOVER_PUBLIC_KEY  = 'f9d8910605425172a0b627094e16f27b';
+const CLOVER_MERCHANT_ID = 'ECK6FJ94X1JM1';
+const CLOVER_SDK_URL     = 'https://checkout.clover.com/sdk.js';
 
 document.querySelectorAll('.pay-choose').forEach(function(a){
   a.addEventListener('click', function(){
@@ -595,10 +624,70 @@ document.querySelectorAll('.pay-choose').forEach(function(a){
 
 const form = document.getElementById('resform');
 const success = document.getElementById('success');
+const payPanel = document.getElementById('payPanel');
 const err = document.getElementById('formErr');
 const btn = document.getElementById('submitBtn');
+const payBtn = document.getElementById('payBtn');
+const payErr = document.getElementById('payErr');
 const partnerB = document.getElementById('partnerB');
 const consentText = document.getElementById('consentText');
+let cloverInst = null;
+let pendingPay = null;
+let cloverSdkPromise = null;
+
+function loadCloverSdk() {
+  if (window.Clover) return Promise.resolve();
+  if (cloverSdkPromise) return cloverSdkPromise;
+  cloverSdkPromise = new Promise(function(res, rej) {
+    const s = document.createElement('script');
+    s.src = CLOVER_SDK_URL;
+    s.onload = res;
+    s.onerror = function(){ rej(new Error('sdk')); };
+    document.head.appendChild(s);
+  });
+  return cloverSdkPromise;
+}
+
+async function mountClover() {
+  if (cloverInst) return cloverInst;
+  await loadCloverSdk();
+  const clover = new window.Clover(CLOVER_PUBLIC_KEY, { merchantId: CLOVER_MERCHANT_ID });
+  const elements = clover.elements();
+  const styles = { body: { fontFamily: "Calibri, 'Segoe UI', Helvetica, Arial, sans-serif", fontSize: '16px' } };
+  elements.create('CARD_NUMBER', styles).mount('#card-number');
+  elements.create('CARD_DATE', styles).mount('#card-date');
+  elements.create('CARD_CVV', styles).mount('#card-cvv');
+  elements.create('CARD_POSTAL_CODE', styles).mount('#card-postal');
+  cloverInst = clover;
+  return clover;
+}
+
+function dollars(cents) {
+  const n = Number(cents) || 0;
+  return '$' + (n / 100).toFixed(n % 100 ? 2 : 0);
+}
+
+function showPayPanel(out) {
+  pendingPay = {
+    orderRef: out.orderRef,
+    amountCents: out.amountCents,
+    plan: out.plan,
+  };
+  form.style.display = 'none';
+  success.style.display = 'none';
+  payPanel.style.display = 'block';
+  document.getElementById('payAmt').textContent = dollars(out.amountCents);
+  document.getElementById('payPlanNote').textContent =
+    out.plan === 'easypay'
+      ? 'EasyPay first payment. Then $50 a month until $600 is fulfilled.'
+      : 'Pay in Full. Nothing further after today.';
+  payBtn.textContent = 'Pay ' + dollars(out.amountCents);
+  payErr.textContent = '';
+  payPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  mountClover().catch(function(){
+    payErr.textContent = 'The card form could not load in this browser. Please try Safari or Chrome, or email hello@rekindlemarriage.com.';
+  });
+}
 
 function setContactMode(mode) {
   const justMe = mode === 'just_me';
@@ -619,6 +708,7 @@ document.querySelectorAll('input[name="contact_mode"]').forEach(function(r){
 
 function showSuccess(title, p1, p2) {
   form.style.display = 'none';
+  payPanel.style.display = 'none';
   success.style.display = 'block';
   document.getElementById('successTitle').textContent = title;
   document.getElementById('successP1').textContent = p1;
@@ -692,7 +782,7 @@ form.addEventListener('submit', async (e) => {
 
   btn.disabled = true;
   const label = btn.textContent;
-  btn.textContent = 'Opening secure checkout...';
+  btn.textContent = 'Saving your seat...';
 
   try {
     const r = await fetch(RESERVE_URL, {
@@ -702,16 +792,8 @@ form.addEventListener('submit', async (e) => {
     });
     const out = await r.json().catch(() => ({}));
     if (!r.ok || !out.ok) throw new Error(out.error || 'reservation failed');
-    if (out.href) {
-      window.location.href = out.href;
-      return;
-    }
-    // A plan was chosen, so checkout should have opened. Do not tell the couple
-    // they are done paying when Clover did not return a link.
-    if (payload.payment_plan === 'pay_in_full' || payload.payment_plan === 'easypay') {
-      btn.disabled = false;
-      btn.textContent = label;
-      err.textContent = 'Your seat is saved, but checkout did not open. Please try again, or email hello@rekindlemarriage.com and we will send you a payment link.';
+    if (out.orderRef && (payload.payment_plan === 'pay_in_full' || payload.payment_plan === 'easypay')) {
+      showPayPanel(out);
       return;
     }
     showSuccess(
@@ -724,6 +806,55 @@ form.addEventListener('submit', async (e) => {
     btn.disabled = false;
     btn.textContent = label;
     err.textContent = 'Something went wrong holding your seat. Please try again, or email hello@rekindlemarriage.com and we will save it for you.';
+  }
+});
+
+payBtn.addEventListener('click', async function(){
+  payErr.textContent = '';
+  if (!pendingPay || !pendingPay.orderRef) {
+    payErr.textContent = 'Your reservation was lost. Please fill the form again.';
+    return;
+  }
+  if (!cloverInst) {
+    payErr.textContent = 'The card form is still loading. Please wait a moment and try again.';
+    return;
+  }
+  payBtn.disabled = true;
+  const payLabel = payBtn.textContent;
+  payBtn.textContent = 'Securing your card...';
+  let token;
+  try {
+    const tok = await cloverInst.createToken();
+    if (tok && tok.errors) {
+      const m = Object.values(tok.errors)[0];
+      throw new Error(m || 'Please check your card details.');
+    }
+    token = tok && tok.token;
+    if (!token) throw new Error('Please check your card details.');
+  } catch (e) {
+    payBtn.disabled = false;
+    payBtn.textContent = payLabel;
+    payErr.textContent = (e && e.message) || 'Please check your card details.';
+    return;
+  }
+  payBtn.textContent = 'Charging...';
+  try {
+    const r = await fetch(PAY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ order_ref: pendingPay.orderRef, source: token }),
+    });
+    const out = await r.json().catch(function(){ return {}; });
+    if (!r.ok || !out.ok) throw new Error(out.error || 'Payment could not be completed.');
+    showSuccess(
+      'Payment received.',
+      'Your Rekindle seat is confirmed.',
+      'Watch your inbox for cohort schedule and welcome details.'
+    );
+  } catch (e) {
+    payBtn.disabled = false;
+    payBtn.textContent = payLabel;
+    payErr.textContent = (e && e.message) || 'Payment could not be completed. Please try again.';
   }
 });
 </script>

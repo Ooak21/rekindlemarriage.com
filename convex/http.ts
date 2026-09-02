@@ -63,53 +63,37 @@ http.route({
     const plan = str(body.payment_plan, 30);
     const spec = specForPlan(plan, isTest);
 
-    let href: string | null = null;
     let amountCents: number | null = null;
-    let checkoutId: string | null = null;
+    let orderRef: string | null = null;
 
     if (spec) {
-      const orderRef = "rk_" + String(id);
-      try {
-        const co = await ctx.runAction(internal.clover.createCheckout, {
-          orderRef,
-          amountCents: spec.amountCents,
-          itemName: spec.itemName,
-          customerEmail: partner_a_email,
-          customerFirstName: partner_a_first,
-          customerLastName: partner_a_last,
-        });
-        if (co?.configured && co.href) {
-          href = co.href;
-          amountCents = co.amountCents ?? spec.amountCents;
-          checkoutId = co.checkoutId;
-          await ctx.runMutation(internal.enrollments.createPending, {
-            lead_id: id,
-            order_ref: orderRef,
-            plan,
-            amount_due_cents: spec.amountCents,
-            total_cents: spec.totalCents,
-            payments_cap: spec.cap,
-            email: partner_a_email,
-            test_mode: isTest,
-          });
-          if (checkoutId) {
-            await ctx.runMutation(internal.enrollments.attachCheckout, {
-              order_ref: orderRef,
-              checkout_id: checkoutId,
-            });
-          }
-        } else if (!co?.configured) {
-          console.error("[reserve] Clover env not set on this deployment; reservation saved without checkout");
-        }
-      } catch (e) {
-        console.error("[reserve] clover createCheckout failed:", (e as Error).message);
-      }
+      orderRef = "rk_" + String(id);
+      amountCents = spec.amountCents;
+      await ctx.runMutation(internal.enrollments.createPending, {
+        lead_id: id,
+        order_ref: orderRef,
+        plan,
+        amount_due_cents: spec.amountCents,
+        total_cents: spec.totalCents,
+        payments_cap: spec.cap,
+        email: partner_a_email,
+        test_mode: isTest,
+      });
     }
 
     // Same ZZTest convention as the phone path: write is real, outbound is silent.
-    // Test still gets a $1 checkout href so the pay path can be proven without a $50/$600 charge.
+    // Test charges $1 on the on-page Clover iframe, not a hosted clover.com redirect.
     if (isTest) {
-      return json(200, { ok: true, id, email: "suppressed-test", href, amountCents, testMode: true });
+      return json(200, {
+        ok: true,
+        id,
+        email: "suppressed-test",
+        orderRef,
+        amountCents,
+        plan,
+        itemName: spec?.itemName || null,
+        testMode: true,
+      });
     }
 
     // Sent inline rather than fire-and-forget so the caller learns the truth. The reservation is
@@ -119,7 +103,44 @@ http.route({
     const status: any = await ctx.runAction(internal.mailer.sendReservationEmails, { lead_id: id, lead });
     await ctx.runMutation(internal.reserve.recordEmailOutcome, { id, couple: status.couple, team: status.team });
 
-    return json(200, { ok: true, id, email: status, href, amountCents });
+    return json(200, {
+      ok: true,
+      id,
+      email: status,
+      orderRef,
+      amountCents,
+      plan,
+      itemName: spec?.itemName || null,
+    });
+  }),
+});
+
+http.route({
+  path: "/pay",
+  method: "OPTIONS",
+  handler: httpAction(async () => new Response(null, { status: 204, headers: cors })),
+});
+http.route({
+  path: "/pay",
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    let body: Record<string, unknown>;
+    try {
+      body = await req.json();
+    } catch {
+      return json(400, { ok: false, error: "Invalid JSON body" });
+    }
+    const orderRef = str(body.order_ref, 80);
+    const source = str(body.source, 120);
+    if (!orderRef.startsWith("rk_") || !source.startsWith("clv_")) {
+      return json(400, { ok: false, error: "Payment is missing the reservation or the card token." });
+    }
+    const result: any = await ctx.runAction(internal.enrollments.payWithToken, {
+      order_ref: orderRef,
+      source,
+    });
+    if (!result?.ok) return json(402, { ok: false, error: result?.error || "Payment could not be completed." });
+    return json(200, result);
   }),
 });
 

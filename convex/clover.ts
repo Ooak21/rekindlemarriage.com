@@ -188,6 +188,14 @@ export const getCustomerIdFromHostedPayment = internalAction({
   },
 });
 
+export const createCustomer = internalAction({
+  args: { source: v.string(), email: v.optional(v.string()) },
+  handler: async (_ctx, a) => {
+    const customerId = await vaultEcommerceCustomer(a.source, a.email);
+    return { customerId };
+  },
+});
+
 async function vaultEcommerceCustomer(source: string, email?: string): Promise<string | null> {
   const token = process.env.CLOVER_API_TOKEN || "";
   if (!token || !source) return null;
