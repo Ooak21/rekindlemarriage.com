@@ -241,8 +241,8 @@
   .form-note{font-size:.85rem;color:var(--muted);text-align:center;margin-top:14px}
   .hp{position:absolute;left:-9999px}
 
-  .clv-field{border:1.5px solid var(--line);border-radius:12px;padding:0;background:#fff;margin:0 0 14px;height:54px;overflow:hidden}
-  .clv-field iframe{height:54px!important;width:100%!important;border:0!important;display:block}
+  .clv-field{border:1.5px solid var(--line);border-radius:12px;padding:0;background:#fff;margin:0 0 14px;height:48px;overflow:hidden;display:flex;align-items:center}
+  .clv-field iframe{height:48px!important;width:100%!important;border:0!important;display:block}
   .card-row{display:flex;gap:12px}
   .card-row > div{flex:1;min-width:0}
   @media(max-width:560px){.card-row{flex-direction:column;gap:0}}
@@ -661,12 +661,17 @@ async function mountClover() {
       fontFamily: "Calibri, 'Segoe UI', Helvetica, Arial, sans-serif",
       fontSize: '16px',
       margin: '0',
-      padding: '0 14px',
+      padding: '14px 16px',
+      height: '48px',
+      boxSizing: 'border-box',
     },
     input: {
       fontSize: '16px',
       color: '#17120e',
       backgroundColor: 'transparent',
+      height: '20px',
+      lineHeight: '20px',
+      padding: '0',
     },
   };
   elements.create('CARD_NUMBER', styles).mount('#card-number');
