@@ -426,11 +426,20 @@
   .nav-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}
   .nav-phone{font-family:var(--sans);font-weight:700;color:var(--ink);text-decoration:none;font-size:.95rem;letter-spacing:.01em;white-space:nowrap}
   .nav-phone:hover{color:var(--ember)}
-  @media(max-width:520px){.nav-phone{font-size:.82rem}}
-  .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
+  .reserve-short{display:none}
+  .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);flex-shrink:0}
   .logo img{height:56px;width:auto;display:block;flex-shrink:0}
   .logo b{font-family:var(--serif);font-size:1.45rem;font-weight:600;color:var(--ink);letter-spacing:.01em;line-height:1;transform:translateY(8px)}
-  @media(max-width:520px){.logo img{height:46px}.logo b{font-size:1.25rem;transform:translateY(6px)}}
+  @media(max-width:520px){
+    .nav{padding:10px 12px;gap:8px}
+    .nav-actions{gap:8px}
+    .nav-phone{font-size:.75rem}
+    .nav-actions .btn-sm{font-size:.8rem;padding:10px 12px}
+    .logo img{height:40px}
+    .logo b{font-size:1.05rem;transform:translateY(5px)}
+    .reserve-full{display:none}
+    .reserve-short{display:inline}
+  }
 
   /* HERO (dark) */
   .hero{position:relative;background:var(--hero);overflow:hidden}
@@ -584,7 +593,7 @@
     <a class="logo" href="#top"><img src="../rekindle-icon.png" alt="Rekindle"><b>Rekindle</b></a>
     <div class="nav-actions">
       <a class="nav-phone" href="tel:+17028679804">(702) 867-9804</a>
-      <a class="btn btn-primary btn-sm" href="#enroll">Reserve your spot</a>
+      <a class="btn btn-primary btn-sm" href="#enroll"><span class="reserve-full">Reserve your spot</span><span class="reserve-short">Reserve</span></a>
     </div>
   </div>
 </header>
@@ -826,9 +835,9 @@
         <label>Which cohort works best?</label>
         <select name="preferred_cohort">
           <option value="">Select</option>
-          <option>Next available cohort</option>
-          <option>Weeknight evenings</option>
-          <option>Weekend mornings</option>
+          <option>Wednesday, September 30, 7:30 to 9, in person</option>
+          <option>Wednesday, September 30, 7:30 to 9, live online</option>
+          <option>A later Wednesday evening cohort</option>
           <option>Flexible, tell me the options</option>
         </select>
       </div>

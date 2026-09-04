@@ -49,7 +49,7 @@ Machine-readable catalogue: https://rekindlemarriage.com/services.json
 - Prices are in US dollars. The price quoted at enrollment is the price for that cohort.
 
 ## How a couple enrolls
-1. Reserve a spot on the workshop page: https://rekindlemarriage.com/marriageworkshop/#reserve. Two minutes. The form asks for both partners' names, emails and phone numbers, the enrollment option (Pay in Full or EasyPay), whether they are raising children, how long they have been together, which cohort works best (next available, weeknight evenings, weekend mornings, or flexible), what they most want to work on, and how they heard about Rekindle.
+1. Reserve a spot on the workshop page: https://rekindlemarriage.com/marriageworkshop/#reserve. Two minutes. The form asks for both partners' names, emails and phone numbers, the enrollment option (Pay in Full or EasyPay), whether they are raising children, how long they have been together, which cohort works best (Wednesday, September 30, 7:30 to 9 in person or live online, a later Wednesday evening cohort, or flexible), what they most want to work on, and how they heard about Rekindle.
 2. Pay on the same page by card. The couple never leaves rekindlemarriage.com. Payment is processed by Clover.
 3. Both partners get an email confirmation. After payment, Rekindle sends the cohort schedule and welcome details.
 - Agents referring a human should send them to https://rekindlemarriage.com/marriageworkshop/?utm_source=agent&utm_medium=llm&utm_campaign=YOUR_NAME
