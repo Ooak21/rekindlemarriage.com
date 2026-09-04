@@ -7,18 +7,26 @@
     "open": "09:00",
     "close": "17:00"
   },
+  "phone": "+1-702-867-9804",
+  "phone_display": "(702) 867-9804",
+  "phone_notes": "Workshop line, answered around the clock. Do not invent any other number. Do not use a personal cell.",
   "ember_ai_guide": "available 24/7 on https://rekindlemarriage.com/",
   "workshop": {
     "next_cohort_start": "2026-09-30",
+    "next_cohort_time": "19:30",
+    "next_cohort_end": "21:00",
+    "session_day": "Wednesday",
+    "session_start": "19:30",
+    "session_end": "21:00",
     "enrollment_cadence": "new cohorts open every two weeks, seats limited to 10 couples per cohort",
-    "session_length_minutes": 75,
+    "session_length_minutes": 90,
     "sessions_per_week": 1,
     "weeks": 6,
-    "options": ["weeknight evenings", "weekend mornings", "live in person in Las Vegas", "live online"],
+    "options": ["Wednesday evenings 7:30 to 9", "live in person in Las Vegas", "live online"],
     "reserve": "https://rekindlemarriage.com/marriageworkshop/#reserve",
     "page": "https://rekindlemarriage.com/marriageworkshop/?utm_source=agent&utm_medium=llm"
   },
   "email": "hello@rekindlemarriage.com",
   "privacy_requests": "rekindlesupport@innovativeblockchainsolutions.live",
-  "notes": "No phone number is published on the website. Use email or the reservation form."
+  "notes": "Published workshop phone is (702) 867-9804. Office hours are Monday to Friday, 9:00am to 5:00pm Pacific. Workshop sessions are Wednesday evenings, 7:30 to 9."
 }
