@@ -408,6 +408,8 @@ http.route({
 });
 
 // --- Voice: mint a short-lived xAI token so the real key never reaches the browser.
+// Bind voice + prompt on the secret itself. Do not return instructions to the page.
+// The public site is gateway Ember, not the member brain.
 const emberToken = httpAction(async () => {
   const apiKey = xaiKey();
   if (!apiKey) return new Response("Voice is not configured yet.", { status: 500, headers: emberCors });
@@ -415,12 +417,19 @@ const emberToken = httpAction(async () => {
     const r = await fetch("https://api.x.ai/v1/realtime/client_secrets", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ expires_after: { seconds: 600 } }),
+      body: JSON.stringify({
+        expires_after: { seconds: 600 },
+        session: {
+          voice: EMBER_VOICE,
+          instructions: EMBER_GATEWAY_PROMPT,
+          turn_detection: { type: "server_vad", silence_duration_ms: 500 },
+        },
+      }),
     });
     if (!r.ok) return new Response("Could not start voice session.", { status: 502, headers: emberCors });
     const data = await r.json();
     return new Response(
-      JSON.stringify({ token: data.value, expires_at: data.expires_at, voice: EMBER_VOICE, instructions: EMBER_SYSTEM_PROMPT }),
+      JSON.stringify({ token: data.value, expires_at: data.expires_at, voice: EMBER_VOICE }),
       { headers: { ...emberCors, "Content-Type": "application/json", "Cache-Control": "no-store" } },
     );
   } catch {

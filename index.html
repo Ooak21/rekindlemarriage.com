@@ -2763,7 +2763,7 @@
       let rtPlayHead = 0, rtSources = [], rtEnv = [];
       let rtVisRAF = null, rtSpeakLvl = 0, rtUserLvl = 0, rtPeak = 0.06;
       let rtSafetyHandled = false, rtGreeted = false;
-      let rtVoice = null, rtInstructions = null;
+      let rtVoice = null;
       let rtCurUser = '', rtCurEmber = '';   // in-progress turn text, committed to `history` for continuity
 
       // Seed the voice session with the prior (text or earlier voice) conversation
@@ -2858,8 +2858,7 @@
         switch (e.type) {
           case 'session.created':
             rtSend({ type: 'session.update', session: {
-              voice: rtVoice || 'Carina',
-              instructions: rtInstructions || '',
+              voice: rtVoice || 'Ara',
               turn_detection: { type: 'server_vad', silence_duration_ms: 500 },
               audio: { input: { format: { type: 'audio/pcm', rate: 24000 }, transcription: { language_hint: 'en' } },
                        output: { format: { type: 'audio/pcm', rate: 24000 } } }
@@ -2916,7 +2915,7 @@
           addBubble('ember', "I'm having trouble starting voice right now. You can keep typing to me.");
           return;
         }
-        rtVoice = tok.voice; rtInstructions = tok.instructions; rtGreeted = false; rtSafetyHandled = false;
+        rtVoice = tok.voice; rtGreeted = false; rtSafetyHandled = false;
         rtPeak = 0.06;
         rtActive = true;
         micBtn.classList.add('convo'); micBtn.title = 'Tap to end voice chat';
