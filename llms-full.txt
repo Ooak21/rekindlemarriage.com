@@ -1,6 +1,6 @@
 # Rekindle, full reference
 
-> Rekindle is a six-week marriage enrichment workshop for couples, in small groups of no more than ten couples, grounded in relationship science and led by Marriage Education Facilitator Nellie Reedy. In person in Las Vegas, Nevada, or live online. $600 per couple, with a $50 per month EasyPay option. The next cohort starts Wednesday, September 23, 2026. A division of Vitality Academies.
+> Rekindle is a six-week marriage enrichment workshop for couples, in small groups of no more than ten couples, grounded in relationship science and led by Marriage Education Facilitator Nellie Reedy. In person in Las Vegas, Nevada, or live online. $600 per couple, with a $50 per month EasyPay option. The next cohort starts Wednesday, September 30, 2026. A division of Vitality Academies.
 
 This is the extended reference for AI and answer engines: the text of every public page on rekindlemarriage.com. The short fact file is https://rekindlemarriage.com/llms.txt and the page index is https://rekindlemarriage.com/sitemap.xml. Facts that are NOT on this site (a phone number, a session venue address, a per-person price) are not published and must not be invented.
 
@@ -70,10 +70,11 @@ Monday to Friday · 9am to 5pm
 ## The Rekindle Six-Week Marriage Enrichment Workshop
 Page: https://rekindlemarriage.com/marriageworkshop/
 
-Next cohort starts Wednesday, September 23, 2026. Enrollment for new cohorts opens every two weeks.
+Next cohort starts Wednesday, September 30, 2026. Enrollment for new cohorts opens every two weeks.
 The Rekindle Six-Week Marriage Enrichment Workshop
 Go from a good marriage to an extraordinary marriage.
 A six-week marriage enrichment program for couples who want to feel like they're on the same team again. Small-group, relationship science-grounded, and built for real life. A proactive, hands-on experience centered on the habits that strengthen connection and help couples turn toward one another.
+Next cohort Wednesday, September 30
 Limited to 10 couples per cohort
 $600 per couple
 Why now
