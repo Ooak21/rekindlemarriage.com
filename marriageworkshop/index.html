@@ -16,6 +16,7 @@
 <link rel="alternate" type="application/json" title="Services" href="/services.json">
 <link rel="alternate" type="application/json" title="People" href="/person.json">
 <link rel="icon" href="../rekindle-icon.png">
+<script src="/ga.js" defer></script>
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rekindle">
@@ -767,7 +768,7 @@
     <h2 style="margin:0 auto">Save your place in the next cohort.</h2>
     <p class="lead" style="margin:12px auto 0">Two minutes now holds your seat. Then you pay on this page. You never leave rekindlemarriage.com.</p>
 
-    <form class='form-wrap' id='resform'>
+    <form class='form-wrap' id='resform' data-ga-manual>
       <p class="hp"><label>Do not fill this out: <input name="bot_field"></label></p>
 
       <div class="field">
@@ -1040,6 +1041,14 @@ function showPayPanel(out) {
   payBtn.textContent = 'Pay ' + dollars(out.amountCents);
   payErr.textContent = '';
   payPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (window.rekindleTrack) {
+    window.rekindleTrack('generate_lead', { form_id: 'resform', payment_plan: out.plan || '' });
+    window.rekindleTrack('begin_checkout', {
+      currency: 'USD',
+      value: (Number(out.amountCents) || 0) / 100,
+      transaction_id: out.orderRef || ''
+    });
+  }
   mountClover().catch(function(){
     payErr.textContent = 'The card form could not load in this browser. Please try Safari or Chrome, or email hello@rekindlemarriage.com.';
   });
@@ -1083,6 +1092,13 @@ async function pollPayment(ref) {
           'Your Rekindle seat is confirmed.',
           'Watch your inbox for cohort schedule and welcome details.'
         );
+        if (window.rekindleTrack) {
+          window.rekindleTrack('purchase', {
+            currency: 'USD',
+            transaction_id: ref,
+            payment_status: out.status || ''
+          });
+        }
         return;
       }
     } catch (e) { /* keep polling */ }
@@ -1157,6 +1173,9 @@ form.addEventListener('submit', async (e) => {
       'We saved your place in the next Rekindle cohort. Your seat is held for 48 hours.',
       'Watch your inbox. Our team will follow up with cohort details.'
     );
+    if (window.rekindleTrack) {
+      window.rekindleTrack('generate_lead', { form_id: 'resform', payment_plan: payload.payment_plan || '' });
+    }
   } catch (ex) {
     // Never swallow this. A dropped reservation is a lost couple, so say so and keep what they typed.
     btn.disabled = false;
@@ -1207,6 +1226,14 @@ payBtn.addEventListener('click', async function(){
       'Your Rekindle seat is confirmed.',
       'Watch your inbox for cohort schedule and welcome details.'
     );
+    if (window.rekindleTrack) {
+      window.rekindleTrack('purchase', {
+        currency: 'USD',
+        value: (Number(pendingPay.amountCents) || 0) / 100,
+        transaction_id: pendingPay.orderRef || '',
+        payment_plan: pendingPay.plan || ''
+      });
+    }
   } catch (e) {
     payBtn.disabled = false;
     payBtn.textContent = payLabel;
