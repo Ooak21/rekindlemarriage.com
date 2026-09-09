@@ -19,6 +19,57 @@ const str = (v: unknown, max = 200) => String(v ?? "").trim().slice(0, max);
 const http = httpRouter();
 
 http.route({
+  path: "/score",
+  method: "OPTIONS",
+  handler: httpAction(async () => new Response(null, { status: 204, headers: cors })),
+});
+
+http.route({
+  path: "/score",
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    let body: Record<string, unknown>;
+    try { body = await req.json(); } catch { return json(400, { ok: false, error: "Invalid JSON body" }); }
+    if (str(body.bot_field)) return json(200, { ok: true });
+
+    const partner_a_first = str(body.firstName || body.partnerA_first, 80);
+    const partner_a_email = str(body.email || body.partnerA_email, 160);
+    if (!partner_a_first || !partner_a_email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partner_a_email)) {
+      return json(400, { ok: false, error: "First name and a valid email are required." });
+    }
+
+    const overall = Number(body.score);
+    const score_overall = Number.isFinite(overall) ? Math.max(0, Math.min(100, Math.round(overall))) : undefined;
+    let score_pillars: string | undefined;
+    if (body.pillars && typeof body.pillars === "object") {
+      try { score_pillars = JSON.stringify(body.pillars).slice(0, 800); } catch { /* ignore */ }
+    }
+    const score_focus = str(body.focus, 80) || undefined;
+
+    const id = await ctx.runMutation(internal.reserve.create, {
+      partner_a_first,
+      partner_a_last: "",
+      partner_a_email,
+      partner_a_phone: "",
+      consent: true,
+      source: "marriage-health-score",
+      status: "score",
+      score_overall,
+      score_pillars,
+      score_focus,
+    });
+
+    const isTest = partner_a_first.startsWith("ZZTest");
+    if (isTest) return json(200, { ok: true, id, email: "suppressed-test" });
+
+    const lead = await ctx.runQuery(internal.reserve.get, { id });
+    const status: any = await ctx.runAction(internal.mailer.sendScoreEmails, { lead_id: id, lead });
+    await ctx.runMutation(internal.reserve.recordEmailOutcome, { id, couple: status.couple, team: status.team });
+    return json(200, { ok: true, id, email: status });
+  }),
+});
+
+http.route({
   path: "/reserve",
   method: "OPTIONS",
   handler: httpAction(async () => new Response(null, { status: 204, headers: cors })),

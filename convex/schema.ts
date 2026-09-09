@@ -44,10 +44,14 @@ export default defineSchema({
     contact_just_me: v.optional(v.boolean()),
     consent: v.boolean(),
 
-    status: v.string(),               // reserved | contacted | paid | enrolled | archived
+    status: v.string(),               // score | reserved | contacted | paid | enrolled | archived
     cohort: v.optional(v.string()),
     notes: v.optional(v.string()),
     source: v.string(),
+    // Marriage Health Score gate (score.html). Absent on workshop/phone reservations.
+    score_overall: v.optional(v.number()),
+    score_pillars: v.optional(v.string()),
+    score_focus: v.optional(v.string()),
 
     // Whether the couple's confirmation actually left the building. NULL-equivalent (absent) means
     // we do not know, which is the honest answer for anything reserved before 2026-08-16, when both

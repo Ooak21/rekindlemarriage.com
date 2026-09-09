@@ -261,3 +261,79 @@ export const sendPhoneLeadEmail = internalAction({
     }
   },
 });
+
+export const sendScoreEmails = internalAction({
+  args: { lead_id: v.string(), lead: v.any() },
+  handler: async (_ctx, { lead_id, lead: L }) => {
+    const name = esc(L.partner_a_first || "there");
+    const score = L.score_overall != null ? String(L.score_overall) : "n/a";
+    const focus = L.score_focus ? esc(L.score_focus) : "your relationship";
+    const status = { couple: "not attempted", team: "not attempted" };
+
+    const coupleHtmlScore = `<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
+<body style="margin:0;padding:0;background-color:#FBF8F4;font-family:Georgia,'Times New Roman',serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FBF8F4;padding:32px 16px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #EDE6DC;">
+        <tr><td style="background-color:#C1440E;padding:20px 28px;">
+          <p style="margin:0;color:#FBF8F4;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-family:system-ui,-apple-system,sans-serif;">Rekindle Marriage Health Score</p>
+        </td></tr>
+        <tr><td style="padding:32px 28px 12px;">
+          <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">Your score is ${esc(score)} out of 100</h1>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">Hi ${name},</p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Thank you for taking the two-minute Marriage Health Score. The area asking for attention first is <strong>${focus}</strong>.
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            If you want a structured next step, the six-week workshop is Wednesday evenings, 7:30 to 9, starting September 30. Reserve here: <a href="https://rekindlemarriage.com/marriageworkshop/#reserve" style="color:#C1440E;">rekindlemarriage.com/marriageworkshop</a>
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Questions: call (702) 867-9804 or reply to this email.
+          </p>
+          <p style="margin:24px 0 0;font-size:17px;line-height:1.6;color:#3a322c;">
+            With care,<br />
+            <span style="color:#C1440E;">The Rekindle Team</span>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`;
+
+    try {
+      await send({
+        to: [L.partner_a_email].filter(Boolean),
+        subject: `Your Marriage Health Score is ${score}`,
+        html: coupleHtmlScore,
+      });
+      status.couple = "sent";
+    } catch (e) {
+      status.couple = `failed: ${e instanceof Error ? e.message : String(e)}`;
+      console.error("[rekindle] score couple email failed:", e);
+    }
+
+    const teamHtml = `<!DOCTYPE html><html><head><meta charset="utf-8" /></head>
+<body style="font-family:system-ui,-apple-system,sans-serif;color:#1a1410;line-height:1.5;">
+  <h2 style="color:#C1440E;margin:0 0 12px;">New Marriage Health Score</h2>
+  <p style="margin:0 0 16px;">Lead ID: <code>${esc(lead_id)}</code></p>
+  <table cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
+    <tr><td style="font-weight:600;padding-right:12px;">Name</td><td>${esc(L.partner_a_first)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Email</td><td>${esc(L.partner_a_email)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Score</td><td>${esc(score)} / 100</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Focus</td><td>${focus}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Pillars</td><td>${esc(L.score_pillars)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Source</td><td>marriage-health-score</td></tr>
+  </table>
+</body></html>`;
+
+    try {
+      await send({ to: TEAM, subject: `New Marriage Health Score: ${L.partner_a_first} (${score})`, html: teamHtml });
+      status.team = "sent";
+    } catch (e) {
+      status.team = `failed: ${e instanceof Error ? e.message : String(e)}`;
+      console.error("[rekindle] score team email failed:", e);
+    }
+    return status;
+  },
+});

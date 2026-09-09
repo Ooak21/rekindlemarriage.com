@@ -20,12 +20,17 @@ export const create = internalMutation({
     contact_just_me: v.optional(v.boolean()),
     consent: v.boolean(),
     source: v.string(),
+    status: v.optional(v.string()),
+    score_overall: v.optional(v.number()),
+    score_pillars: v.optional(v.string()),
+    score_focus: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    const { status, ...rest } = args;
     const id = await ctx.db.insert("rekindle_leads", {
-      ...args,
+      ...rest,
       created_at: Date.now(),
-      status: "reserved",
+      status: status || "reserved",
     });
     return id;
   },

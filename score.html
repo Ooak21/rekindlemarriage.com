@@ -377,9 +377,10 @@
     <div id="gate" class="gate">
       <h3>See your full breakdown</h3>
       <p class="sub">Get your score across all five areas, a personalized read on each, and your best next step, sent to your inbox.</p>
+      <div class="field" style="position:absolute;left:-9999px" aria-hidden="true"><input id="bot_field" tabindex="-1" autocomplete="off"></div>
       <div class="field"><input id="fname" type="text" placeholder="First name" autocomplete="given-name"></div>
       <div class="field"><input id="email" type="email" placeholder="Email address" autocomplete="email"></div>
-      <button class="btn btn-primary btn-block" onclick="unlock()">Unlock my full results →</button>
+      <button class="btn btn-primary btn-block" id="unlockBtn" onclick="unlock()">Unlock my full results →</button>
       <div id="gateErr" class="err">Please enter your first name and a valid email.</div>
       <p class="fineprint">No spam. Just your results and the occasional note from Rekindle. Unsubscribe anytime.</p>
     </div>
@@ -404,10 +405,9 @@
 
 <script>
 const CONFIG = {
-  // Same-site anchors. These resolve to the Rekindle landing page sections,
-  // so the "Book a call" and "Talk to Ember" buttons work wherever this is hosted.
   BOOKING_URL: "marriageworkshop/#enroll",
-  EMBER_URL:   "index.html#ember-ai"
+  EMBER_URL:   "index.html#ember-ai",
+  SCORE_URL:   "https://calculating-poodle-798.convex.site/score"
 };
 
 const PILLARS = {
@@ -559,28 +559,7 @@ function finish(){
 }
 
 function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
-function unlock(){
-  const name=$("fname").value.trim(), email=$("email").value.trim();
-  if(!name || !validEmail(email)){ $("gateErr").style.display="block"; return; }
-  $("gateErr").style.display="none";
-
-  const lead={
-    firstName:name, email,
-    score:window._RESULT.overall,
-    pillars:window._RESULT.ps,
-    completedAt:new Date().toISOString(),
-    source:"marriage-health-score"
-  };
-
-  // TODO: wire lead capture to Convex. Until then GA records the conversion; CRM does not.
-  console.log("Lead captured:",lead);
-  if (window.rekindleTrack) {
-    window.rekindleTrack("generate_lead", {
-      lead_source: "marriage-health-score",
-      score: window._RESULT.overall
-    });
-  }
-
+function showBreakdown(){
   $("gate").classList.add("hidden");
   const full=$("full"); full.classList.remove("hidden"); full.classList.add("fade");
   const ps=window._RESULT.ps, wrap=$("pillars"); wrap.innerHTML="";
@@ -595,6 +574,35 @@ function unlock(){
     setTimeout(()=>{row.querySelector(".pbar i").style.width=s+"%";},60);
   });
   full.scrollIntoView({behavior:"smooth",block:"start"});
+}
+async function unlock(){
+  const name=$("fname").value.trim(), email=$("email").value.trim();
+  if(!name || !validEmail(email)){ $("gateErr").style.display="block"; return; }
+  $("gateErr").style.display="none";
+  const weakest=Object.keys(window._RESULT.ps).sort((a,b)=>window._RESULT.ps[a]-window._RESULT.ps[b])[0];
+  const btn=$("unlockBtn");
+  if(btn){ btn.disabled=true; btn.textContent="Saving..."; }
+  try{
+    await fetch(CONFIG.SCORE_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        firstName:name,
+        email,
+        score:window._RESULT.overall,
+        pillars:window._RESULT.ps,
+        focus:PILLARS[weakest],
+        bot_field:($("bot_field")&&$("bot_field").value)||""
+      })
+    });
+  }catch(e){}
+  if (window.rekindleTrack) {
+    window.rekindleTrack("generate_lead", {
+      lead_source: "marriage-health-score",
+      score: window._RESULT.overall
+    });
+  }
+  showBreakdown();
 }
 
 function share(){
