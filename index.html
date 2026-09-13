@@ -3173,7 +3173,15 @@
       entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
+  </script>
+  <div id="dnBubble" class="dn-bubble" hidden>
+    <button type="button" class="dn-bubble-x" aria-label="Dismiss">×</button>
+    <p class="dn-bubble-kicker">Saturday Oct 17 · 6 PM</p>
+    <p class="dn-bubble-title">Free Date Night</p>
+    <p class="dn-bubble-sub">Dinner, games, prizes. Twelve couples only.</p>
+    <a href="datenight/?utm_source=site&utm_medium=bubble&utm_campaign=oct17">Claim a spot</a>
+  </div>
+  <script>
     (function(){
       var el = document.getElementById('dnBubble');
       if (!el) return;
@@ -3186,12 +3194,5 @@
       });
     })();
   </script>
-  <div id="dnBubble" class="dn-bubble" hidden>
-    <button type="button" class="dn-bubble-x" aria-label="Dismiss">×</button>
-    <p class="dn-bubble-kicker">Saturday Oct 17 · 6 PM</p>
-    <p class="dn-bubble-title">Free Date Night</p>
-    <p class="dn-bubble-sub">Dinner, games, prizes. Twelve couples only.</p>
-    <a href="datenight/?utm_source=site&utm_medium=bubble&utm_campaign=oct17">Claim a spot</a>
-  </div>
 </body>
 </html>
