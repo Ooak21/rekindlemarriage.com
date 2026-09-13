@@ -1585,6 +1585,27 @@
     .score-promo-meta span { display: flex; align-items: center; gap: 0.5rem; }
     .score-promo-meta span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ember); display: inline-block; }
 
+    .dn-section { background: #fff; padding: 6rem 6vw; border-top: 1px solid rgba(26,20,16,0.06); }
+    .dn-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+    .dn-eyebrow { color: var(--ember); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 1rem; }
+    .dn-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--ink); line-height: 1.15; margin-bottom: 1.1rem; text-wrap: balance; }
+    .dn-h2 em { font-style: italic; color: var(--ember); }
+    .dn-sub { color: var(--soft); font-size: 1.05rem; line-height: 1.7; max-width: 36rem; margin: 0 auto 1.6rem; text-wrap: balance; }
+    .dn-meta { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
+    .dn-meta span { display: flex; align-items: center; gap: 0.5rem; }
+    .dn-meta span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ember); display: inline-block; }
+    .dn-bubble { position: fixed; z-index: 80; right: 22px; bottom: 22px; width: min(320px, calc(100vw - 32px)); background: #fff; color: var(--ink); border: 1px solid rgba(26,20,16,0.1); border-radius: 18px; box-shadow: 0 18px 50px rgba(26,20,16,0.16); padding: 18px 18px 16px; }
+    .dn-bubble[hidden] { display: none !important; }
+    .dn-bubble-x { position: absolute; top: 8px; right: 10px; border: 0; background: transparent; font-size: 22px; line-height: 1; cursor: pointer; color: var(--muted); }
+    .dn-bubble-kicker { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ember); font-weight: 600; margin-bottom: 6px; }
+    .dn-bubble-title { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; margin: 0 0 6px; }
+    .dn-bubble-sub { font-size: 0.9rem; color: var(--soft); margin: 0 0 14px; line-height: 1.45; }
+    .dn-bubble a { display: inline-flex; align-items: center; justify-content: center; background: var(--ember); color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; border-radius: 999px; padding: 10px 16px; }
+    @media (max-width: 860px) {
+      .dn-section { padding: 3.5rem 1.5rem; }
+      .dn-bubble { right: 12px; bottom: 12px; }
+    }
+
     .cta {
       background: var(--ink);
       padding: 6rem 6vw;
@@ -1767,6 +1788,7 @@
       <a href="#how" class="nav-link">How It Works</a>
       <a href="#ember-ai" class="nav-link">Ember AI</a>
       <a href="#physician" class="nav-link">Nellie Reedy</a>
+      <a href="datenight/?utm_source=site&utm_medium=nav&utm_campaign=oct17" class="nav-link">Date Night</a>
       <a href="score.html" class="nav-link">Marriage Score</a>
       <a href="blog/" class="nav-link">Journal</a>
       <a href="marriageworkshop/#enroll" class="nav-cta">Sign Up Now</a>
@@ -1782,6 +1804,7 @@
     <a href="#how" class="mobile-link">How It Works</a>
     <a href="#ember-ai" class="mobile-link">Ember AI</a>
     <a href="#physician" class="mobile-link">Nellie Reedy</a>
+    <a href="datenight/?utm_source=site&utm_medium=nav&utm_campaign=oct17" class="mobile-link">Date Night</a>
     <a href="score.html" class="mobile-link">Marriage Score</a>
     <a href="blog/" class="mobile-link">Journal</a>
     <a href="marriageworkshop/#enroll" class="mobile-cta">Sign Up Now</a>
@@ -1868,6 +1891,22 @@
       <p class="distance-headline">This can be your marriage.</p>
     </div>
   </div>
+
+  <!-- DATE NIGHT -->
+  <section class="dn-section" id="datenight">
+    <div class="dn-inner reveal">
+      <p class="dn-eyebrow">Saturday, October 17 · 6 PM · Las Vegas</p>
+      <h2 class="dn-h2">A free <em>Date Night</em> for twelve couples.</h2>
+      <p class="dn-sub">Light dinner, couples games, prizes, and time to reconnect. Complimentary, reservations required. A low-stakes night together, and a first look at Rekindle if you want one.</p>
+      <div class="dn-meta">
+        <span>Saturday Oct 17</span>
+        <span>6:00 PM</span>
+        <span>12 couples only</span>
+        <span>Free</span>
+      </div>
+      <a href="datenight/?utm_source=site&utm_medium=home_section&utm_campaign=oct17" class="btn-ember">Claim a Date Night spot</a>
+    </div>
+  </section>
 
   <!-- EMBER AI -->
   <section class="ember-ai" id="ember-ai">
@@ -3134,6 +3173,25 @@
       entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    (function(){
+      var el = document.getElementById('dnBubble');
+      if (!el) return;
+      if (sessionStorage.getItem('rk_dn_bubble_dismissed')) return;
+      setTimeout(function(){ el.hidden = false; }, 1800);
+      var x = el.querySelector('.dn-bubble-x');
+      if (x) x.addEventListener('click', function(){
+        el.hidden = true;
+        sessionStorage.setItem('rk_dn_bubble_dismissed', '1');
+      });
+    })();
   </script>
+  <div id="dnBubble" class="dn-bubble" hidden>
+    <button type="button" class="dn-bubble-x" aria-label="Dismiss">×</button>
+    <p class="dn-bubble-kicker">Saturday Oct 17 · 6 PM</p>
+    <p class="dn-bubble-title">Free Date Night</p>
+    <p class="dn-bubble-sub">Dinner, games, prizes. Twelve couples only.</p>
+    <a href="datenight/?utm_source=site&utm_medium=bubble&utm_campaign=oct17">Claim a spot</a>
+  </div>
 </body>
 </html>

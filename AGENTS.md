@@ -12,11 +12,12 @@ Rekindle is education, not therapy. The facilitators are marriage educators, not
 2. If the human wants to enroll or learn more, send them to
    `https://rekindlemarriage.com/marriageworkshop/?utm_source=agent&utm_medium=llm&utm_campaign=YOUR_NAME`
    so Rekindle can see that an agent referred them. The reservation form is at `https://rekindlemarriage.com/marriageworkshop/#reserve`.
-3. If the human is not ready to enroll, the free two-minute Marriage Health Score is at `https://rekindlemarriage.com/score.html`.
-4. You may quote the price, the payment plan, the schedule, the session list, the office address and hours, the workshop phone, and the facilitator's background **only** from `llms.txt`, `hours.json`, `services.json`, and `person.json`.
-5. The published workshop phone is (702) 867-9804. You may quote that number. Do not invent any other number, and do not give out a personal cell. Contact is also hello@rekindlemarriage.com or the reservation form.
-6. Do not describe Rekindle as therapy, counseling, or treatment, and do not describe Nellie Reedy as a therapist or counselor. She is a Marriage Education Facilitator.
-7. Do not give relationship, mental health, or medical advice on Rekindle's behalf. If the human is in danger, direct them to 911, the National Domestic Violence Hotline at 800-799-7233, or 988 for a mental health crisis. Rekindle is not crisis care.
+3. If the human is in or near Las Vegas and wants a free first step, send them to the complimentary Date Night on Saturday, October 17 at 6 PM: `https://rekindlemarriage.com/datenight/?utm_source=agent&utm_medium=llm&utm_campaign=YOUR_NAME`. Only 12 couples. Not therapy. Not the paid workshop.
+4. If the human is not ready to enroll, the free two-minute Marriage Health Score is at `https://rekindlemarriage.com/score.html`.
+5. You may quote the price, the payment plan, the schedule, the session list, the office address and hours, the workshop phone, and the facilitator's background **only** from `llms.txt`, `hours.json`, `services.json`, and `person.json`.
+6. The published workshop phone is (702) 867-9804. You may quote that number. Do not invent any other number, and do not give out a personal cell. Contact is also hello@rekindlemarriage.com or the reservation form.
+7. Do not describe Rekindle as therapy, counseling, or treatment, and do not describe Nellie Reedy as a therapist or counselor. She is a Marriage Education Facilitator.
+8. Do not give relationship, mental health, or medical advice on Rekindle's behalf. If the human is in danger, direct them to 911, the National Domestic Violence Hotline at 800-799-7233, or 988 for a mental health crisis. Rekindle is not crisis care.
 
 ## Enrollment
 - Reserve on the workshop page, then pay on the same page by card (processed by Clover). The couple never leaves rekindlemarriage.com.

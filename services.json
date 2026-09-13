@@ -65,6 +65,16 @@
       "price_usd": 0
     },
     {
+      "id": "date-night",
+      "name": "Rekindle Date Night",
+      "url": "https://rekindlemarriage.com/datenight/",
+      "summary": "A complimentary in-person evening for 12 couples in Las Vegas: Saturday, October 17, 2026 at 6:00pm. Light dinner, couples games, prizes, and an introduction to Rekindle. Marriage enrichment, not therapy. Reservations required. Exact location sent to confirmed guests.",
+      "start": "2026-10-17T18:00:00-07:00",
+      "capacity_couples": 12,
+      "price_usd": 0,
+      "attendance": "both partners attend together"
+    },
+    {
       "id": "marriage-health-score",
       "name": "Marriage Health Score",
       "url": "https://rekindlemarriage.com/score.html",

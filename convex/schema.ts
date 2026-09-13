@@ -44,10 +44,14 @@ export default defineSchema({
     contact_just_me: v.optional(v.boolean()),
     consent: v.boolean(),
 
-    status: v.string(),               // score | reserved | contacted | paid | enrolled | archived
+    status: v.string(),               // score | datenight | reserved | contacted | paid | enrolled | archived
     cohort: v.optional(v.string()),
     notes: v.optional(v.string()),
     source: v.string(),
+    utm_source: v.optional(v.string()),
+    utm_medium: v.optional(v.string()),
+    utm_campaign: v.optional(v.string()),
+    landing: v.optional(v.string()),
     // Marriage Health Score gate (score.html). Absent on workshop/phone reservations.
     score_overall: v.optional(v.number()),
     score_pillars: v.optional(v.string()),

@@ -337,3 +337,80 @@ export const sendScoreEmails = internalAction({
     return status;
   },
 });
+
+export const sendDateNightEmails = internalAction({
+  args: { lead_id: v.string(), lead: v.any() },
+  handler: async (_ctx, { lead_id, lead: L }) => {
+    const names = L.partner_b_first
+      ? `${esc(L.partner_a_first)} and ${esc(L.partner_b_first)}`
+      : esc(L.partner_a_first);
+    const cameFrom = L.how_heard || "Direct";
+    const status = { couple: "not attempted", team: "not attempted" };
+
+    const coupleHtmlDn = `<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
+<body style="margin:0;padding:0;background-color:#FBF8F4;font-family:Georgia,'Times New Roman',serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FBF8F4;padding:32px 16px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #EDE6DC;">
+        <tr><td style="background-color:#C1440E;padding:20px 28px;">
+          <p style="margin:0;color:#FBF8F4;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-family:system-ui,-apple-system,sans-serif;">Rekindle Date Night</p>
+        </td></tr>
+        <tr><td style="padding:32px 28px 12px;">
+          <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">You're on the list for October 17</h1>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">Dear ${names},</p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Thank you for claiming a free Rekindle Date Night. Saturday, October 17 at 6 PM in Las Vegas. Light dinner, couples games, and prizes. Only 12 couples.
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            We will send the exact location and evening details to this email. Questions: call (702) 867-9804 or reply here.
+          </p>
+          <p style="margin:24px 0 0;font-size:17px;line-height:1.6;color:#3a322c;">
+            With care,<br />
+            <span style="color:#C1440E;">The Rekindle Team</span>
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`;
+
+    try {
+      await send({
+        to: [L.partner_a_email].filter(Boolean),
+        subject: "You're on the list for Rekindle Date Night, October 17",
+        html: coupleHtmlDn,
+      });
+      status.couple = "sent";
+    } catch (e) {
+      status.couple = `failed: ${e instanceof Error ? e.message : String(e)}`;
+      console.error("[rekindle] datenight couple email failed:", e);
+    }
+
+    const teamHtml = `<!DOCTYPE html><html><head><meta charset="utf-8" /></head>
+<body style="font-family:system-ui,-apple-system,sans-serif;color:#1a1410;line-height:1.5;">
+  <h2 style="color:#C1440E;margin:0 0 12px;">New Date Night reservation</h2>
+  <p style="margin:0 0 16px;">Lead ID: <code>${esc(lead_id)}</code></p>
+  <table cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
+    <tr><td style="font-weight:600;padding-right:12px;">Event</td><td>Date Night · Saturday Oct 17, 6 PM</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Couple</td><td>${esc(L.partner_a_first)} and ${esc(L.partner_b_first || "")}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Email</td><td>${esc(L.partner_a_email)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Phone</td><td>${esc(L.partner_a_phone)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Came from</td><td>${esc(cameFrom)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">utm_source</td><td>${orEmpty(L.utm_source)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">utm_medium</td><td>${orEmpty(L.utm_medium)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">utm_campaign</td><td>${orEmpty(L.utm_campaign)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Landing</td><td>${orEmpty(L.landing)}</td></tr>
+  </table>
+</body></html>`;
+
+    try {
+      await send({ to: TEAM, subject: `New Date Night: ${L.partner_a_first} and ${L.partner_b_first || "spouse"} · ${cameFrom}`, html: teamHtml });
+      status.team = "sent";
+    } catch (e) {
+      status.team = `failed: ${e instanceof Error ? e.message : String(e)}`;
+      console.error("[rekindle] datenight team email failed:", e);
+    }
+    return status;
+  },
+});

@@ -24,6 +24,10 @@ export const create = internalMutation({
     score_overall: v.optional(v.number()),
     score_pillars: v.optional(v.string()),
     score_focus: v.optional(v.string()),
+    utm_source: v.optional(v.string()),
+    utm_medium: v.optional(v.string()),
+    utm_campaign: v.optional(v.string()),
+    landing: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { status, ...rest } = args;

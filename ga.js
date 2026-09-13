@@ -40,7 +40,7 @@
       window.rekindleTrack("call_click", { link_text: text });
     } else if (href.indexOf("mailto:") === 0) {
       window.rekindleTrack("email_click", { link_text: text });
-    } else if (/marriageworkshop|score\.html|#enroll|#reserve|#cta/i.test(href)) {
+    } else if (/marriageworkshop|score\.html|datenight|#enroll|#reserve|#cta/i.test(href)) {
       window.rekindleTrack("cta_click", { cta_text: text, destination: href.slice(0, 120) });
     }
   }, true);

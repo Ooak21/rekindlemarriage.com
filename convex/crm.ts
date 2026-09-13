@@ -66,6 +66,10 @@ export const listLeads = query({
         score_overall: r.score_overall ?? null,
         score_pillars: r.score_pillars || "",
         score_focus: r.score_focus || "",
+        utm_source: r.utm_source || "",
+        utm_medium: r.utm_medium || "",
+        utm_campaign: r.utm_campaign || "",
+        landing: r.landing || "",
       })),
     };
   },

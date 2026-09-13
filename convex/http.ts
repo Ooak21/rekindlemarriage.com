@@ -69,6 +69,80 @@ http.route({
   }),
 });
 
+function howHeardLabel(source: string, medium: string): string {
+  const s = source.toLowerCase();
+  const m = medium.toLowerCase();
+  if (s === "instagram" && m === "story") return "Instagram story";
+  if (s === "instagram") return "Instagram";
+  if (s === "site" && m === "bubble") return "Home bubble";
+  if (s === "site" && m === "home_section") return "Home section";
+  if (s === "site" && m === "nav") return "Nav";
+  if (s || m) return [s, m].filter(Boolean).join(" / ");
+  return "Direct";
+}
+
+http.route({
+  path: "/datenight",
+  method: "OPTIONS",
+  handler: httpAction(async () => new Response(null, { status: 204, headers: cors })),
+});
+
+http.route({
+  path: "/datenight",
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    let body: Record<string, unknown>;
+    try { body = await req.json(); } catch { return json(400, { ok: false, error: "Invalid JSON body" }); }
+    if (str(body.bot_field)) return json(200, { ok: true });
+
+    const partner_a_first = str(body.firstName || body.partner_a_first, 80);
+    const partner_b_first = str(body.spouseName || body.partner_b_first, 80);
+    const partner_a_email = str(body.email || body.partner_a_email, 160);
+    const partner_a_phone = str(body.phone || body.partner_a_phone, 40);
+    if (!partner_a_first || !partner_b_first || !partner_a_email || !partner_a_phone) {
+      return json(400, { ok: false, error: "Both first names, email, and phone are required." });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partner_a_email)) {
+      return json(400, { ok: false, error: "A valid email is required." });
+    }
+    const digits = partner_a_phone.replace(/\D/g, "");
+    if (digits.length < 10) {
+      return json(400, { ok: false, error: "A valid phone number is required." });
+    }
+
+    const utm_source = str(body.utm_source, 80) || undefined;
+    const utm_medium = str(body.utm_medium, 80) || undefined;
+    const utm_campaign = str(body.utm_campaign, 80) || undefined;
+    const landing = str(body.landing, 240) || "/datenight/";
+    const how_heard = howHeardLabel(utm_source || "", utm_medium || "");
+
+    const id = await ctx.runMutation(internal.reserve.create, {
+      partner_a_first,
+      partner_a_last: "",
+      partner_a_email,
+      partner_a_phone,
+      partner_b_first: partner_b_first || undefined,
+      consent: true,
+      source: "datenight",
+      status: "datenight",
+      preferred_cohort: "Date Night Oct 17",
+      how_heard,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      landing,
+    });
+
+    const isTest = partner_a_first.startsWith("ZZTest");
+    if (isTest) return json(200, { ok: true, id, email: "suppressed-test" });
+
+    const lead = await ctx.runQuery(internal.reserve.get, { id });
+    const status: any = await ctx.runAction(internal.mailer.sendDateNightEmails, { lead_id: id, lead });
+    await ctx.runMutation(internal.reserve.recordEmailOutcome, { id, couple: status.couple, team: status.team });
+    return json(200, { ok: true, id, email: status });
+  }),
+});
+
 http.route({
   path: "/reserve",
   method: "OPTIONS",
