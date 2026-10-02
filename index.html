@@ -823,29 +823,37 @@
       margin-bottom: 1.25rem;
     }
 
-    /* SECTION: DISTANCE (full bleed image) */
+    /* SECTION: DISTANCE */
     .distance {
       display: grid;
-      grid-template-columns: 0.82fr 1.18fr;
-      min-height: 560px;
+      grid-template-columns: 0.78fr 1.22fr;
       background: #0C0C0B;
       overflow: hidden;
+      align-items: end;
+      padding-top: 3.25rem;
     }
     .distance img,
     .distance video {
       grid-column: 2;
       grid-row: 1;
       width: 100%;
-      height: 100%;
-      min-height: 560px;
-      object-fit: cover;
-      object-position: 86% center;
+      height: auto;
+      min-height: 0;
+      object-fit: contain;
+      object-position: right bottom;
+      justify-self: end;
+      align-self: end;
       display: block;
+      background: transparent;
+      transform: none;
+      position: relative;
+      z-index: 1;
     }
     .distance-overlay {
       grid-column: 1;
       grid-row: 1;
       position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -1423,7 +1431,7 @@
     /* SECTION: PROCESS */
     .process {
       background: var(--cream);
-      padding: 6rem 6vw;
+      padding: 6rem 6vw 2rem;
     }
     .process-header {
       margin-bottom: 3rem;
@@ -1485,17 +1493,32 @@
       display: grid;
       grid-template-columns: 1fr 480px;
       min-height: 560px;
+      align-items: end;
+      overflow: visible;
+      position: relative;
+      z-index: 1;
+      margin-top: -3.5rem;
     }
     .physician-photo {
-      overflow: hidden;
-      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: transparent;
+      overflow: visible;
+      height: 560px;
+      align-self: end;
     }
     .physician-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: top center;
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      max-height: 640px;
+      object-fit: contain;
+      object-position: center bottom;
       display: block;
-      filter: grayscale(15%);
+      background: transparent;
+      transform: scale(1.32);
+      transform-origin: right bottom;
     }
     .physician-copy {
       padding: 6rem 5vw;
@@ -1743,7 +1766,19 @@
       .truth-copy { padding: 3.5rem 1.5rem; }
 
       .distance { grid-template-columns: 1fr; min-height: 0; }
-      .distance img, .distance video { grid-column: 1; grid-row: 1; min-height: 0; height: 68vw; object-position: 74% center; }
+      .distance img, .distance video {
+        grid-column: 1; grid-row: 1;
+        width: 122%;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        max-width: none;
+        justify-self: center;
+        align-self: center;
+        object-position: center;
+        transform: none;
+        margin-top: 0.35rem;
+      }
       .distance-overlay { grid-column: 1; grid-row: 2; align-items: flex-start; text-align: left; padding: 1.6rem 1.5rem 2rem; }
       .distance-headline { max-width: 10ch; }
 
@@ -1772,8 +1807,9 @@
       .step:nth-child(3), .step:nth-child(4) { border-top: 1px solid rgba(26,20,16,0.1); padding-top: 2rem; }
 
 
-      .physician { grid-template-columns: 1fr; }
-      .physician-photo { height: 380px; }
+      .physician { grid-template-columns: 1fr; padding-top: 0; margin-top: 0; }
+      .physician-photo { height: auto; padding: 0 1.5rem 1.5rem; }
+      .physician-photo img { height: auto; width: min(100%, 420px); max-height: none; transform: none; }
       .physician-copy { padding: 3.5rem 1.5rem; }
       .physician-stats { grid-template-columns: repeat(3,1fr); }
 
@@ -2109,7 +2145,7 @@
 
   <!-- DISTANCE -->  <!-- DISTANCE -->
   <div class="distance reveal">
-    <img src="couple-connected.jpg" alt="Couple embracing and smiling together on the beach at sunset" />
+    <img src="couple-connected.png" alt="A couple smiling together" />
     <div class="distance-overlay">
       <p class="distance-headline">This can be your marriage.</p>
     </div>
@@ -2226,7 +2262,7 @@
       <p class="physician-p reveal d2">She believes most couples do not need rescuing so much as they need attention, and a plan they will actually keep. That is what she brings to every Rekindle session.</p>
     </div>
     <div class="physician-photo reveal">
-      <img src="nellie-reedy.jpg" alt="Nellie Reedy" />
+      <img src="nellie-reedy.png" alt="Nellie Reedy" />
     </div>
   </section>
 
