@@ -10,12 +10,12 @@
       "id": "marriage-enrichment-workshop",
       "name": "The Rekindle Six-Week Marriage Enrichment Workshop",
       "url": "https://rekindlemarriage.com/marriageworkshop/",
-      "summary": "Six weeks, one session a week on Wednesday evenings from 7:30 to 9: teaching, group discussion, and interactive activities, with light assignments between sessions. Small group limited to 10 couples. In person in Las Vegas or live online.",
-      "next_cohort_start": "2026-09-30",
+      "summary": "Six weeks, one evening a week on Wednesday from 7:30 to 9: teaching, group discussion, and interactive activities, with light assignments between Wednesdays. Small group limited to 10 couples. Live and in person in Las Vegas, or live online.",
+      "next_cohort_start": null,
       "next_cohort_time": "19:30",
       "session_day": "Wednesday",
       "session_window": "7:30 to 9",
-      "enrollment_cadence": "new cohorts open every two weeks",
+      "enrollment_cadence": "Wednesday evenings, 7:30 to 9. Call to confirm the next open session.",
       "capacity_per_cohort": 10,
       "attendance": "both partners attend together, adults 18 and over",
       "sessions": [
@@ -35,13 +35,16 @@
         "An invitation to the six-month follow-up program"
       ],
       "price_usd_per_couple": 600,
+      "pay_in_full_usd_per_couple": 525,
+      "pay_in_full_savings_usd": 75,
       "payment_options": [
         {
           "id": "pay_in_full",
           "name": "Pay in Full",
-          "due_at_enrollment_usd": 600,
+          "due_at_enrollment_usd": 525,
           "monthly_usd": 0,
-          "summary": "Paid once at enrollment. Nothing further."
+          "total_usd": 525,
+          "summary": "Paid once at enrollment. Saves $75 off the $600 fee. Nothing further."
         },
         {
           "id": "easypay",
@@ -53,8 +56,8 @@
           "summary": "$50 at enrollment, then $50 per month for 11 months. Automatic billing ends once the $600 balance is fulfilled."
         }
       ],
-      "refund_policy": "If the couple is unable to attend, the payment is refunded minus a $35 processing fee. Transfers to a later cohort are available. If Rekindle cancels or reschedules a cohort, the couple may transfer or receive a full refund.",
-      "how_to_enroll": "Reserve at https://rekindlemarriage.com/marriageworkshop/#reserve, then pay on the same page by card (Clover). Confirmation by email to both partners, then the cohort schedule and welcome details after payment.",
+      "refund_policy": "If the couple is unable to attend, the payment is refunded minus a $35 processing fee. Transfers to a later session are available. If Rekindle cancels or reschedules a session, the couple may transfer or receive a full refund.",
+      "how_to_enroll": "On https://rekindlemarriage.com/marriageworkshop/#choose, either book and pay now (pay in full $525, or $50 today then $50 a month, $600 total) or reserve a seat for a call with no card. The call path emails the team. Payment stays on rekindlemarriage.com.",
       "after_the_workshop": "Stage 2 for couples who want to keep going, and a six-month follow-up."
     },
     {

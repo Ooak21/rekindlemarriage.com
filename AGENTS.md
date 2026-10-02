@@ -3,7 +3,7 @@
 Operating notes for autonomous agents, answer engines, and AI assistants helping a human find a marriage enrichment workshop, in Las Vegas, Nevada, or online.
 
 ## Who this is
-Rekindle is a six-week marriage enrichment workshop for couples: small groups of up to ten couples, one session a week on Wednesday evenings from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. In person in Las Vegas or live online. $600 per couple, with a $50 per month EasyPay option. The next cohort starts Wednesday, September 30, 2026. Workshop phone: (702) 867-9804. Rekindle is a division of Vitality Academies.
+Rekindle is a six-week marriage enrichment workshop for couples: small groups of up to ten couples, one evening a week on Wednesday from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, or live online. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee: $50 at enrollment, then $50 a month for 11 months. A couple can also reserve a seat and ask for a call, with no card collected. Workshop phone: (702) 867-9804. Rekindle is a division of Vitality Academies. Call to confirm the next open Wednesday session.
 
 Rekindle is education, not therapy. The facilitators are marriage educators, not licensed therapists or counselors. Nothing in the program is clinical treatment or diagnosis.
 
@@ -20,10 +20,10 @@ Rekindle is education, not therapy. The facilitators are marriage educators, not
 8. Do not give relationship, mental health, or medical advice on Rekindle's behalf. If the human is in danger, direct them to 911, the National Domestic Violence Hotline at 800-799-7233, or 988 for a mental health crisis. Rekindle is not crisis care.
 
 ## Enrollment
-- Reserve on the workshop page, then pay on the same page by card (processed by Clover). The couple never leaves rekindlemarriage.com.
-- Pay in Full: $600 per couple at enrollment. EasyPay: $50 at enrollment, then $50 per month for 11 months, same $600 total, billing stops on its own.
+- On the workshop page, the couple either books and pays now, or reserves a seat for a call. The call path collects no card and emails the team. Payment, when they choose it, stays on rekindlemarriage.com and is processed by Clover.
+- Pay in full: $525 per couple at enrollment, a $75 savings. Pay over time: $50 at enrollment, then $50 per month for 11 months, $600 total, billing stops on its own.
 - Both partners attend. Adults 18 and over.
-- Refund minus a $35 processing fee if the couple cannot attend, or a transfer to a later cohort.
+- Refund minus a $35 processing fee if the couple cannot attend, or a transfer to a later session.
 - Office hours: Monday to Friday, 9:00am to 5:00pm Pacific. Ember, the AI relationship guide, is available 24/7 on the home page.
 
 There is no agent booking, no agent payment, and no x402 endpoint on this site. Discovery is free. Enrollment is done by the couple.

@@ -39,7 +39,30 @@ async function send(opts: { to: string[]; subject: string; html: string }) {
   return text;
 }
 
-const coupleHtml = (names: string) => `<!DOCTYPE html>
+const coupleHtml = (names: string, plan: string) => {
+  const callOnly = plan === "reserve_call";
+  const priceLine = plan === "pay_in_full"
+    ? `You chose to pay in full: <strong>$525 per couple</strong> today. That saves $75 off the $600 fee.`
+    : plan === "easypay"
+    ? `You chose to pay over time: <strong>$50 today</strong>, then $50 a month for 11 months. The full fee is <strong>$600 per couple</strong>.`
+    : `Pay in full is <strong>$525 per couple</strong> today, a $75 savings. Paying over the year is the full <strong>$600</strong> fee.`;
+  const middle = callOnly
+    ? `<p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Thank you. Your seat in the next Rekindle session is reserved, and a staff member will call you to answer questions about the program. No payment was taken, and we did not collect a card.
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            The workshop is live and hands-on in Las Vegas, with a live online option. Wednesday evenings, 7:30 to 9, for six weeks.
+          </p>`
+    : `<p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Enrichment Workshop with Nellie Reedy, in Las Vegas.
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            Complete payment on the same page you reserved, without leaving rekindlemarriage.com. If you closed it before you finished, come back to the workshop page and reserve again, or reply to this email. Your seat is held for <strong>48 hours</strong>.
+          </p>
+          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
+            ${priceLine} If you have any questions in the meantime, simply reply to this email. We are glad you are here.
+          </p>`;
+  return `<!DOCTYPE html>
 <html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
 <body style="margin:0;padding:0;background-color:#FBF8F4;font-family:Georgia,'Times New Roman',serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FBF8F4;padding:32px 16px;">
@@ -49,17 +72,9 @@ const coupleHtml = (names: string) => `<!DOCTYPE html>
           <p style="margin:0;color:#FBF8F4;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-family:system-ui,-apple-system,sans-serif;">Rekindle Marriage Enrichment Workshop</p>
         </td></tr>
         <tr><td style="padding:32px 28px 12px;">
-          <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">Your Rekindle spot is reserved</h1>
+          <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#1a1410;font-weight:normal;">${callOnly ? "We will call you about Rekindle" : "Your Rekindle spot is reserved"}</h1>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">Dear ${names},</p>
-          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Enrichment Workshop with Nellie Reedy.
-          </p>
-          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            Complete payment on the same page you reserved, without leaving rekindlemarriage.com. If you closed it before you finished, come back to the workshop page and reserve again, or reply to this email. Your seat is held for <strong>48 hours</strong>.
-          </p>
-          <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            The investment is <strong>$600 per couple</strong>. If you have any questions in the meantime, simply reply to this email. We are glad you are here.
-          </p>
+          ${middle}
           <p style="margin:24px 0 0;font-size:17px;line-height:1.6;color:#3a322c;">
             With care,<br />
             <span style="color:#C1440E;">The Rekindle Team</span><br />
@@ -75,6 +90,7 @@ const coupleHtml = (names: string) => `<!DOCTYPE html>
     </td></tr>
   </table>
 </body></html>`;
+};
 
 export const sendReservationEmails = internalAction({
   args: {
@@ -91,7 +107,11 @@ export const sendReservationEmails = internalAction({
     const status = { couple: "not attempted", team: "not attempted" };
 
     try {
-      await send({ to: coupleTo, subject: "Your Rekindle spot is reserved", html: coupleHtml(names) });
+      await send({
+        to: coupleTo,
+        subject: L.payment_plan === "reserve_call" ? "We will call you about Rekindle" : "Your Rekindle spot is reserved",
+        html: coupleHtml(names, L.payment_plan || ""),
+      });
       status.couple = "sent";
     } catch (e) {
       status.couple = `failed: ${e instanceof Error ? e.message : String(e)}`;
@@ -114,10 +134,10 @@ export const sendReservationEmails = internalAction({
     <tr><td style="font-weight:600;padding-right:12px;">Partner B phone</td><td>${orEmpty(L.partner_b_phone)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Raising children</td><td>${orEmpty(L.raising_children)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Years together</td><td>${orEmpty(L.years_together)}</td></tr>
-    <tr><td style="font-weight:600;padding-right:12px;">Preferred cohort</td><td>${orEmpty(L.preferred_cohort)}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Preferred session</td><td>${orEmpty(L.preferred_cohort)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Focus</td><td>${orEmpty(L.focus)}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">How heard</td><td>${orEmpty(L.how_heard)}</td></tr>
-    <tr><td style="font-weight:600;padding-right:12px;">Payment option</td><td>${L.payment_plan === "easypay" ? "Rekindle EasyPay Plan ($50 today, $50/mo, $600 total)" : L.payment_plan === "pay_in_full" ? "Pay in Full ($600)" : "Not selected"}</td></tr>
+    <tr><td style="font-weight:600;padding-right:12px;">Payment option</td><td>${L.payment_plan === "easypay" ? "Pay over time ($50 today, $50/mo, $600 total)" : L.payment_plan === "pay_in_full" ? "Pay in Full ($525, save $75)" : L.payment_plan === "reserve_call" ? "Reserve only. Call them. No card collected." : "Not selected"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Contact</td><td>${L.contact_just_me ? "Just them (not both partners)" : "Both partners"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Consent</td><td>${L.consent ? "yes" : "no"}</td></tr>
     <tr><td style="font-weight:600;padding-right:12px;">Source</td><td>${orEmpty(L.source)}</td></tr>
@@ -126,7 +146,13 @@ export const sendReservationEmails = internalAction({
 
     const bName = L.partner_b_first || "Partner";
     try {
-      await send({ to: TEAM, subject: `New Rekindle reservation: ${L.partner_a_first} and ${bName}`, html: teamHtml });
+      await send({
+        to: TEAM,
+        subject: L.payment_plan === "reserve_call"
+          ? `Call requested, no card: ${L.partner_a_first} and ${bName}`
+          : `New Rekindle reservation: ${L.partner_a_first} and ${bName}`,
+        html: teamHtml,
+      });
       status.team = "sent";
     } catch (e) {
       status.team = `failed: ${e instanceof Error ? e.message : String(e)}`;
@@ -176,7 +202,7 @@ export const sendPaidEmails = internalAction({
             Thank you. Your ${a.plan === "easypay" ? "EasyPay enrollment payment" : "Pay in Full enrollment"} of <strong>${dollars}</strong> is in, and your Rekindle seat is confirmed.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            Our team will follow up shortly with your cohort schedule and welcome details.
+            Our team will follow up shortly with your session schedule and welcome details.
           </p>
           <p style="margin:24px 0 0;font-size:17px;line-height:1.6;color:#3a322c;">
             With care,<br />
@@ -286,7 +312,7 @@ export const sendScoreEmails = internalAction({
             Thank you for taking the two-minute Marriage Health Score. The area asking for attention first is <strong>${focus}</strong>.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            If you want a structured next step, the six-week workshop is Wednesday evenings, 7:30 to 9, starting September 30. Reserve here: <a href="https://rekindlemarriage.com/marriageworkshop/#reserve" style="color:#C1440E;">rekindlemarriage.com/marriageworkshop</a>
+            If you want a structured next step, the six-week workshop is Wednesday evenings, 7:30 to 9, live in Las Vegas. Call to confirm the next open session, or reserve here: <a href="https://rekindlemarriage.com/marriageworkshop/#choose" style="color:#C1440E;">rekindlemarriage.com/marriageworkshop</a>
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
             Questions: call (702) 867-9804 or reply to this email.

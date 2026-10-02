@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rekindle Marriage Enrichment | Six-Week Workshop for Couples in Las Vegas</title>
-  <meta name="description" content="Rekindle is a six-week marriage enrichment workshop for couples who want to feel like a team again. Next cohort Wednesday, September 30, 7:30 to 9. Call (702) 867-9804. Small groups, led by Marriage Education Facilitator Nellie Reedy." />
+  <meta name="description" content="A live, hands-on marriage workshop for couples in Las Vegas. Six Wednesday evenings, ten couples. Pay in full and save $75, or reserve a seat and we will call you. No card to reserve. Call (702) 867-9804." />
   <link rel="canonical" href="https://rekindlemarriage.com/" />
   <link rel="alternate" type="text/plain" title="LLM brief (llms.txt)" href="/llms.txt" />
   <link rel="alternate" type="text/markdown" title="Agent instructions" href="/AGENTS.md" />
@@ -103,7 +103,7 @@
             {
               "@type": "Offer",
               "name": "The Rekindle Six-Week Marriage Enrichment Workshop",
-              "price": "600",
+              "price": "525",
               "priceCurrency": "USD",
               "url": "https://rekindlemarriage.com/marriageworkshop/",
               "itemOffered": {
@@ -313,8 +313,8 @@
             "@type": "Offer",
             "@id": "https://rekindlemarriage.com/marriageworkshop/#pay-in-full",
             "name": "Pay in Full",
-            "description": "$600 per couple, paid once at enrollment. Nothing further.",
-            "price": "600",
+            "description": "$525 per couple, paid once at enrollment. Save $75 off the $600 fee. Nothing further.",
+            "price": "525",
             "priceCurrency": "USD",
             "category": "Full six-week program, per couple",
             "availability": "https://schema.org/LimitedAvailability",
@@ -344,9 +344,8 @@
           {
             "@type": "CourseInstance",
             "@id": "https://rekindlemarriage.com/marriageworkshop/#cohort-2026-09-30",
-            "name": "Rekindle cohort starting September 30, 2026",
-            "description": "Six weekly sessions, Wednesday evenings from 7:30 to 9, starting September 30, 2026. Limited to 10 couples. In person in Las Vegas or live online.",
-            "startDate": "2026-09-30T19:30:00-07:00",
+            "name": "Rekindle session, Wednesday evenings in Las Vegas",
+            "description": "Six Wednesday evenings from 7:30 to 9. Limited to 10 couples. Live and in person in Las Vegas, or live online.",
             "courseMode": [
               "Onsite",
               "Online"
@@ -390,28 +389,29 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:    #1A1410;
-      --ember:  #D95C28;
-      --cream:  #FAF7F2;
-      --warm:   #F0EAE0;
-      --muted:  #9A8E86;
-      --text:   #2E2420;
-      --soft:   #7A6A60;
+      --ink:    #0C0C0B;
+      --ember:  #E4571A;
+      --cream:  #FFFFFF;
+      --warm:   #F3F3F1;
+      --muted:  #8A8A86;
+      --text:   #1A1A1A;
+      --soft:   #5C5C58;
     }
 
     html { scroll-behavior: smooth; }
     body {
-      background: var(--cream);
+      background: #fff;
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
     }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
 
     /* NAV */
     nav {
@@ -421,13 +421,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 6vw;
-      background: rgba(250,247,242,0.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(26,20,16,0.06);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.8s ease;
+      padding: 0.85rem 4vw;
+      background: #0C0C0B;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      opacity: 1;
+      pointer-events: auto;
     }
     nav.visible {
       opacity: 1;
@@ -438,17 +436,17 @@
       align-items: center;
     }
     .nav-link {
-      font-size: 0.72rem;
+      font-size: 0.92rem;
       font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--soft);
+      letter-spacing: 0;
+      text-transform: none;
+      color: rgba(255,255,255,0.72);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-link:hover { color: var(--ink); }
+    .nav-link:hover { color: #fff; }
     .logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       font-weight: 400;
       letter-spacing: 0.04em;
@@ -465,28 +463,28 @@
       background: var(--ember);
       color: white;
       text-decoration: none;
-      padding: 0.6rem 1.4rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      padding: 0.7rem 1.15rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
       transition: background 0.2s;
     }
-    .nav-cta:hover { background: #be4f22; }
+    .nav-cta:hover { background: #c44712; }
 
     .btn-ember {
       display: inline-block;
       background: var(--ember);
       color: white !important;
       text-decoration: none;
-      padding: 0.9rem 2rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      padding: 0.95rem 1.35rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
       transition: background 0.2s;
     }
-    .btn-ember:hover { background: #be4f22; }
+    .btn-ember:hover { background: #c44712; }
 
     /* HERO */
     .hero {
@@ -561,7 +559,7 @@
       max-width: 560px;
     }
     .hero-h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 5.5vw, 5.5rem);
       font-weight: 300;
       line-height: 1.05;
@@ -600,7 +598,7 @@
       pointer-events: auto;
     }
     .push-h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(4rem, 7vw, 8rem);
       font-weight: 300;
       line-height: 1.05;
@@ -678,18 +676,6 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(8px); }
     }
-      display: inline-block;
-      background: var(--ember);
-      color: white;
-      text-decoration: none;
-      padding: 0.9rem 2rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: background 0.2s;
-    }
-    .btn-ember:hover { background: #be4f22; }
     .btn-ghost {
       color: rgba(255,255,255,0.6);
       text-decoration: none;
@@ -733,12 +719,12 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: var(--ink);
+      background: #fff;
       transition: all 0.3s ease;
     }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .mobile-menu {
       display: none;
@@ -746,8 +732,7 @@
       top: 72px;
       left: 0;
       right: 0;
-      background: rgba(250,247,242,0.98);
-      backdrop-filter: blur(12px);
+      background: #0C0C0B;
       padding: 1.5rem;
       flex-direction: column;
       gap: 0;
@@ -760,7 +745,10 @@
     }
     .mobile-menu.open {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
+      top: 68px;
+      bottom: 0;
+      overflow: auto;
       pointer-events: auto;
     }
     .mobile-menu a {
@@ -768,9 +756,9 @@
       padding: 1rem 0;
       font-size: 1.1rem;
       font-weight: 400;
-      color: var(--ink);
+      color: #fff;
       text-decoration: none;
-      border-bottom: 1px solid rgba(26,20,16,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
       letter-spacing: 0.02em;
     }
     .mobile-menu a:last-child { border-bottom: none; }
@@ -780,10 +768,10 @@
       color: white !important;
       text-align: center;
       padding: 0.9rem;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
       border-bottom: none;
     }
     .eyebrow {
@@ -821,7 +809,7 @@
       justify-content: center;
     }
     .truth-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 3vw, 3rem);
       font-weight: 400;
       line-height: 1.2;
@@ -837,41 +825,45 @@
 
     /* SECTION: DISTANCE (full bleed image) */
     .distance {
-      position: relative;
-      height: 320px;
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      min-height: 560px;
+      background: #0C0C0B;
       overflow: hidden;
     }
     .distance img,
     .distance video {
-      width: 100%; height: 100%;
+      grid-column: 2;
+      grid-row: 1;
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
       object-fit: cover;
-      /* The couple sits in the right third of the frame with open sky to the left. As the
-         viewport narrows the band crops horizontally, so hold the focal point right of centre
-         or phones show nothing but sky. */
-      object-position: 74% center;
+      object-position: 86% center;
       display: block;
     }
     .distance-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(26,20,16,0.45);
+      grid-column: 1;
+      grid-row: 1;
+      position: relative;
       display: flex;
       flex-direction: column;
-      /* Type sits left, in the open sky, so it never covers the couple's faces. */
       align-items: flex-start;
-      justify-content: center;
+      justify-content: flex-end;
       text-align: left;
-      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      padding: 3rem 4vw 3.2rem;
+      background: transparent;
     }
     .distance-headline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 6vw, 6rem);
-      font-weight: 300;
-      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 4.6vw, 5.2rem);
+      font-weight: 700;
+      font-style: normal;
+      letter-spacing: -0.045em;
+      line-height: 0.92;
       color: white;
-      margin-bottom: 0.75rem;
-      /* Wrap inside the sky rather than running across their faces. */
-      max-width: 46%;
+      margin-bottom: 0;
+      max-width: 8ch;
     }
     .distance-sub {
       font-size: 0.9rem;
@@ -891,11 +883,10 @@
       padding: 0 6vw 1.5rem;
     }
     .obj-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(2.4rem, 3.5vw, 3.8rem);
       font-weight: 300;
       color: white;
-      white-space: nowrap;
     }
     .ticker-wrap {
       overflow-x: scroll;
@@ -910,8 +901,9 @@
     .ticker-track {
       display: flex;
       gap: 0;
-      width: max-content;
-      animation: ticker 60s linear infinite;
+      width: 100%;
+      flex-wrap: wrap;
+      animation: none;
     }
     .ticker-track.paused { animation-play-state: paused; }
     @keyframes ticker {
@@ -921,13 +913,15 @@
     .ticker-item {
       display: flex;
       align-items: center;
-      padding: 1.5rem 3.5rem;
-      white-space: nowrap;
+      padding: 1.1rem 1.6rem;
+      white-space: normal;
       border-right: 1px solid rgba(255,255,255,0.08);
+      max-width: 420px;
     }
+    .ticker-item:nth-child(n+9) { display: none; }
     .ticker-item:hover .ticker-q { color: var(--ember); }
     .ticker-q {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       font-weight: 300;
       color: white;
@@ -957,7 +951,7 @@
       align-items: baseline;
     }
     .obj-answer-q {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
       font-weight: 600;
       color: var(--ember);
@@ -983,7 +977,7 @@
     }
     .ember-ai-left .eyebrow { color: rgba(255,255,255,0.4); }
     .ember-ai-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(2.4rem, 3.5vw, 3.8rem);
       font-weight: 300;
       line-height: 1.15;
@@ -1044,7 +1038,7 @@
 
     /* Chat window */
     .ember-chat-window {
-      background: #FAF7F2;
+      background: #F6F6F4;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 24px 64px rgba(0,0,0,0.4);
@@ -1178,10 +1172,10 @@
       border: 1px solid rgba(26,20,16,0.12);
       border-radius: 999px;
       padding: 0.7rem 1.1rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.9rem;
       color: var(--text);
-      background: #FAF7F2;
+      background: #F6F6F4;
       outline: none;
     }
     .ember-chat-input input:focus { border-color: var(--ember); }
@@ -1227,7 +1221,7 @@
       height: min(640px, 88vh);
       display: flex;
       flex-direction: column;
-      background: #FAF7F2;
+      background: #F6F6F4;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 30px 80px rgba(0,0,0,0.5);
@@ -1435,7 +1429,7 @@
       margin-bottom: 3rem;
     }
     .process-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(2.6rem, 4.5vw, 4.5rem);
       font-weight: 300;
       line-height: 1.05;
@@ -1455,7 +1449,7 @@
     .step:last-child { border-right: none; padding-right: 0; }
     .step + .step { padding-left: 2rem; }
     .step-n {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 4rem;
       font-weight: 300;
       color: rgba(217,92,40,0.6);
@@ -1463,7 +1457,7 @@
       margin-bottom: 1.25rem;
     }
     .step-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       font-weight: 400;
       color: var(--ink);
@@ -1510,7 +1504,7 @@
       justify-content: center;
     }
     .physician-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 3vw, 3rem);
       font-weight: 400;
       color: var(--ink);
@@ -1547,7 +1541,7 @@
       border-left: 1px solid rgba(26,20,16,0.1);
     }
     .stat-n {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 3rem;
       font-weight: 300;
       color: var(--ember);
@@ -1578,7 +1572,7 @@
       .score-promo-inner { padding: 2.75rem 1.5rem; }
     }
     .score-promo-eyebrow { color: var(--ember); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 1rem; }
-    .score-promo-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--ink); line-height: 1.15; margin-bottom: 1.25rem; max-width: 22ch; margin-left: auto; margin-right: auto; text-wrap: balance; }
+    .score-promo-h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--ink); line-height: 1.15; margin-bottom: 1.25rem; max-width: 22ch; margin-left: auto; margin-right: auto; text-wrap: balance; }
     .score-promo-h2 em { font-style: italic; color: var(--ember); }
     .score-promo-sub { color: var(--soft); font-size: 1.05rem; line-height: 1.7; max-width: 34rem; margin: 0 auto 1.75rem; text-wrap: balance; }
     .score-promo-meta { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
@@ -1588,19 +1582,21 @@
     .dn-section { background: #fff; padding: 6rem 6vw; border-top: 1px solid rgba(26,20,16,0.06); }
     .dn-inner { max-width: 860px; margin: 0 auto; text-align: center; }
     .dn-eyebrow { color: var(--ember); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 1rem; }
-    .dn-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--ink); line-height: 1.15; margin-bottom: 1.1rem; text-wrap: balance; }
+    .dn-h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--ink); line-height: 1.15; margin-bottom: 1.1rem; text-wrap: balance; }
     .dn-h2 em { font-style: italic; color: var(--ember); }
     .dn-sub { color: var(--soft); font-size: 1.05rem; line-height: 1.7; max-width: 36rem; margin: 0 auto 1.6rem; text-wrap: balance; }
     .dn-meta { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
     .dn-meta span { display: flex; align-items: center; gap: 0.5rem; }
     .dn-meta span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ember); display: inline-block; }
-    .dn-bubble { position: fixed; z-index: 80; right: 22px; bottom: 22px; width: min(320px, calc(100vw - 32px)); background: #fff; color: var(--ink); border: 1px solid rgba(26,20,16,0.1); border-radius: 18px; box-shadow: 0 18px 50px rgba(26,20,16,0.16); padding: 18px 18px 16px; }
+    .dn-bubble { position: fixed; z-index: 80; right: 22px; bottom: 22px; width: min(320px, calc(100vw - 32px)); background: #0C0C0B; color: #fff; border: 0; border-radius: 0; box-shadow: none; padding: 18px 18px 16px; }
     .dn-bubble[hidden] { display: none !important; }
     .dn-bubble-x { position: absolute; top: 8px; right: 10px; border: 0; background: transparent; font-size: 22px; line-height: 1; cursor: pointer; color: var(--muted); }
     .dn-bubble-kicker { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ember); font-weight: 600; margin-bottom: 6px; }
-    .dn-bubble-title { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; margin: 0 0 6px; }
-    .dn-bubble-sub { font-size: 0.9rem; color: var(--soft); margin: 0 0 14px; line-height: 1.45; }
-    .dn-bubble a { display: inline-flex; align-items: center; justify-content: center; background: var(--ember); color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; border-radius: 999px; padding: 10px 16px; }
+    .dn-bubble-title { font-family: 'Playfair Display', serif; font-size: 1.45rem; margin: 0 0 6px; }
+    .dn-bubble-sub { font-size: 0.9rem; color: rgba(255,255,255,0.72); margin: 0 0 14px; line-height: 1.45; }
+    .dn-bubble a { display: inline-flex; align-items: center; justify-content: center; background: var(--ember); color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; border-radius: 0; padding: 10px 16px; }
+    .dn-bubble-x { color: rgba(255,255,255,0.7); }
+    .dn-bubble-title { color: #fff; }
     @media (max-width: 860px) {
       .dn-section { padding: 3.5rem 1.5rem; }
       .dn-bubble { right: 12px; bottom: 12px; }
@@ -1656,7 +1652,7 @@
       display: block;
     }
     .cta-h2 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 5.5vw, 6rem);
       font-weight: 300;
       color: white;
@@ -1687,7 +1683,7 @@
       border-top: 1px solid rgba(26,20,16,0.08);
     }
     .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--ink);
     }
@@ -1731,11 +1727,10 @@
       .truth-img { height: 340px; }
       .truth-copy { padding: 3.5rem 1.5rem; }
 
-      .distance { height: 320px; }
-      /* Narrow enough that the band crops in tight and the couple fills it, so there is no
-         open sky left to sit in. Recentre the type rather than jam it against their faces. */
-      .distance-overlay { align-items: center; text-align: center; padding: 0 1.25rem; }
-      .distance-headline { max-width: 100%; }
+      .distance { grid-template-columns: 1fr; min-height: 0; }
+      .distance img, .distance video { grid-column: 1; grid-row: 1; min-height: 0; height: 68vw; object-position: 74% center; }
+      .distance-overlay { grid-column: 1; grid-row: 2; align-items: flex-start; text-align: left; padding: 1.6rem 1.5rem 2rem; }
+      .distance-headline { max-width: 10ch; }
 
       .objections { padding: 4rem 1.5rem; }
       .obj-grid { grid-template-columns: 1fr; }
@@ -1766,8 +1761,159 @@
       footer { flex-direction: column; gap: 0.75rem; padding: 1.5rem; text-align: center; }
     }
 
+    .stage {
+      position: relative;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #0C0C0B;
+      color: #F4F4F2;
+    }
+    .stage-film {
+      position: relative;
+      height: calc(100svh - 96px);
+      max-height: 860px;
+      min-height: 640px;
+      margin-top: 96px;
+      overflow: hidden;
+      background: #0C0C0B;
+    }
+    .rk-picture { position: absolute; inset: 0; }
+    .rk-show { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+    .rk-couple {
+      position: absolute;
+      z-index: 3;
+      right: 1.4vw;
+      bottom: 0;
+      height: 98%;
+      width: auto;
+      max-width: 46%;
+      object-fit: contain;
+      object-position: right bottom;
+      transform: translateX(-12vw);
+      transition: transform 0.85s cubic-bezier(.22, .8, .24, 1);
+    }
+    .rk-show.is-open .rk-couple { transform: translateX(-34vw); }
+    .rk-invite {
+      position: absolute;
+      z-index: 1;
+      right: 2vw;
+      top: 50%;
+      width: auto;
+      height: auto;
+      max-width: min(36vw, 460px);
+      max-height: 78%;
+      object-fit: contain;
+      transform: translateY(-50%);
+      opacity: 0;
+      box-shadow: 0 28px 70px rgba(0,0,0,0.45);
+      transition: opacity 0.7s ease;
+    }
+    .rk-invite.is-on { z-index: 2; opacity: 1; }
+    .stage-logo {
+      width: min(168px, 15vw);
+      height: auto;
+      display: block;
+      margin: 0 0 0.75rem;
+    }
+    .stage::after { content: none; }
+    .stage-copy {
+      position: absolute;
+      z-index: 4;
+      left: 0;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      width: min(720px, 52%);
+      min-height: 0;
+      padding: 2.2rem 3vw 1.6rem 6vw;
+      background: linear-gradient(90deg, #0C0C0B 0%, #0C0C0B 82%, rgba(12,12,11,0) 100%);
+    }
+    .stage-copy h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: clamp(2.15rem, 2.85vw, 3.35rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.85rem;
+      max-width: none;
+    }
+    .h1-line { display: block; white-space: nowrap; }
+    .stage-copy h1 em { font-style: italic; font-weight: 500; }
+    .stage-copy > p {
+      font-size: clamp(1.12rem, 1.35vw, 1.32rem);
+      line-height: 1.45;
+      font-weight: 500;
+      color: #fff;
+      max-width: 36ch;
+    }
+    .stage-actions { display: flex; flex-wrap: wrap; gap: 16px 22px; align-items: center; margin-top: 1.7rem; }
+    .stage-quiet {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      padding-bottom: 2px;
+    }
+    .stage-quiet:hover { border-bottom-color: #fff; }
+    .stage-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 2.1rem 0 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.16);
+    }
+    .stage-facts dt {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.65rem;
+      letter-spacing: -0.04em;
+      color: #fff;
+    }
+    .stage-facts dd { margin: 0.3rem 0 0; font-size: 0.95rem; line-height: 1.35; color: #fff; }
+    .stage-more { display: flex; flex-wrap: wrap; gap: 0.8rem 1.6rem; margin-top: 1.35rem; }
+    .stage-more a { color: #fff; font-weight: 500; text-underline-offset: 3px; }
+    .truth-h2, .obj-h2, .ember-ai-h2, .process-h2, .step-title, .physician-name, .score-promo-h2, .dn-h2, .cta-h2, .ticker-q, .dn-bubble-title {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+    }
+    .truth-h2 em, .ember-ai-h2 em, .process-h2 em, .score-promo-h2 em, .dn-h2 em, .cta-h2 em { font-style: normal; color: inherit; }
+    .step-n { font-size: 1rem; font-weight: 700; color: var(--ember); letter-spacing: 0; }
+    .score-promo { background: #0C0C0B; }
+    .score-promo-inner { background: transparent; border: 0; box-shadow: none; text-align: left; margin: 0; max-width: 38rem; padding: 0; }
+    .score-promo-h2, .score-promo-sub { color: #fff; margin-left: 0; margin-right: 0; }
+    .score-promo-eyebrow, .dn-eyebrow { letter-spacing: 0; text-transform: none; font-size: 1rem; font-weight: 500; }
+    .score-promo-eyebrow { color: rgba(255,255,255,0.62); }
+    .score-promo-meta { justify-content: flex-start; color: rgba(255,255,255,0.62); }
+    .ember-chat-window { border-radius: 0; box-shadow: none; }
+    footer { background: #0C0C0B; color: rgba(255,255,255,0.7); border-top: 0; }
+    .footer-division, .footer-copy { color: rgba(255,255,255,0.7); }
+    @media (max-width: 860px) {
+      .stage { min-height: 0; display: flex; flex-direction: column; }
+      .stage-film { height: auto; min-height: 0; max-height: none; margin-top: 96px; display: block; }
+      .rk-picture { position: relative; height: 300px; }
+      .stage-logo { display: none; }
+      .rk-couple { right: 10%; left: auto; height: 100%; max-width: 78%; transform: none; }
+      .rk-show.is-open .rk-couple { transform: translateX(-52vw); }
+      .rk-invite { right: 1.5%; top: 50%; bottom: auto; width: auto; max-width: 58%; max-height: 96%; transform: translateY(-50%); }
+      .rk-invite.is-on { transform: translateY(-50%); }
+      .stage-copy { position: relative; left: auto; right: auto; top: auto; bottom: auto; width: 100%; min-height: 0; padding: 1.35rem 1.35rem 1.8rem; background: #0C0C0B; }
+      .stage::after { display: none; }
+      .stage-copy h1 { font-size: clamp(1.65rem, 7.4vw, 2.15rem); max-width: none; }
+      .stage-facts { grid-template-columns: 1fr; gap: 0.85rem; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .w, .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .rk-couple, .rk-invite { transition: none; }
+      .stage-logo { animation: none; }
     }
   </style>
 </head>
@@ -1791,7 +1937,7 @@
       <a href="datenight/?utm_source=site&utm_medium=nav&utm_campaign=oct17" class="nav-link">Date Night</a>
       <a href="score.html" class="nav-link">Marriage Score</a>
       <a href="blog/" class="nav-link">Journal</a>
-      <a href="marriageworkshop/#enroll" class="nav-cta">Sign Up Now</a>
+      <a href="marriageworkshop/#choose" class="nav-cta">Book a seat</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1807,34 +1953,34 @@
     <a href="datenight/?utm_source=site&utm_medium=nav&utm_campaign=oct17" class="mobile-link">Date Night</a>
     <a href="score.html" class="mobile-link">Marriage Score</a>
     <a href="blog/" class="mobile-link">Journal</a>
-    <a href="marriageworkshop/#enroll" class="mobile-cta">Sign Up Now</a>
+    <a href="marriageworkshop/#choose" class="mobile-cta">Book a seat</a>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <video autoplay muted loop playsinline>
-      <source src="hero.mp4" type="video/mp4">
-    </video>
-    <div class="hero-logo-overlay" id="heroLogoOverlay">
-      <img src="rekindle-logo.png" alt="Rekindle" class="hero-logo-img" />
-    </div>
-
-    <div class="hero-fade" id="heroFade"></div>
-    <div class="hero-ember" id="heroEmber">
-      <video muted loop playsinline preload="auto"><source src="ember-hero.mp4" type="video/mp4"></video>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-push" id="heroPush">
-      <h2 class="push-h1"></h2>
-      <p class="push-sub">For couples who have drifted apart, and the ones in full crisis. This is where people come when they're not ready to give up.</p>
-      <div class="hero-cta-row">
-        <a href="score.html" class="btn-ember">See What's Still There · 2 min</a>
+  <section class="stage">
+    <div class="stage-film">
+      <div class="rk-picture">
+        <div class="rk-show" id="rkShow">
+          <img class="rk-invite" src="hero-date-1.jpg" alt="Free couples date night. Saturday, October 17, 6 PM, Las Vegas. Hosted by Nellie Reedy." />
+          <img class="rk-invite" src="hero-date-2.jpg" alt="Date night, on us. Saturday, October 17, 6 PM, Las Vegas. Free for couples. Hosted by Nellie Reedy." />
+          <img class="rk-invite" src="hero-date-3.jpg" alt="Let's make it a date. Saturday, October 17, 6 PM, Las Vegas. An invitation from Nellie Reedy." />
+          <img class="rk-couple" src="hero-couple.png" alt="A couple embracing at sunset" />
+        </div>
       </div>
+    <div class="stage-copy">
+      <img class="stage-logo" src="rekindle-logo.png" alt="Rekindle" />
+      <h1><span class="h1-line">Your marriage can feel</span><span class="h1-line">like <em>a team again.</em></span></h1>
+      <p>Six Wednesday evenings in Las Vegas. Ten couples in the room. You learn a skill, practice it with your partner, and take one task home the same night.</p>
+      <div class="stage-actions">
+        <a class="btn-ember" href="marriageworkshop/#pay-now">Book and pay now</a>
+        <a class="stage-quiet" href="marriageworkshop/#reserve-call">Reserve a seat. We will call.</a>
+      </div>
+      <dl class="stage-facts">
+        <div><dt>$525</dt><dd>Pay in full today. Save $75.</dd></div>
+        <div><dt>$600</dt><dd>Or the full fee over the year.</dd></div>
+        <div><dt>No card</dt><dd>To reserve a seat.</dd></div>
+      </dl>
+      <p class="stage-more"><a href="marriageworkshop/#deeper">A deeper look at one evening</a><a href="marriageworkshop/#today">3 ideas to implement today</a></p>
     </div>
-    <div class="hero-arrow" id="heroArrow">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    </div>
-  </section>
     </div>
   </section>
 
@@ -1853,7 +1999,7 @@
   <!-- OBJECTIONS -->
   <section class="objections">
     <div class="obj-top">
-      <h2 class="obj-h2 reveal">We hear it <em style="font-style:italic; color:var(--ember);">every single time...</em></h2>
+      <h2 class="obj-h2 reveal">We hear it every single time.</h2>
     </div>
     <div class="ticker-wrap" id="tickerWrap">
       <div class="ticker-track" id="tickerTrack">
@@ -2045,10 +2191,10 @@
         </div>
         <div class="cta-contact-item">
           <p class="cta-contact-label">Workshop</p>
-          <p class="cta-contact-value">Wednesday evenings · 7:30 to 9 · next cohort September 30</p>
+          <p class="cta-contact-value">Wednesday evenings · 7:30 to 9 · live in Las Vegas</p>
         </div>
       </div>
-      <a href="marriageworkshop/#enroll" class="btn-ember reveal" style="align-self: flex-start;">Sign Up Here</a>
+      <a href="marriageworkshop/#choose" class="btn-ember reveal" style="align-self: flex-start;">Book or reserve a seat</a>
     </div>
     <div class="cta-right">
       <div class="cta-map reveal">
@@ -2114,94 +2260,9 @@
   </div>
 
   <script>
-    // Scroll lock disabled for now. Re-enable by uncommenting the line below.
-    // document.body.style.overflow = 'hidden';
-    const heroVideo = document.querySelector('.hero video');
-    const heroFade = document.getElementById('heroFade');
-    const heroLogoOverlay = document.getElementById('heroLogoOverlay');
-    const heroEmber = document.getElementById('heroEmber');
-    const heroPush = document.getElementById('heroPush');
-    const pushH1 = heroPush.querySelector('.push-h1');
-    const pushSub = heroPush.querySelector('.push-sub');
-    const heroArrow = document.getElementById('heroArrow');
-
-    const line1 = "What you had isn't gone.";
-    const line2 = "It's waiting.";
-    let sequenceStarted = false;
-    let revealed = false;
-    function revealSite() {
-      if (revealed) return;
-      revealed = true;
-      document.body.style.overflow = '';
-      document.querySelector('.hero').classList.add('faded');
-      document.getElementById('mainNav').classList.add('visible');
-      heroArrow.classList.add('in');
-    }
-    // Failsafes so a blocked or stalled hero video can never trap scrolling.
-    if (heroVideo.play) { const _p = heroVideo.play(); if (_p && _p.catch) _p.catch(() => revealSite()); }
-    heroVideo.addEventListener('error', revealSite);
-    // If the video isn't actually progressing shortly after load, skip the intro and unlock.
-    setTimeout(() => { if (!sequenceStarted && (heroVideo.paused || heroVideo.currentTime < 0.3)) revealSite(); }, 2500);
-    // Hard backstop in case the sequence starts but stalls mid-animation.
-    setTimeout(revealSite, 12000);
-
-    function typeText(el, text, speed, cb) {
-      let i = 0;
-      const interval = setInterval(() => {
-        el.textContent += text[i];
-        i++;
-        if (i >= text.length) { clearInterval(interval); if (cb) cb(); }
-      }, speed);
-    }
-
-    heroVideo.addEventListener('timeupdate', () => {
-      if (heroVideo.currentTime >= 3.5 && !sequenceStarted) {
-        sequenceStarted = true;
-        // Fade logo out
-        heroLogoOverlay.classList.add('hidden');
-        // Fade to black
-        setTimeout(() => heroFade.classList.add('in'), 300);
-        // Drop the ember particle loop in as the hero lands
-        setTimeout(() => {
-          if (heroEmber) {
-            const ev = heroEmber.querySelector('video');
-            if (ev) { ev.play().catch(() => {}); }
-            heroEmber.classList.add('in');
-          }
-        }, 300);
-        // Show push container and start typing
-        setTimeout(() => {
-          pushH1.innerHTML = '';
-          heroPush.classList.add('in');
-          const span1 = document.createElement('span');
-          span1.className = 'type-line1';
-          pushH1.appendChild(span1);
-          // Type line 1 slowly
-          typeText(span1, line1, 90, () => {
-            // Pause between lines
-            setTimeout(() => {
-              pushH1.appendChild(document.createElement('br'));
-              const span2 = document.createElement('span');
-              span2.className = 'accent';
-              pushH1.appendChild(span2);
-              // Type line 2 even slower
-              typeText(span2, line2, 110, () => {
-                setTimeout(() => {
-                  pushSub.classList.add('in');
-                  const heroCtaRow = heroPush.querySelector('.hero-cta-row');
-                  if (heroCtaRow) setTimeout(() => heroCtaRow.classList.add('in'), 500);
-                  // Unlock scroll after body copy fades in
-                  setTimeout(revealSite, 1200);
-                }, 600);
-              });
-            }, 400);
-          });
-        }, 1200);
-      }
-    });
-
-    
-    const words = ["What","you","had","isn't","gone.","\n","It's","waiting."];
+    document.body.style.overflow = '';
+    const mainNav = document.getElementById('mainNav');
+    if (mainNav) mainNav.classList.add('visible');
     // Embedded window: scripted preview conversation (no API calls, always free).
     const chatMessages = [
       { type: 'user', text: "We haven't really talked in weeks. I don't even know where to start.", delay: 1000 },
@@ -3192,6 +3253,33 @@
         el.hidden = true;
         sessionStorage.setItem('rk_dn_bubble_dismissed', '1');
       });
+    })();
+  </script>
+  <script>
+    (function(){
+      var root = document.getElementById('rkShow');
+      if (!root) return;
+      var cards = [].slice.call(root.querySelectorAll('.rk-invite'));
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var i = 0;
+      function show(n) {
+        cards.forEach(function(card, idx){ card.classList.toggle('is-on', idx === n); });
+      }
+      if (reduce || !cards.length) {
+        root.classList.add('is-open');
+        show(0);
+        return;
+      }
+      setTimeout(function(){
+        root.classList.add('is-open');
+        setTimeout(function(){
+          show(0);
+          setInterval(function(){
+            i = (i + 1) % cards.length;
+            show(i);
+          }, 2600);
+        }, 850);
+      }, 650);
     })();
   </script>
 </body>
