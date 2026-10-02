@@ -51,7 +51,7 @@ const coupleHtml = (names: string, plan: string) => {
             Thank you. Your seat in the next Rekindle session is reserved, and a staff member will call you to answer questions about the program. No payment was taken, and we did not collect a card.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            The workshop is live and hands-on in Las Vegas, with a live online option. The next session is Wednesday, October 7, 7:30 to 9, then the same time each Wednesday for six weeks.
+            The workshop is live and hands-on in Las Vegas, with a live online option. Wednesday evenings, 7:30 to 9, for six weeks.
           </p>`
     : `<p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
             Thank you for taking this step. We have reserved a seat for you at the Rekindle Marriage Enrichment Workshop with Nellie Reedy, in Las Vegas.
@@ -312,7 +312,7 @@ export const sendScoreEmails = internalAction({
             Thank you for taking the two-minute Marriage Health Score. The area asking for attention first is <strong>${focus}</strong>.
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
-            If you want a structured next step, the six-week workshop starts Wednesday, October 7, 7:30 to 9, live in Las Vegas. Reserve here: <a href="https://rekindlemarriage.com/marriageworkshop/#choose" style="color:#C1440E;">rekindlemarriage.com/marriageworkshop</a>
+            If you want a structured next step, the six-week workshop is Wednesday evenings, 7:30 to 9, live in Las Vegas. The evening on the calendar now is Date Night, Saturday, October 17, at 6 PM. Reserve here: <a href="https://rekindlemarriage.com/marriageworkshop/#choose" style="color:#C1440E;">rekindlemarriage.com/marriageworkshop</a>
           </p>
           <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#3a322c;">
             Questions: call (702) 867-9804 or reply to this email.

@@ -3,7 +3,7 @@
 Operating notes for autonomous agents, answer engines, and AI assistants helping a human find a marriage enrichment workshop, in Las Vegas, Nevada, or online.
 
 ## Who this is
-Rekindle is a six-week marriage enrichment workshop for couples: small groups of up to ten couples, one evening a week on Wednesday from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, or live online. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee: $50 at enrollment, then $50 a month for 11 months. A couple can also reserve a seat and ask for a call, with no card collected. Workshop phone: (702) 867-9804. Rekindle is a division of Vitality Academies. Next session Wednesday, October 7, 7:30 to 9.
+Rekindle is a six-week marriage enrichment workshop for couples: small groups of up to ten couples, one evening a week on Wednesday from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, or live online. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee: $50 at enrollment, then $50 a month for 11 months. A couple can also reserve a seat and ask for a call, with no card collected. Workshop phone: (702) 867-9804. Rekindle is a division of Vitality Academies. The event on the calendar is Date Night, Saturday, October 17, at 6 PM in Las Vegas. Do not name a workshop start date.
 
 Rekindle is education, not therapy. The facilitators are marriage educators, not licensed therapists or counselors. Nothing in the program is clinical treatment or diagnosis.
 
