@@ -388,7 +388,7 @@
     <div id="full" class="hidden">
       <div id="pillars" class="pillars"></div>
       <div class="cta-stack">
-        <a class="btn btn-primary btn-block" id="bookBtn" href="marriageworkshop/#enroll">Reserve your spot →</a>
+        <a class="btn btn-primary btn-block" id="bookBtn" href="marriageworkshop/#choose">Reserve your spot →</a>
         <a class="btn btn-ghost btn-block" id="emberBtn" href="#">Talk it through with Ember, free</a>
       </div>
       <div class="share">
@@ -405,7 +405,7 @@
 
 <script>
 const CONFIG = {
-  BOOKING_URL: "marriageworkshop/#enroll",
+  BOOKING_URL: "marriageworkshop/#choose",
   EMBER_URL:   "index.html#ember-ai",
   SCORE_URL:   "https://calculating-poodle-798.convex.site/score"
 };
@@ -577,13 +577,17 @@ function showBreakdown(){
 }
 async function unlock(){
   const name=$("fname").value.trim(), email=$("email").value.trim();
-  if(!name || !validEmail(email)){ $("gateErr").style.display="block"; return; }
+  if(!name || !validEmail(email)){
+    $("gateErr").textContent="Please enter your first name and a valid email.";
+    $("gateErr").style.display="block";
+    return;
+  }
   $("gateErr").style.display="none";
   const weakest=Object.keys(window._RESULT.ps).sort((a,b)=>window._RESULT.ps[a]-window._RESULT.ps[b])[0];
   const btn=$("unlockBtn");
   if(btn){ btn.disabled=true; btn.textContent="Saving..."; }
   try{
-    await fetch(CONFIG.SCORE_URL,{
+    const r = await fetch(CONFIG.SCORE_URL,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
@@ -595,7 +599,14 @@ async function unlock(){
         bot_field:($("bot_field")&&$("bot_field").value)||""
       })
     });
-  }catch(e){}
+    const j = await r.json().catch(function(){ return {}; });
+    if(!r.ok || !j.ok) throw new Error((j && j.error) || "failed");
+  }catch(e){
+    if(btn){ btn.disabled=false; btn.textContent="Unlock my full results →"; }
+    $("gateErr").textContent="We could not save this yet. Please try again, or call (702) 867-9804.";
+    $("gateErr").style.display="block";
+    return;
+  }
   if (window.rekindleTrack) {
     window.rekindleTrack("generate_lead", {
       lead_source: "marriage-health-score",

@@ -112,7 +112,7 @@
             },
             {
               "@type": "Offer",
-              "name": "Ember, AI relationship guide",
+              "name": "Ember, practice coach",
               "price": "0",
               "priceCurrency": "USD",
               "url": "https://rekindlemarriage.com/",
@@ -185,13 +185,13 @@
       {
         "@type": "Service",
         "@id": "https://rekindlemarriage.com/#ember",
-        "name": "Ember, AI relationship guide",
+        "name": "Ember, practice coach",
         "url": "https://rekindlemarriage.com/",
-        "serviceType": "AI relationship guide",
+        "serviceType": "Practice coach between sessions",
         "provider": {
           "@id": "https://rekindlemarriage.com/#org"
         },
-        "description": "An AI relationship guide available 24/7: conversation prep, guided exercises between sessions, and a place to think something through. Free to try on the home page, no account needed. Included for workshop couples. Ember is not a person, not a therapist, and not a crisis line.",
+        "description": "A practice coach between Wednesday sessions. Ember gives one short guided exercise a couple can try at home, and she can tell you about Date Night in Las Vegas, a free evening with a limited number of invites. Free to try on the home page, no account needed. Included for workshop couples. Ember is not a person, not a therapist, and not a crisis line.",
         "hoursAvailable": {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": [
@@ -254,7 +254,7 @@
         "@id": "https://rekindlemarriage.com/marriageworkshop/#course",
         "name": "The Rekindle Six-Week Marriage Enrichment Workshop",
         "alternateName": "Rekindle Marriage Enrichment Workshop",
-        "description": "A six-week marriage enrichment workshop for couples, in a small group of up to ten couples, grounded in relationship science. One session a week on Wednesday evenings from 7:30 to 9: teaching, group discussion and interactive activities, light assignments between sessions, Ember the AI relationship guide between sessions, an at-home toolkit, and a six-month follow-up. In person in Las Vegas or live online. Marriage education, not therapy.",
+        "description": "A six-week marriage enrichment workshop for couples, in a small group of up to ten couples, grounded in relationship science. One session a week on Wednesday evenings from 7:30 to 9: teaching, group discussion and interactive activities, light assignments between sessions, Ember the practice coach between sessions, an at-home toolkit, and a six-month follow-up. In person in Las Vegas or live online. Marriage education, not therapy.",
         "url": "https://rekindlemarriage.com/marriageworkshop/",
         "image": "https://rekindlemarriage.com/marriageworkshop/og-workshop.jpg",
         "provider": {
@@ -318,7 +318,7 @@
             "priceCurrency": "USD",
             "category": "Full six-week program, per couple",
             "availability": "https://schema.org/LimitedAvailability",
-            "url": "https://rekindlemarriage.com/marriageworkshop/#enroll",
+            "url": "https://rekindlemarriage.com/marriageworkshop/#choose",
             "validFrom": "2026-09-02"
           },
           {
@@ -330,7 +330,7 @@
             "priceCurrency": "USD",
             "category": "Full six-week program, per couple, paid monthly",
             "availability": "https://schema.org/LimitedAvailability",
-            "url": "https://rekindlemarriage.com/marriageworkshop/#enroll",
+            "url": "https://rekindlemarriage.com/marriageworkshop/#choose",
             "validFrom": "2026-09-02",
             "priceSpecification": {
               "@type": "PriceSpecification",
@@ -343,9 +343,10 @@
         "hasCourseInstance": [
           {
             "@type": "CourseInstance",
-            "@id": "https://rekindlemarriage.com/marriageworkshop/#cohort-2026-09-30",
+            "@id": "https://rekindlemarriage.com/marriageworkshop/#wednesday-session",
             "name": "Rekindle session, Wednesday evenings in Las Vegas",
-            "description": "Six Wednesday evenings from 7:30 to 9. Limited to 10 couples. Live and in person in Las Vegas, or live online.",
+            "description": "Six Wednesday evenings from 7:30 to 9, starting Wednesday, October 7. Limited to 10 couples. Live and in person in Las Vegas, or live online.",
+            "startDate": "2026-10-07",
             "courseMode": [
               "Onsite",
               "Online"
@@ -1599,7 +1600,22 @@
     .dn-bubble-title { color: #fff; }
     @media (max-width: 860px) {
       .dn-section { padding: 3.5rem 1.5rem; }
-      .dn-bubble { right: 12px; bottom: 12px; }
+      .dn-bubble {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        column-gap: 12px;
+        padding: 10px 14px 12px;
+        border-top: 1px solid rgba(255,255,255,0.14);
+      }
+      .dn-bubble-kicker { margin: 0; }
+      .dn-bubble-title { font-size: 1.2rem; margin: 0; }
+      .dn-bubble-sub { display: none; }
+      .dn-bubble a { grid-column: 2; grid-row: 1 / span 2; }
     }
 
     .cta {
@@ -1732,12 +1748,19 @@
       .distance-overlay { grid-column: 1; grid-row: 2; align-items: flex-start; text-align: left; padding: 1.6rem 1.5rem 2rem; }
       .distance-headline { max-width: 10ch; }
 
-      .objections { padding: 4rem 1.5rem; }
+      .objections { padding: 3.2rem 1.25rem 2.5rem; }
+      .obj-top { padding: 0 0 1.1rem; }
       .obj-grid { grid-template-columns: 1fr; }
       .obj-item:nth-child(even) { padding-left: 0; border-left: none; }
       .obj-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.07); }
       .obj-item:last-child { border-bottom: none; }
       .obj-h2 { white-space: normal; }
+      .ticker-wrap { overflow: visible; border-left: 0; border-right: 0; }
+      .ticker-track { display: flex; flex-direction: column; width: 100%; flex-wrap: nowrap; }
+      .ticker-item { max-width: none; width: 100%; box-sizing: border-box; border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1rem 0; }
+      .ticker-q { font-size: 1.35rem; line-height: 1.25; }
+      .obj-answer-inner { flex-direction: column; gap: 0.55rem; padding: 1.15rem 0; }
+      .obj-answer-q { white-space: normal; }
 
       .ember-ai { padding: 4rem 1.5rem; }
       .ember-ai-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -1896,18 +1919,73 @@
     footer { background: #0C0C0B; color: rgba(255,255,255,0.7); border-top: 0; }
     .footer-division, .footer-copy { color: rgba(255,255,255,0.7); }
     @media (max-width: 860px) {
-      .stage { min-height: 0; display: flex; flex-direction: column; }
-      .stage-film { height: auto; min-height: 0; max-height: none; margin-top: 96px; display: block; }
-      .rk-picture { position: relative; height: 300px; }
+      nav { padding: 0.45rem 1rem; }
+      .nav-logo-img { height: 40px; }
+      .stage { min-height: 0; display: block; }
+      .stage-film {
+        height: calc(100svh - 58px);
+        min-height: 620px;
+        max-height: none;
+        margin-top: 58px;
+        overflow: hidden;
+      }
+      .rk-picture { position: absolute; inset: 0; height: auto; }
       .stage-logo { display: none; }
-      .rk-couple { right: 10%; left: auto; height: 100%; max-width: 78%; transform: none; }
-      .rk-show.is-open .rk-couple { transform: translateX(-52vw); }
-      .rk-invite { right: 1.5%; top: 50%; bottom: auto; width: auto; max-width: 58%; max-height: 96%; transform: translateY(-50%); }
-      .rk-invite.is-on { transform: translateY(-50%); }
-      .stage-copy { position: relative; left: auto; right: auto; top: auto; bottom: auto; width: 100%; min-height: 0; padding: 1.35rem 1.35rem 1.8rem; background: #0C0C0B; }
+      .rk-couple {
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: 22%;
+        height: auto;
+        width: auto;
+        max-width: 94%;
+        max-height: 74%;
+        object-fit: contain;
+        object-position: center bottom;
+        transform: translateX(-50%);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .rk-show.is-open .rk-couple { transform: translateX(-50%); }
+      .rk-show:has(.rk-invite.is-on) .rk-couple { opacity: 0; }
+      .rk-invite {
+        left: 50%;
+        right: auto;
+        top: 4%;
+        bottom: auto;
+        width: auto;
+        max-width: min(86%, 360px);
+        max-height: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      }
+      .rk-invite.is-on { transform: translateX(-50%); }
+      .stage-copy {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        min-height: 0;
+        padding: 4.2rem 1.15rem 0.85rem;
+        justify-content: flex-end;
+        background: linear-gradient(180deg, rgba(12,12,11,0) 0%, rgba(12,12,11,0.72) 36%, #0C0C0B 68%);
+      }
       .stage::after { display: none; }
-      .stage-copy h1 { font-size: clamp(1.65rem, 7.4vw, 2.15rem); max-width: none; }
-      .stage-facts { grid-template-columns: 1fr; gap: 0.85rem; }
+      .stage-copy h1 { font-size: clamp(1.85rem, 8.4vw, 2.35rem); max-width: none; margin-bottom: 0.45rem; }
+      .h1-line { white-space: nowrap; }
+      .stage-copy > p { font-size: 0.98rem; max-width: none; }
+      .stage-actions { margin-top: 0.85rem; flex-direction: column; align-items: flex-start; gap: 10px; }
+      .stage-actions .btn-ember { width: 100%; text-align: center; box-sizing: border-box; }
+      .stage-facts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.55rem;
+        margin-top: 0.85rem;
+        padding-top: 0.7rem;
+      }
+      .stage-facts dt { font-size: 1.2rem; }
+      .stage-facts dd { font-size: 0.72rem; line-height: 1.3; }
+      .stage-more { margin-top: 0.65rem; gap: 0.45rem 1rem; font-size: 0.88rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1969,7 +2047,7 @@
     <div class="stage-copy">
       <img class="stage-logo" src="rekindle-logo.png" alt="Rekindle" />
       <h1><span class="h1-line">Your marriage can feel</span><span class="h1-line">like <em>a team again.</em></span></h1>
-      <p>Six Wednesday evenings in Las Vegas. Ten couples in the room. You learn a skill, practice it with your partner, and take one task home the same night.</p>
+      <p>Six Wednesday evenings in Las Vegas, starting October 7. Ten couples in the room. You learn a skill, practice it with your partner, and take one task home the same night.</p>
       <div class="stage-actions">
         <a class="btn-ember" href="marriageworkshop/#pay-now">Book and pay now</a>
         <a class="stage-quiet" href="marriageworkshop/#reserve-call">Reserve a seat. We will call.</a>
@@ -2058,25 +2136,25 @@
   <section class="ember-ai" id="ember-ai">
     <div class="ember-ai-inner">
       <div class="ember-ai-left reveal">
-        <h2 class="ember-ai-h2">Meet <em>Ember...</em><br>your AI relationship guide.</h2>
-        <p class="ember-ai-sub">Between sessions, in the middle of a hard moment, or when you just need to think something through. Ember is there. Always listening, always ready to help you prepare for difficult conversations and keep moving forward.</p>
+        <h2 class="ember-ai-h2">Meet <em>Ember.</em><br>Your coach between sessions.</h2>
+        <p class="ember-ai-sub">She gives you one short practice to do with your spouse between Wednesday sessions. She is a coach, not a therapist. Ask her about Date Night too. It is a fun free evening in Las Vegas, and only a limited number of couples are invited.</p>
         <div class="ember-features">
           <div class="ember-feature reveal d1">
-            <div class="ember-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>
-            </div>
-            <div>
-              <p class="ember-feature-title">Available 24/7</p>
-              <p class="ember-feature-body">Ask Ember anything about your relationship at any hour. Get honest, grounded guidance without judgment.</p>
-            </div>
-          </div>
-          <div class="ember-feature reveal d2">
             <div class="ember-feature-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
             </div>
             <div>
               <p class="ember-feature-title">Guided exercises between sessions</p>
-              <p class="ember-feature-body">Ember assigns tailored exercises so you're practicing what you learn in real life, not just in the session room.</p>
+              <p class="ember-feature-body">One practice, the words to say, and something you and your spouse can try tonight.</p>
+            </div>
+          </div>
+          <div class="ember-feature reveal d2">
+            <div class="ember-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>
+            </div>
+            <div>
+              <p class="ember-feature-title">Date Night in Las Vegas</p>
+              <p class="ember-feature-body">Dinner, games, and prizes. Free, in Las Vegas only, and only twelve couples are invited.</p>
             </div>
           </div>
           <div class="ember-feature reveal d3">
@@ -2084,8 +2162,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div>
-              <p class="ember-feature-title">Conversation prep</p>
-              <p class="ember-feature-body">Walk into hard conversations with the right words. Ember helps you get clear before you speak.</p>
+              <p class="ember-feature-title">A coach, not a therapist</p>
+              <p class="ember-feature-body">Ember does not diagnose or treat anyone. If you need a licensed therapist, she will say so.</p>
             </div>
           </div>
         </div>
@@ -2101,7 +2179,7 @@
             <div class="ember-chat-avatar"><img src="rekindle-icon.png" alt="Rekindle" /></div>
             <div>
               <p class="ember-chat-name">Ember</p>
-              <p class="ember-chat-status">AI Relationship Guide · Online</p>
+              <p class="ember-chat-status">Practice coach · Online</p>
             </div>
           </div>
           <div class="ember-chat-body" id="emberChatBody">
@@ -2125,7 +2203,7 @@
       <div class="step reveal d1">
         <div class="step-n">02</div>
         <h3 class="step-title">Choose which seminar series to attend</h3>
-        <p class="step-body">Enrollment for sessions starts every 2 weeks, but space is limited. Look at your calendar and make your plan by clicking <a href="marriageworkshop/" class="step-link">HERE</a>. Evening and weekend sessions available. Live or online options are also available!</p>
+        <p class="step-body">Next session is Wednesday, October 7, 7:30 to 9, live in Las Vegas or live online. Ten couples, and space is limited. Look at your calendar and make your plan by clicking <a href="marriageworkshop/#choose" class="step-link">HERE</a>.</p>
       </div>
       <div class="step reveal d2">
         <div class="step-n">03</div>
@@ -2134,8 +2212,8 @@
       </div>
       <div class="step reveal d3">
         <div class="step-n">04</div>
-        <h3 class="step-title">Stay connected with Ember</h3>
-        <p class="step-body">Between sessions, Ember keeps you on track, ready to listen, help you prepare, and make sure nothing goes unsaid.</p>
+        <h3 class="step-title">Practice with Ember</h3>
+        <p class="step-body">Between sessions, Ember coaches a short practice you and your spouse can do at home.</p>
       </div>
     </div>
   </section>
@@ -2191,7 +2269,7 @@
         </div>
         <div class="cta-contact-item">
           <p class="cta-contact-label">Workshop</p>
-          <p class="cta-contact-value">Wednesday evenings · 7:30 to 9 · live in Las Vegas</p>
+          <p class="cta-contact-value">Wednesday, October 7 · 7:30 to 9 · live in Las Vegas</p>
         </div>
       </div>
       <a href="marriageworkshop/#choose" class="btn-ember reveal" style="align-self: flex-start;">Book or reserve a seat</a>
@@ -2224,7 +2302,7 @@
         <div class="ember-chat-avatar"><img src="rekindle-icon.png" alt="Rekindle" /></div>
         <div class="ember-modal-headtext">
           <p class="ember-chat-name">Ember</p>
-          <p class="ember-chat-status">AI Relationship Guide · Online</p>
+          <p class="ember-chat-status">Practice coach · Online</p>
         </div>
         <button class="ember-modal-voice" id="emberVoiceToggle" aria-label="Toggle Ember's voice" aria-pressed="false" title="Turn voice on">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="ember-voice-waves" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
@@ -2236,7 +2314,7 @@
         <button type="button" class="ember-mic" id="emberMic" aria-label="Speak to Ember" title="Speak">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg>
         </button>
-        <input id="emberModalInput" type="text" placeholder="Tell Ember what's on your mind..." aria-label="Message Ember" />
+        <input id="emberModalInput" type="text" placeholder="Ask for one practice, or about Date Night..." aria-label="Message Ember" />
         <button type="submit" id="emberModalSend" aria-label="Send message">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         </button>
@@ -2265,12 +2343,10 @@
     if (mainNav) mainNav.classList.add('visible');
     // Embedded window: scripted preview conversation (no API calls, always free).
     const chatMessages = [
-      { type: 'user', text: "We haven't really talked in weeks. I don't even know where to start.", delay: 1000 },
-      { type: 'ember', text: "That takes courage to say. When did you first notice the distance starting?", delay: 4000 },
-      { type: 'user', text: "Probably after the argument in March. We never really resolved it.", delay: 8000 },
-      { type: 'ember', text: "That unresolved tension has a way of taking up space. Let's work through what you both might still need from each other.", delay: 12000 },
-      { type: 'user', text: "I just don't want it to turn into another fight.", delay: 17000 },
-      { type: 'ember', text: "I can help you prepare so it doesn't. Want to start by figuring out what you actually want your partner to understand?", delay: 21000 },
+      { type: 'user', text: "We keep meaning to talk, and then the night gets away from us.", delay: 1000 },
+      { type: 'ember', text: "Try this tonight. Phones down for five minutes. Each of you says one thing you appreciated about the other today, in one sentence. Then stop.", delay: 4000 },
+      { type: 'user', text: "Can we do something lighter than a talk?", delay: 9000 },
+      { type: 'ember', text: "Yes. Date Night in Las Vegas is a free evening: dinner, games, and prizes. Only twelve couples are invited, so the invites are limited.", delay: 13000 },
     ];
     const previewBody = document.getElementById('emberChatBody');
     let previewStarted = false;
@@ -2367,8 +2443,8 @@
         if (started) return;
         started = true;
         const opener = quiz
-          ? "Hey, I'm Ember. I saw you just took the check-up. However it landed, showing up here says a lot. What's sitting with you right now?"
-          : "Hey, I'm Ember, your relationship guide. Whatever is on your mind, big or small, you can start wherever feels right. What's going on?";
+          ? "Hey, I'm Ember. I saw you just took the check-up. I can give you one short practice to try with your spouse. What's sitting with you right now?"
+          : "Hey, I'm Ember. I coach one short practice at a time, the kind you can try with your spouse between sessions. If you want something fun first, Date Night in Las Vegas has only a limited number of invites. What's on your mind?";
         addBubble('ember', opener);
         history.push({ role: 'assistant', content: opener });
       }
@@ -2447,6 +2523,9 @@
           if (!replyEl && !barged) addBubble('ember', "I'm having trouble reaching my thoughts right now. Give me a moment and try again.");
         } finally {
           if (typing.parentNode) typing.remove();
+          if (!reply.trim() && !replyEl && !barged) {
+            addBubble('ember', "I'm having trouble reaching my thoughts right now. Give me a moment and try again.");
+          }
           sending = false;
           if (sendBtn) sendBtn.disabled = false;
           chatAbort = null;
@@ -2863,14 +2942,14 @@
       let rtMicStream = null, rtCtx = null, rtProc = null, rtMicSrc = null, rtMute = null;
       let rtPlayHead = 0, rtSources = [], rtEnv = [];
       let rtVisRAF = null, rtSpeakLvl = 0, rtUserLvl = 0, rtPeak = 0.06;
-      let rtSafetyHandled = false, rtGreeted = false;
+      let rtSafetyHandled = false, rtGreeted = false, rtHear = false, rtSkipCommit = false;
       let rtVoice = null;
       let rtCurUser = '', rtCurEmber = '';   // in-progress turn text, committed to `history` for continuity
 
-      // Seed the voice session with the prior (text or earlier voice) conversation
-      // so she continues mid-thread instead of starting over.
+      // Seed voice only after the person has actually said something. The opening
+      // line on screen is her hello, not a previous conversation.
       function rtSeedHistory() {
-        if (!history || !history.length) return false;
+        if (!history || !history.some(function (m) { return m && m.role === 'user' && m.content; })) return false;
         let seeded = false;
         history.forEach(function (m) {
           if (!m || !m.content) return;
@@ -2958,19 +3037,26 @@
       function rtOnEvent(e) {
         switch (e.type) {
           case 'session.created':
-            rtSend({ type: 'session.update', session: {
-              voice: rtVoice || 'Ara',
-              turn_detection: { type: 'server_vad', silence_duration_ms: 500 },
-              audio: { input: { format: { type: 'audio/pcm', rate: 24000 }, transcription: { language_hint: 'en' } },
-                       output: { format: { type: 'audio/pcm', rate: 24000 } } }
-            }});
+            // Her instructions, voice, and turn detection already ride on the
+            // token. Sending session.update from the page replaces that config
+            // and wipes the prompt, so the next thing she says is unguided.
             break;
           case 'session.updated':
-            if (!rtGreeted) { rtGreeted = true; setOrbState('speaking');
+            if (!rtGreeted) {
+              rtGreeted = true;
+              rtHear = true;
+              setOrbState('speaking');
               const cont = rtSeedHistory();
-              rtSend({ type: 'response.create', response: { instructions: cont
-                ? 'You were just talking with this person by text and now you are on a voice call together. In one short, warm sentence let them know you are here and ready to keep going. Do not re-introduce yourself or repeat what was already said.'
-                : 'Warmly greet the person in one short, caring sentence and invite them to share what is on their mind.' } }); }
+              if (cont) {
+                rtSend({ type: 'response.create' });
+              } else {
+                const prior = [].concat(history).reverse().find(function (m) { return m && m.role === 'assistant' && m.content; });
+                const hello = (prior && prior.content) || "Hey, I'm Ember. What's on your mind?";
+                rtSkipCommit = true;
+                rtSend({ type: 'conversation.item.create', item: { type: 'force_message', role: 'assistant', interruptible: true,
+                  content: [{ type: 'output_text', text: hello }] } });
+              }
+            }
             break;
           case 'input_audio_buffer.speech_started':
             rtSafetyHandled = false; rtFlushPlayback(); setOrbState('listening');
@@ -2993,7 +3079,9 @@
             break;
           case 'response.done':
           case 'response.human_assist_turn.commit':
-            setOrbState('listening'); rtCommitTurn();
+            setOrbState('listening');
+            if (rtSkipCommit) { rtSkipCommit = false; rtCurEmber = ''; }
+            else rtCommitTurn();
             break;
         }
       }
@@ -3032,10 +3120,11 @@
 
         rtMicSrc = rtCtx.createMediaStreamSource(rtMicStream);
         rtProc = rtCtx.createScriptProcessor(2048, 1, 1);
-        rtMute = rtCtx.createGain(); rtMute.gain.value = 0;   // keep the processor alive without leaking mic to speakers
         const inRate = rtCtx.sampleRate;
         rtProc.onaudioprocess = function (ev) {
-          if (!rtActive) return;
+          const output = ev.outputBuffer.getChannelData(0);
+          output.fill(0);
+          if (!rtActive || !rtHear) return;
           const input = ev.inputBuffer.getChannelData(0);
           let s = 0; for (let i = 0; i < input.length; i++) s += input[i] * input[i];
           // Drop a small noise floor then amplify, so your voice swings the orb
@@ -3050,7 +3139,7 @@
           let bin = ''; for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
           rtSend({ type: 'input_audio_buffer.append', audio: btoa(bin) });
         };
-        rtMicSrc.connect(rtProc); rtProc.connect(rtMute); rtMute.connect(rtCtx.destination);
+        rtMicSrc.connect(rtProc); rtProc.connect(rtCtx.destination);
 
         try { rtWs = new WebSocket('wss://api.x.ai/v1/realtime?model=grok-voice-latest', ['xai-client-secret.' + tok.token]); }
         catch (e) { stopRealtime(); addBubble('ember', "Voice couldn't connect. You can keep typing to me."); return; }
@@ -3126,14 +3215,17 @@
     let startX;
     let scrollLeft;
 
-    // Initialize ticker scroll at midpoint so both directions have room
+    const tickerPhone = window.matchMedia('(max-width: 860px)');
+    // The phone list is a stack. The sideways offset is the desktop marquee only.
     setTimeout(() => {
+      if (tickerPhone.matches) return;
       const half = tickerTrack.scrollWidth / 2;
       tickerWrap.scrollLeft = half / 2;
     }, 100);
 
     // Infinite loop reset, both directions
     tickerWrap.addEventListener('scroll', () => {
+      if (tickerPhone.matches) return;
       const half = tickerTrack.scrollWidth / 2;
       if (tickerWrap.scrollLeft >= half) {
         tickerWrap.scrollLeft -= half;
@@ -3158,7 +3250,7 @@
       tickerWrap.style.cursor = 'grab';
     });
     tickerWrap.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
+      if (tickerPhone.matches || !isDown) return;
       e.preventDefault();
       const x = e.pageX - tickerWrap.offsetLeft;
       const walk = (x - startX) * 1.5;
@@ -3172,6 +3264,7 @@
       scrollLeft = tickerWrap.scrollLeft;
     }, { passive: true });
     tickerWrap.addEventListener('touchmove', (e) => {
+      if (tickerPhone.matches) return;
       const x = e.touches[0].pageX;
       const walk = (startX - x) * 1.5;
       tickerWrap.scrollLeft = scrollLeft + walk;

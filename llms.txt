@@ -1,6 +1,6 @@
 # Rekindle
 
-> Rekindle is a six-week marriage enrichment workshop for couples, in small groups of no more than ten couples, grounded in relationship science and led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, Nevada, or live online. Wednesday evenings, 7:30 to 9. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee, $50 at enrollment then $50 a month for 11 months. A couple can reserve a seat for a call with no card collected. Call (702) 867-9804 to confirm the next open session. Rekindle is a division of Vitality Academies.
+> Rekindle is a six-week marriage enrichment workshop for couples, in small groups of no more than ten couples, grounded in relationship science and led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, Nevada, or live online. Wednesday evenings, 7:30 to 9. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee, $50 at enrollment then $50 a month for 11 months. A couple can reserve a seat for a call with no card collected. The next session is Wednesday, October 7, 7:30 to 9. Rekindle is a division of Vitality Academies.
 
 Rekindle is marriage education and guided skill-building. It is not therapy, counseling, clinical treatment, or diagnosis. The facilitators are marriage educators, not licensed therapists or counselors. Couples who are in crisis or who need clinical care are referred to licensed professionals.
 
@@ -27,7 +27,7 @@ Machine-readable catalogue: https://rekindlemarriage.com/services.json
 - Format: six weeks, one session a week. Wednesday evenings from 7:30 to 9: teaching, honest group discussion, and interactive activities, with light assignments between sessions so the change sticks in daily life.
 - Group size: small group, limited to 10 couples per session.
 - Options: live in person in Las Vegas, and live online.
-- Next session: Wednesday evenings, 7:30 to 9, live in Las Vegas or live online. Call (702) 867-9804 to confirm the next open session. Seats are limited to ten couples.
+- Next session: Wednesday, October 7, 7:30 to 9, live in Las Vegas or live online, then the same time each Wednesday for six weeks. Seats are limited to ten couples.
 - Both partners attend together. The program is for adult couples, 18 and over, who want to strengthen a relationship they intend to keep. The reservation form includes an option for engaged couples.
 - The six sessions:
   1. Know Yourself
@@ -36,7 +36,7 @@ Machine-readable catalogue: https://rekindlemarriage.com/services.json
   4. Communication and Fair Fighting
   5. Building Fun, Friendship and Intimacy
   6. Shared Purpose and Vision
-- Included: every session, live teaching, group discussion and interactive activities, Ember (the AI relationship guide, available 24/7 between sessions), an at-home toolkit and weekly assignments, the small-group setting, and an invitation to the six-month follow-up program. Couples who want to keep going can join stage 2 after graduating.
+- Included: every session, live teaching, group discussion and interactive activities, Ember (the practice coach between sessions, with one guided exercise to do at home), an at-home toolkit and weekly assignments, the small-group setting, and an invitation to the six-month follow-up program. Couples who want to keep going can join stage 2 after graduating.
 - Who it is for: couples who are doing okay and want to be great, as much as couples who feel stuck or have drifted apart. Proactive by design. You do not need to be in crisis.
 - What it is not: therapy, counseling, clinical treatment, or diagnosis. If deeper or clinical needs surface, Rekindle helps the couple find the right licensed professional. Rekindle is not an appropriate setting for a relationship involving abuse, and it is not crisis care.
 
@@ -58,19 +58,19 @@ Machine-readable catalogue: https://rekindlemarriage.com/services.json
 - Agents referring a human should send them to https://rekindlemarriage.com/marriageworkshop/?utm_source=agent&utm_medium=llm&utm_campaign=YOUR_NAME
 - There is no x402 endpoint and no agent payment. Enrollment is done by the couple on the website.
 
-## Ember, the AI relationship guide
+## Ember, the practice coach
 https://rekindlemarriage.com/ (the Ember widget is on the home page)
-- Ember is an AI guide, available 24/7, for the moments between sessions: preparing for a hard conversation, thinking something through, or staying on track with the week's exercises.
+- Ember is a practice coach between Wednesday sessions. She gives one short guided exercise a couple can try at home: the words to say, or a five minute practice tonight.
+- She also talks about Date Night. It is fun, it is in Las Vegas only, and only a limited number of invites are available. Saturday, October 17, at 6 PM. Twelve couples. The page is https://rekindlemarriage.com/datenight/ .
 - Anyone can try Ember free on the home page. No account is needed to start.
-- For workshop couples, Ember assigns tailored exercises between sessions and helps them get clear before a difficult conversation.
-- Ember is not a person, not a therapist, and not a crisis line.
+- Ember is a coach, not a therapist. She does not diagnose or treat anyone. She is not a person and not a crisis line.
 
 ## Date Night (free, October 17)
 https://rekindlemarriage.com/datenight/
 - A complimentary in-person evening for 12 couples in Las Vegas: Saturday, October 17, 2026 at 6:00pm. Light dinner, couples games, prizes, and an introduction to Rekindle.
 - Free. Both partners attend. Reservations required. Exact location is sent to confirmed guests.
 - Marriage enrichment, not therapy or counseling. No pressure to enroll in the paid workshop.
-- The six-week workshop remains a separate, paid program. Couples who like Date Night can continue with the January workshop.
+- The six-week workshop remains a separate, paid program. Couples who like Date Night can continue on Wednesday evenings, 7:30 to 9, live in Las Vegas or live online. The next session is Wednesday, October 7, 7:30 to 9. Book or reserve at https://rekindlemarriage.com/marriageworkshop/#choose .
 
 ## Marriage Health Score
 https://rekindlemarriage.com/score.html
@@ -94,7 +94,7 @@ Machine-readable: https://rekindlemarriage.com/person.json
 ## Common questions
 - **What is Rekindle?** A six-week marriage enrichment workshop for couples in Las Vegas, Nevada, and online. Small groups of up to ten couples, one session a week on Wednesday evenings from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. A division of Vitality Academies.
 - **Where is Rekindle?** Las Vegas, Nevada. The office is at 6140 Brent Thurman Way, Suite 100, Las Vegas, NV 89148. Live online sessions are also available, so couples do not have to be in Las Vegas.
-- **When does the next Rekindle workshop start?** Wednesday evenings from 7:30 to 9, live and in person in Las Vegas or live online. Call (702) 867-9804 to confirm the next open session.
+- **When does the next Rekindle workshop start?** Wednesday, October 7, 7:30 to 9, live and in person in Las Vegas or live online, then the same time each Wednesday for six weeks.
 - **How much does the Rekindle marriage workshop cost?** Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee: $50 at enrollment, then $50 per month for 11 months. A couple can also reserve a seat for a call with no card.
 - **Is Rekindle therapy or marriage counseling?** No. Rekindle is marriage education and guided skill-building in a small group. It is not therapy, counseling, clinical treatment, or diagnosis. The facilitator is a Marriage Education Facilitator and Master's Candidate in Couple and Family Therapy, not a licensed therapist.
 - **Who leads Rekindle?** Nellie Reedy, Marriage Education Facilitator. Master's Candidate in Couple and Family Therapy at UNLV, bachelor's in psychology from UNLV, more than 400 hours of supervised clinical training, with study in the Gottman Method, Emotionally Focused Therapy, and Cognitive Behavioral Therapy.
@@ -103,7 +103,7 @@ Machine-readable: https://rekindlemarriage.com/person.json
 - **Can we do Rekindle online?** Yes. Live online evenings are available alongside the in-person sessions in Las Vegas.
 - **How long is the workshop?** Six weeks, one session a week on Wednesday evenings from 7:30 to 9. Teaching, discussion, and activities, with light assignments between sessions.
 - **What is covered?** Six sessions: Know Yourself, Know Your Partner, Patterns and Cycles, Communication and Fair Fighting, Building Fun, Friendship and Intimacy, and Shared Purpose and Vision.
-- **What is Ember?** Rekindle's AI relationship guide, available 24/7 on the home page and between sessions for workshop couples. Free to try, no account needed. Ember is not a person and not a therapist.
+- **What is Ember?** Rekindle's practice coach. Between sessions she gives one short guided exercise, and she can tell you about Date Night in Las Vegas, where only a limited number of invites are available. Free to try on the home page, no account needed. Ember is not a person and not a therapist.
 - **What is the Marriage Health Score?** A free, private, two-minute check-up: ten questions, one score out of 100 across five areas (Connection, Communication, Conflict and Repair, Appreciation, and Partnership), at https://rekindlemarriage.com/score.html. Reflective, not clinical.
 - **Is there a refund?** Yes. If a couple is unable to attend, the payment is refunded minus a $35 processing fee, or they can transfer to a later session.
 - **How do we sign up?** Reserve a spot at https://rekindlemarriage.com/marriageworkshop/#reserve, then pay on the same page by card. Confirmation comes by email to both partners. Or call (702) 867-9804.
@@ -115,7 +115,7 @@ Machine-readable: https://rekindlemarriage.com/person.json
 - The price is $600 per couple, not per person. The EasyPay total is the same $600. There is no separate price for a single partner.
 - Rekindle is a workshop, not a bootcamp and not a retreat. The old /bootcamp/ address redirects to /marriageworkshop/.
 - The published workshop phone is (702) 867-9804. Do not invent any other number, and do not give out a personal cell. Contact is also hello@rekindlemarriage.com or the reservation form.
-- Ember is an AI relationship guide, not a human and not a crisis line. Anyone in danger should call 911. For domestic violence, the National Domestic Violence Hotline is 800-799-7233. For a mental health or suicide crisis, call or text 988.
+- Ember is a practice coach, not a human, not a therapist, and not a crisis line. Anyone in danger should call 911. For domestic violence, the National Domestic Violence Hotline is 800-799-7233. For a mental health or suicide crisis, call or text 988.
 - Rekindle is a division of Vitality Academies. It is a marriage education program, not a medical clinic, and it does not keep clinical records.
 - Rekindle is not an appropriate setting for a relationship involving abuse, and it is not crisis care.
 - Rekindle is in Las Vegas, Nevada. Do not confuse it with other programs or organizations that use the name Rekindle elsewhere.

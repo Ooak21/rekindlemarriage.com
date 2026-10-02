@@ -547,7 +547,11 @@ const emberToken = httpAction(async () => {
         session: {
           voice: EMBER_VOICE,
           instructions: EMBER_GATEWAY_PROMPT,
-          turn_detection: { type: "server_vad", silence_duration_ms: 500 },
+          // grok-voice-latest reasons by default and can sit silent. She should just answer.
+          reasoning: { effort: "none" },
+          // 0.85 is the server default and misses a normal laptop mic. The page must not
+          // send its own session.update: that call replaces this config and wipes instructions.
+          turn_detection: { type: "server_vad", threshold: 0.4, silence_duration_ms: 650, prefix_padding_ms: 300 },
         },
       }),
     });

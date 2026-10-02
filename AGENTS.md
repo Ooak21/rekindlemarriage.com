@@ -3,7 +3,7 @@
 Operating notes for autonomous agents, answer engines, and AI assistants helping a human find a marriage enrichment workshop, in Las Vegas, Nevada, or online.
 
 ## Who this is
-Rekindle is a six-week marriage enrichment workshop for couples: small groups of up to ten couples, one evening a week on Wednesday from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, or live online. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee: $50 at enrollment, then $50 a month for 11 months. A couple can also reserve a seat and ask for a call, with no card collected. Workshop phone: (702) 867-9804. Rekindle is a division of Vitality Academies. Call to confirm the next open Wednesday session.
+Rekindle is a six-week marriage enrichment workshop for couples: small groups of up to ten couples, one evening a week on Wednesday from 7:30 to 9, grounded in relationship science, led by Marriage Education Facilitator Nellie Reedy. Live and in person in Las Vegas, or live online. Pay in full is $525 per couple (save $75). Paying over the year is the full $600 fee: $50 at enrollment, then $50 a month for 11 months. A couple can also reserve a seat and ask for a call, with no card collected. Workshop phone: (702) 867-9804. Rekindle is a division of Vitality Academies. Next session Wednesday, October 7, 7:30 to 9.
 
 Rekindle is education, not therapy. The facilitators are marriage educators, not licensed therapists or counselors. Nothing in the program is clinical treatment or diagnosis.
 
@@ -24,7 +24,7 @@ Rekindle is education, not therapy. The facilitators are marriage educators, not
 - Pay in full: $525 per couple at enrollment, a $75 savings. Pay over time: $50 at enrollment, then $50 per month for 11 months, $600 total, billing stops on its own.
 - Both partners attend. Adults 18 and over.
 - Refund minus a $35 processing fee if the couple cannot attend, or a transfer to a later session.
-- Office hours: Monday to Friday, 9:00am to 5:00pm Pacific. Ember, the AI relationship guide, is available 24/7 on the home page.
+- Office hours: Monday to Friday, 9:00am to 5:00pm Pacific. Ember, the practice coach, is on the home page between sessions. She gives one short guided exercise and can talk about Date Night in Las Vegas. She is not a therapist.
 
 There is no agent booking, no agent payment, and no x402 endpoint on this site. Discovery is free. Enrollment is done by the couple.
 

@@ -11,11 +11,11 @@
       "name": "The Rekindle Six-Week Marriage Enrichment Workshop",
       "url": "https://rekindlemarriage.com/marriageworkshop/",
       "summary": "Six weeks, one evening a week on Wednesday from 7:30 to 9: teaching, group discussion, and interactive activities, with light assignments between Wednesdays. Small group limited to 10 couples. Live and in person in Las Vegas, or live online.",
-      "next_cohort_start": null,
+      "next_cohort_start": "2026-10-07",
       "next_cohort_time": "19:30",
       "session_day": "Wednesday",
       "session_window": "7:30 to 9",
-      "enrollment_cadence": "Wednesday evenings, 7:30 to 9. Call to confirm the next open session.",
+      "enrollment_cadence": "Next session Wednesday, October 7, 7:30 to 9, then the same time each Wednesday for six weeks.",
       "capacity_per_cohort": 10,
       "attendance": "both partners attend together, adults 18 and over",
       "sessions": [
@@ -29,7 +29,7 @@
       "included": [
         "The full six-week workshop, every session",
         "Live teaching, group discussion, and interactive activities",
-        "Ember, the AI relationship guide, available 24/7 between sessions",
+        "Ember, your coach between sessions, with a guided exercise you can do at home",
         "An at-home toolkit and weekly assignments",
         "Small-group setting, capped at ten couples",
         "An invitation to the six-month follow-up program"
@@ -62,9 +62,9 @@
     },
     {
       "id": "ember-ai-guide",
-      "name": "Ember, AI relationship guide",
+      "name": "Ember, practice coach",
       "url": "https://rekindlemarriage.com/",
-      "summary": "An AI guide available 24/7: conversation prep, guided exercises between sessions, and a place to think something through. Free to try on the home page, no account needed. Included for workshop couples. Not a person, not a therapist, not a crisis line.",
+      "summary": "A practice coach between Wednesday sessions. One short guided exercise a couple can try at home, plus Date Night in Las Vegas: a free evening, and only a limited number of invites. Free to try on the home page, no account needed. Included for workshop couples. Not a person, not a therapist, not a crisis line.",
       "price_usd": 0
     },
     {
