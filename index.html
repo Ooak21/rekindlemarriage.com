@@ -459,8 +459,24 @@
       object-fit: contain;
       display: block;
     }
-    /* The word "Rekindle" beside the flame. Phones only: on desktop the big Rekindle logo sits in the hero. */
-    .nav-word { display: none; }
+    /* The word "Rekindle" beside the flame, on every screen size. */
+    #mainNav .logo { display: flex; align-items: center; gap: 10px; }
+    .nav-word {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 1;
+      color: #fff;
+      transform: translateY(5px);
+    }
+    /* Narrow desktops: tighten the menu so the links stay on one line next to the word. */
+    @media (min-width: 861px) and (max-width: 1000px) {
+      .nav-links { gap: 1rem; }
+      .nav-link, .nav-cta { font-size: 0.86rem; white-space: nowrap; }
+      .nav-word { font-size: 1.5rem; }
+    }
     .nav-cta {
       background: var(--ember);
       color: white;
@@ -1958,17 +1974,8 @@
     @media (max-width: 860px) {
       nav { padding: 0.45rem 1rem; }
       .nav-logo-img { height: 40px; }
-      #mainNav .logo { display: flex; align-items: center; gap: 8px; }
-      .nav-word {
-        display: block;
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4rem;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-        line-height: 1;
-        color: #fff;
-        transform: translateY(4px);
-      }
+      #mainNav .logo { gap: 8px; }
+      .nav-word { font-size: 1.4rem; transform: translateY(4px); }
       .stage { min-height: 0; display: block; }
       .stage-film {
         height: calc(100svh - 58px);
