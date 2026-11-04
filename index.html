@@ -459,6 +459,8 @@
       object-fit: contain;
       display: block;
     }
+    /* The word "Rekindle" beside the flame. Phones only: on desktop the big Rekindle logo sits in the hero. */
+    .nav-word { display: none; }
     .nav-cta {
       background: var(--ember);
       color: white;
@@ -1956,6 +1958,17 @@
     @media (max-width: 860px) {
       nav { padding: 0.45rem 1rem; }
       .nav-logo-img { height: 40px; }
+      #mainNav .logo { display: flex; align-items: center; gap: 8px; }
+      .nav-word {
+        display: block;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        line-height: 1;
+        color: #fff;
+        transform: translateY(4px);
+      }
       .stage { min-height: 0; display: block; }
       .stage-film {
         height: calc(100svh - 58px);
@@ -2041,7 +2054,7 @@
 
   <!-- NAV -->
   <nav id="mainNav">
-    <a href="#" class="logo"><img src="rekindle-icon.png" alt="Rekindle" class="nav-logo-img" /></a>
+    <a href="#" class="logo"><img src="rekindle-icon.png" alt="Rekindle" class="nav-logo-img" /><b class="nav-word" aria-hidden="true">Rekindle</b></a>
     <div class="nav-links">
       <a href="#truth" class="nav-link">About</a>
       <a href="#how" class="nav-link">How It Works</a>
